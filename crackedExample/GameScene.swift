@@ -13,19 +13,21 @@ import AVFoundation
 import Foundation
 
 class GameScene: SKScene {
-    
-   //var gameTitle: SKLabelNode!
+   let settingsPopUp = SKNode()
+
     
     enum SceneSelection {
         case mainMenu
         case startGame
-       // case settings
+        case settings
         case info
     }
     var currentScene: SceneSelection = .mainMenu
     
     override func didMove(to view: SKView) {
         scaleMode = .resizeFill
+        addChild(settingsPopUp)
+        settingsPopUp.isHidden = true
         mainMenu()
     
         
@@ -51,7 +53,7 @@ class GameScene: SKScene {
         guard let touch = touches.first else { return }
         let location = touch.location(in:self )
         let node = atPoint(location)
-        let nodesAtPoint = nodes(at: location)
+        //let nodesAtPoint = nodes(at: location)
         
 //        for node in nodesAtPoint{
 //            if node.name == "egg"{
@@ -71,6 +73,12 @@ class GameScene: SKScene {
         }
         if node.name == "settingsBtn" {
             print("Settings butotn tapped.")
+            settingsView()
+        }
+        
+        if node.name == "settingsCloseBtn" {
+            print("Settings closed.")
+            mainMenu()
         }
         
         if node.name == "infoBtn"{
@@ -82,6 +90,9 @@ class GameScene: SKScene {
             print("Info screen closed.")
             mainMenu()
         }
+        
+
+        
     }
     
     override func didChangeSize(_ oldSize: CGSize) {
@@ -94,6 +105,8 @@ class GameScene: SKScene {
             startGame()
         case .info:
             info()
+        case .settings:
+            settingsView()
         }
     }
 

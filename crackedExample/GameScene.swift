@@ -106,6 +106,7 @@ class GameScene: SKScene {
         case .info:
             info()
         case .settings:
+            showPopup()
             settingsView()
         }
     }

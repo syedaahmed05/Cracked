@@ -12,11 +12,32 @@ extension GameScene{
     func settingsView(){
         removeAllChildren()
         
-       
+        let settingsTitle = SKLabelNode(fontNamed: "Super Meatball")
+        settingsTitle.text = "Settings"
+        settingsTitle.fontSize = 72
+        settingsTitle.fontColor = .customRed
+        settingsTitle.horizontalAlignmentMode = .center
+        settingsTitle.zPosition = 100
+        addChild(settingsTitle)
+        settingsPopUp.name = "settingsPopUp"
+    
+        let resumeTitle = SKLabelNode(fontNamed: "Super Meatball")
+        resumeTitle.text = "resumeTitle"
+        resumeTitle.fontSize = 48
+        resumeTitle.fontColor = .customRed
+        resumeTitle.horizontalAlignmentMode = .center
+        resumeTitle.zPosition = 100
+        addChild(resumeTitle)
         
+        let quitTitle = SKLabelNode(fontNamed: "Super Meatball")
+        quitTitle.text = "quitTitle"
+        quitTitle.fontSize = 72
+        quitTitle.fontColor = .customRed
+        quitTitle.horizontalAlignmentMode = .center
+        quitTitle.zPosition = 100
+        addChild(quitTitle)
         
-        
-        showPopup()
+        //showPopup()
         let settingsCloseBtn = SKSpriteNode(imageNamed: "infoCloseBtn")
         settingsCloseBtn.name = "settingsCloseBtn"
         settingsCloseBtn.position = CGPoint(x: 300, y: 500)

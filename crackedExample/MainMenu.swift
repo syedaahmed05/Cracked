@@ -44,7 +44,7 @@ import Foundation
          let mainMenuImage = SKSpriteNode(imageNamed: "mainMenuImage")
          mainMenuImage.name = "mainMenuImage"
          mainMenuImage.size = CGSize(width: 600, height: 450)
-         mainMenuImage.position = CGPoint(x: -5, y: -200)
+         mainMenuImage.position = CGPoint(x: 0, y: -200)
          mainMenuImage.zPosition = 1
          addChild(mainMenuImage)
          

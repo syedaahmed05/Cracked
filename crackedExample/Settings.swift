@@ -7,42 +7,112 @@
 
 import Foundation
 import SpriteKit
+import UIKit
+import SwiftUI
+
+var musicSlider: SKSpriteNode!
+let sliderWidth: CGFloat = 160
+
 extension GameScene{
     
     func settingsView(){
-        removeAllChildren()
+        //removeAllChildren()
+        //settingsPopUp.removeFromParent()
         
+        let darkenBg = SKSpriteNode(color: UIColor(white: 20, alpha: 30), size: frame.size )
+        addChild(darkenBg)
+        
+        settingsPopUp.size = CGSize(width: 700, height: 600)
+        settingsPopUp.zPosition = 100
+        settingsPopUp.position = CGPoint(x: frame.midX, y: frame.midY)  
+        settingsPopUp.name = "settingsPopUp"
+        if settingsPopUp.parent == nil {addChild(settingsPopUp)}
+
         let settingsTitle = SKLabelNode(fontNamed: "Super Meatball")
         settingsTitle.text = "Settings"
         settingsTitle.fontSize = 72
         settingsTitle.fontColor = .customRed
         settingsTitle.horizontalAlignmentMode = .center
+        settingsTitle.position = CGPoint(x: 0, y: 220)
         settingsTitle.zPosition = 100
-        addChild(settingsTitle)
-        settingsPopUp.name = "settingsPopUp"
-    
+        settingsPopUp.addChild(settingsTitle)
+        
+        let settingsPlayBtn = SKSpriteNode(imageNamed: "settingsPlayBtn")
+        settingsPlayBtn.position = CGPoint(x: -230, y: 120)
+        settingsPlayBtn.zPosition = 100
+        settingsPopUp.addChild(settingsPlayBtn)
+        
         let resumeTitle = SKLabelNode(fontNamed: "Super Meatball")
-        resumeTitle.text = "resumeTitle"
+        resumeTitle.text = "Resume"
         resumeTitle.fontSize = 48
         resumeTitle.fontColor = .customRed
         resumeTitle.horizontalAlignmentMode = .center
         resumeTitle.zPosition = 100
-        addChild(resumeTitle)
+        resumeTitle.position = CGPoint(x: -70, y: 100)
+        settingsPopUp.addChild(resumeTitle)
         
         let quitTitle = SKLabelNode(fontNamed: "Super Meatball")
-        quitTitle.text = "quitTitle"
-        quitTitle.fontSize = 72
+        quitTitle.text = "Quit"
+        quitTitle.fontSize = 48
         quitTitle.fontColor = .customRed
         quitTitle.horizontalAlignmentMode = .center
         quitTitle.zPosition = 100
-        addChild(quitTitle)
+        quitTitle.position = CGPoint(x: -105, y: 10)
+        settingsPopUp.addChild(quitTitle)
         
-        //showPopup()
+        let settingsQuitBtn = SKSpriteNode(imageNamed: "settingsQuitBtn")
+        settingsQuitBtn.position = CGPoint(x: -230, y: 30)
+        settingsQuitBtn.zPosition = 100
+        settingsPopUp.addChild(settingsQuitBtn)
+        
         let settingsCloseBtn = SKSpriteNode(imageNamed: "infoCloseBtn")
         settingsCloseBtn.name = "settingsCloseBtn"
-        settingsCloseBtn.position = CGPoint(x: 300, y: 500)
+        settingsCloseBtn.zPosition = 100
+        settingsCloseBtn.position = CGPoint(x: 300, y: 250)
         settingsCloseBtn.size = CGSize(width: 60, height: 60)
-        addChild(settingsCloseBtn)
+        settingsPopUp.addChild(settingsCloseBtn)
+        
+        
+        let sfxBtn = SKSpriteNode(imageNamed: "sfxBtn")
+        sfxBtn.position = CGPoint(x: -230, y: -150)
+        sfxBtn.zPosition = 100
+        settingsPopUp.addChild(sfxBtn)
+
+        let musicBtn = SKSpriteNode(imageNamed: "musicBtn")
+        musicBtn.position = CGPoint(x: -235, y: -60)
+        musicBtn.zPosition = 100
+        settingsPopUp.addChild(musicBtn)
+        
+        
+        let musicSliderBg = SKSpriteNode(color: .customOrange, size: CGSize(width: sliderWidth, height: 10))
+        musicSliderBg.position = CGPoint(x: -70, y: -50)
+        musicSliderBg.zPosition = 101
+        musicSliderBg.name = "musicSliderBg"
+        settingsPopUp.addChild(musicSliderBg)
+        musicSliderMinX = musicSliderBg.position.x - sliderWidth / 2
+        musicSliderMaxX = musicSliderBg.position.x + sliderWidth / 2
+        musicSlider = SKSpriteNode(imageNamed: "sliderCircleBtn")
+        musicSlider.size = CGSize(width: 40, height: 40)
+        musicSlider.name = "musicSlider"
+        musicSlider.zPosition = 102
+        
+        let sfxSliderBg = SKSpriteNode(color: .customOrange, size: CGSize(width: sliderWidth, height: 10))
+        sfxSliderBg.position = CGPoint(x: -70, y: -150)
+        sfxSliderBg.zPosition = 101
+        sfxSliderBg.name = "musicSliderBg"
+        settingsPopUp.addChild(sfxSliderBg)
+//        musicSliderMinX = musicSliderBg.position.x - sliderWidth / 2
+//        musicSliderMaxX = musicSliderBg.position.x + sliderWidth / 2
+//        musicSlider = SKSpriteNode(imageNamed: "sliderCircleBtn")
+//        musicSlider.size = CGSize(width: 40, height: 40)
+//        musicSlider.name = "musicSlider"
+//        musicSlider.zPosition = 102
+        
+        let startX = musicSliderMinX + CGFloat(musicVolume) * sliderWidth
+        musicSlider.position = CGPoint(x: startX, y: musicSliderBg.position.y)
+        settingsPopUp.addChild(musicSlider)
+        
+        showPopup()
     }
     
     
@@ -52,16 +122,14 @@ extension GameScene{
         settingsPopUp.setScale(0.5)
 
         let fadeIn = SKAction.fadeIn(withDuration: 0.3)
-
         let scaleUp = SKAction.scale(to: 1.1, duration: 0.3)
         let scaleDown = SKAction.scale(to: 1.0, duration: 0.15)
         let popSequence = SKAction.sequence([scaleUp, scaleDown])
-
         let appearGroup = SKAction.group([fadeIn, popSequence])
 
             
         settingsPopUp.run(appearGroup) {
-            //code to run after the animation completes
+            //code to run after the animation completes,,
             
         }
     }

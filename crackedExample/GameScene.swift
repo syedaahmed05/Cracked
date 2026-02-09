@@ -13,9 +13,11 @@ import AVFoundation
 import Foundation
 
 class GameScene: SKScene {
-   let settingsPopUp = SKNode()
+    let settingsPopUp = SKSpriteNode(imageNamed:"settingsBgShape")
+    var swipeStartPoint: CGPoint?
+    var selectedFeather: SKSpriteNode?
+    var selectedPan: SKSpriteNode?
 
-    
     enum SceneSelection {
         case mainMenu
         case startGame
@@ -23,13 +25,19 @@ class GameScene: SKScene {
         case info
     }
     var currentScene: SceneSelection = .mainMenu
-    
+    var musicPlayer: AVAudioPlayer?
+    var musicVolume: Float = 1.0
+    var musicSliderMinX: CGFloat = 0
+    var musicSliderMaxX: CGFloat = 0
+
     override func didMove(to view: SKView) {
         scaleMode = .resizeFill
-        addChild(settingsPopUp)
         settingsPopUp.isHidden = true
+        physicsWorld.gravity = CGVector(dx: 0, dy: -9.8)
+        //gameSetup()
+        playMusic()
         mainMenu()
-    
+        //settingsView()
         
     }
     
@@ -53,33 +61,38 @@ class GameScene: SKScene {
         guard let touch = touches.first else { return }
         let location = touch.location(in:self )
         let node = atPoint(location)
-        //let nodesAtPoint = nodes(at: location)
+        let nodesAtPoint = nodes(at: location)
         
-//        for node in nodesAtPoint{
-//            if node.name == "egg"{
-//                crackEgg(node: node)
-//                break
-//            }
-//        }
+        selectedFeather = nodesAtPoint.first { $0.name == "feather" } as? SKSpriteNode
+        selectedPan = nodesAtPoint.first { $0.name == "pan" } as? SKSpriteNode
+        swipeStartPoint = location
+        
+        for node in nodesAtPoint {
+                    if node.name == "egg" {
+                        crackEgg(node: node)
+                        break
+                    }
+                }
         
         if node.name == "playBtn" {
             print("play button tapped.")
-            startGame()
+            gameSetup()
         }
         if node.name == "Play"{
             print("Play button tapped.")
-            startGame()
+            gameSetup()
             
         }
         if node.name == "settingsBtn" {
             print("Settings butotn tapped.")
             settingsView()
+            
         }
         
         if node.name == "settingsCloseBtn" {
             print("Settings closed.")
             mainMenu()
-        }
+        }//here we need to also be able to take it back to gameplay too
         
         if node.name == "infoBtn"{
             print("Info button tapped.")
@@ -91,7 +104,6 @@ class GameScene: SKScene {
             mainMenu()
         }
         
-
         
     }
     
@@ -106,12 +118,94 @@ class GameScene: SKScene {
         case .info:
             info()
         case .settings:
+            showPopup()
             settingsView()
         }
     }
 
+    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+        guard let touch = touches.first else { return }
+        let location = touch.location(in: settingsPopUp)
+        let node = settingsPopUp.atPoint(location)
+
+        if node.name == "musicSlider" {
+                updateSlider(locationX: location.x)
+            }
+
+    }
     
     
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+            
+            guard
+                let touch = touches.first,
+                let start = swipeStartPoint
+            else { return }
+            
+            let end = touch.location(in: self)
+            
+            let dx = end.x - start.x
+            let dy = end.y - start.y
+            let swipeDirection = hypot(dx, dy)
+            
+            guard swipeDirection > 30 else { return }
+            
+            let direction = CGVector(dx: dx, dy: dy)
+            
+           // detect which object was swiped
+            if let feather = selectedFeather {
+                swipeFeather(feather, direction: direction)
+            }
+            
+            if let pan = selectedPan {
+                swipePan(pan, directio: direction)
+            }
+           
+
+            
+            swipeStartPoint = nil
+            selectedFeather = nil
+            selectedPan = nil
+            
+        }
+    
+    func swipePan(_ pan: SKSpriteNode, directio: CGVector) {
+        pan.removeAllActions()
+        
+        let multiplier: CGFloat = 3.0
+        let moveVector = CGVector (
+            dx: directio.dx * multiplier,
+            dy: directio.dy * multiplier
+        )
+        
+        let move = SKAction.move(by: moveVector, duration: 0.4)
+        let fade = SKAction.fadeOut(withDuration: 0.4)
+        let group = SKAction.group([move, fade])
+        let remove = SKAction.removeFromParent()
+        
+        pan.run(SKAction.sequence([group, remove]))
+        
+    }
+    func updateSlider(locationX: CGFloat) {
+        let clampedX = max(min(locationX, musicSliderMaxX), musicSliderMinX)
+            musicSlider.position.x = clampedX
+
+            let value = Float((clampedX - musicSliderMinX) / sliderWidth)
+            musicVolume = value
+            musicPlayer?.volume = musicVolume
+    }
+    
+    func playMusic() {
+        guard let url = Bundle.main.url(forResource: "crackedOriginalVer", withExtension: "mp3") else { return }
+        do {
+            musicPlayer = try AVAudioPlayer(contentsOf: url)
+            musicPlayer?.numberOfLoops = -1
+            musicPlayer?.volume = musicVolume
+            musicPlayer?.play()
+        } catch {
+            print("Music not playing.")
+        }
+    }
     override func update(_ currentTime: TimeInterval) {
         // Called before each frame is rendered
     }

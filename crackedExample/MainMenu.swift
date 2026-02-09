@@ -44,7 +44,7 @@ import Foundation
          let mainMenuImage = SKSpriteNode(imageNamed: "mainMenuImage")
          mainMenuImage.name = "mainMenuImage"
          mainMenuImage.size = CGSize(width: 600, height: 450)
-         //mainMenuImage.position = CGSize(width: size., height: <#T##Int#>)
+         mainMenuImage.position = CGPoint(x: 0, y: -200)
          mainMenuImage.zPosition = 1
          addChild(mainMenuImage)
          
@@ -62,54 +62,63 @@ import Foundation
      }
      
      
-     func info(){
+     func info() {
          currentScene = .info
          removeAllChildren()
          backgroundColor = .customBeige
-         
-         
+
          let infoCloseBtn = SKSpriteNode(imageNamed: "infoCloseBtn")
          infoCloseBtn.name = "infoCloseBtn"
-         infoCloseBtn.position = CGPoint(x: 300, y: 500)
+         infoCloseBtn.position = CGPoint(x: frame.maxX - 60, y: frame.maxY - 60)
          infoCloseBtn.size = CGSize(width: 60, height: 60)
          addChild(infoCloseBtn)
-         
-         
+
          let infoTitle = SKLabelNode(fontNamed: "Super Meatball")
          infoTitle.text = "How to Play"
-         infoTitle.name = "infoTitle"
-         //infoTitle.position = CGPoint(x: 300, y: 500)
-         infoTitle.color = .customRed
-         infoTitle.horizontalAlignmentMode = .center
-         infoTitle.verticalAlignmentMode = .center
+         infoTitle.fontSize = 90
+         infoTitle.fontColor = .customRed
+         infoTitle.position = CGPoint(x: frame.midX, y: frame.maxY - 140)
          addChild(infoTitle)
-         
-         let rules = SKLabelNode(fontNamed: "Boba Milky")
-         rules.name = "rules"
-         rules.text = "Rule 1: \n\nRule 2: \n\nRule 3: \n\nRule 4: "
-         rules.numberOfLines = 0
-         rules.lineBreakMode = .byWordWrapping
-         rules.preferredMaxLayoutWidth = 200
-         rules.horizontalAlignmentMode = .right
-         rules.fontSize = 40
-         rules.fontColor = SKColor.customOrange
-         rules.position = CGPoint(x: frame.midX, y: frame.midY)
-         rules.zPosition = 1
-         addChild(rules)
 
-         let rulesText1 = SKLabelNode(fontNamed: "Boba Milky")
-         rulesText1.name = "rulesText1"
-         rulesText1.text = "Single tap the eggs to earn points and beat your highscore!"
-         rulesText1.lineBreakMode = .byWordWrapping
-         rulesText1.numberOfLines = 0
-         rulesText1.preferredMaxLayoutWidth = 200
-         rulesText1.horizontalAlignmentMode = .left
-         rulesText1.fontSize = 30
-         rulesText1.fontColor = SKColor.customOrange
-         rulesText1.position = CGPoint(x: rulesText1.frame.maxX + 5, y:100)
-         rulesText1.zPosition = 1
-         addChild(rulesText1)
          
-         
+         let rulesContainer = SKNode()
+         rulesContainer.position = CGPoint(x: frame.midX, y: frame.midY + 300)
+         addChild(rulesContainer)
+
+         let rulesData: [(String, String)] = [
+             ("Rule 1:", "Single tap the eggs to earn points! Miss an egg? You loose a life!"),
+             ("Rule 2:", "Fill the pan with eggs. Swipe left on the pan to continue filling or else you loose a life."),
+             ("Rule 3:", "Swipe the feathers away to prevent them from falling in the pan or loose a life."),
+             ("Rule 4:", "You have 3 lives. Tap the 'Replay' button to start a new game or tap the 'Home' button to return to the main menu.")
+         ]
+
+         let rowSpacing: CGFloat = 200
+
+         for (index, rule) in rulesData.enumerated() {
+
+             let yOffset = CGFloat(-index) * rowSpacing
+
+             let ruleLabel = SKLabelNode(fontNamed: "Super Meatball")
+             ruleLabel.text = rule.0
+             ruleLabel.fontSize = 72
+             ruleLabel.fontColor = .customOrange
+             ruleLabel.horizontalAlignmentMode = .right
+             ruleLabel.position = CGPoint(x: -180, y: yOffset)
+
+             let ruleText = SKLabelNode(fontNamed: "Boba Milky")
+             ruleText.text = rule.1
+             ruleText.fontSize = 40
+             ruleText.fontColor = .customRed
+             ruleText.horizontalAlignmentMode = .left
+             ruleText.verticalAlignmentMode = .top
+             ruleText.preferredMaxLayoutWidth = 500
+             ruleText.numberOfLines = 0
+             ruleText.position = CGPoint(x: -100, y: yOffset + 60)
+
+             rulesContainer.addChild(ruleLabel)
+             rulesContainer.addChild(ruleText)
+         }
      }
+
+
 }

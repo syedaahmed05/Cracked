@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "info 1x.png",
+      "filename" : "setting bar dot 1x.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "info 2x.png",
+      "filename" : "setting bar dot 2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "info 3x.png",
+      "filename" : "setting bar dot 3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

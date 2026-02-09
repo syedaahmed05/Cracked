@@ -12,7 +12,10 @@ import GameplayKit
 extension GameScene {
     
     func gameSetup() {
+        currentScene = .startGame
+        removeAllChildren()
         // adding a backgound on the -1 layer
+        self.anchorPoint = CGPoint(x: 0.0, y: 0.0)
         let background = SKSpriteNode(imageNamed: "background")
         background.position = CGPoint(x: size.width / 2, y: size.height / 2)
         background.blendMode = .replace

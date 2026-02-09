@@ -67,20 +67,20 @@ class GameScene: SKScene {
         selectedPan = nodesAtPoint.first { $0.name == "pan" } as? SKSpriteNode
         swipeStartPoint = location
         
-//        for node in nodesAtPoint {
-//                    if node.name == "egg" {
-//                        crackEgg(node: node)
-//                        break
-//                    }
-//                }
+        for node in nodesAtPoint {
+                    if node.name == "egg" {
+                        crackEgg(node: node)
+                        break
+                    }
+                }
         
         if node.name == "playBtn" {
             print("play button tapped.")
-            startGame()
+            gameSetup()
         }
         if node.name == "Play"{
             print("Play button tapped.")
-            startGame()
+            gameSetup()
             
         }
         if node.name == "settingsBtn" {
@@ -152,10 +152,10 @@ class GameScene: SKScene {
             
             let direction = CGVector(dx: dx, dy: dy)
             
-            //detect which object was swiped
-//            if let feather = selectedFeather {
-//                swipeFeather(feather, direction: direction)
-//            }
+           // detect which object was swiped
+            if let feather = selectedFeather {
+                swipeFeather(feather, direction: direction)
+            }
             
             if let pan = selectedPan {
                 swipePan(pan, directio: direction)

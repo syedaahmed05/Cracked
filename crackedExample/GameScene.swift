@@ -23,6 +23,7 @@ class GameScene: SKScene {
         case startGame
         case settings
         case info
+        case gameOver
     }
     var currentScene: SceneSelection = .mainMenu
     var musicPlayer: AVAudioPlayer?
@@ -120,6 +121,9 @@ class GameScene: SKScene {
         case .settings:
             showPopup()
             settingsView()
+            
+        case .gameOver:
+            mainMenu()
         }
     }
 

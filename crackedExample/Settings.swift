@@ -18,8 +18,13 @@ extension GameScene{
     func settingsView(){
         //removeAllChildren()
         //settingsPopUp.removeFromParent()
-        
-        let darkenBg = SKSpriteNode(color: UIColor(white: 20, alpha: 30), size: frame.size )
+        if settingsPopUp.parent != nil { showPopup()
+                return
+            }
+        let darkenBg = SKSpriteNode(color:UIColor.black.withAlphaComponent(0.5), size: frame.size)
+        darkenBg.position = CGPoint(x: frame.midX, y: frame.midY)
+        darkenBg.zPosition = 99
+        darkenBg.name = "darkenBg"
         addChild(darkenBg)
         
         settingsPopUp.size = CGSize(width: 700, height: 600)
@@ -135,6 +140,9 @@ extension GameScene{
     }
 
     func hidePopup() {
+        settingsPopUp.removeAllActions()
+        childNode(withName: "darkenBg")?.removeFromParent()
+
         let scaleDown = SKAction.scale(to: 0.5, duration: 0.2)
         let fadeOut = SKAction.fadeOut(withDuration: 0.2)
         let disappearGroup = SKAction.group([scaleDown, fadeOut])
@@ -144,7 +152,12 @@ extension GameScene{
             self.settingsPopUp.setScale(1.0)
             self.settingsPopUp.alpha = 1.0
         }
+        if let darkenBg = childNode(withName: "darkenBg") as? SKSpriteNode {
+            darkenBg.run(SKAction.fadeOut(withDuration: 0.25)) {
+                darkenBg.removeFromParent()
+            }
+        }
     }
-
+    
     
 }

@@ -14,6 +14,21 @@
       "filename" : "start screen egg 3x.png",
       "idiom" : "universal",
       "scale" : "3x"
+    },
+    {
+      "filename" : "start screen egg 1x 1.png",
+      "idiom" : "iphone",
+      "scale" : "1x"
+    },
+    {
+      "filename" : "start screen egg 2x 1.png",
+      "idiom" : "iphone",
+      "scale" : "2x"
+    },
+    {
+      "filename" : "start screen egg 3x 1.png",
+      "idiom" : "iphone",
+      "scale" : "3x"
     }
   ],
   "info" : {

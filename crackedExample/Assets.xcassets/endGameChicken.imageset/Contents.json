@@ -1,16 +1,33 @@
 {
   "images" : [
     {
+      "filename" : "scary chicken 1x.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "endGameChicken@2x.pdf",
+      "filename" : "scary chicken 2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
+      "filename" : "scary chicken 3x.png",
       "idiom" : "universal",
+      "scale" : "3x"
+    },
+    {
+      "filename" : "scary chicken 1x 1.png",
+      "idiom" : "iphone",
+      "scale" : "1x"
+    },
+    {
+      "filename" : "scary chicken 2x 1.png",
+      "idiom" : "iphone",
+      "scale" : "2x"
+    },
+    {
+      "filename" : "scary chicken 3x 1.png",
+      "idiom" : "iphone",
       "scale" : "3x"
     }
   ],

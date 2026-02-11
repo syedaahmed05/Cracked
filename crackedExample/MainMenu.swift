@@ -21,15 +21,10 @@ import Foundation
          gameTitle.position = CGPoint(x: 5, y: 250)
          gameTitle.zPosition = -1
          addChild(gameTitle)
-         
- //        let playBtn = buttonStyle(text: "Play", position: CGPoint(x: frame.midX, y: frame.midY + 50), name: "playBtn" )
- //        addChild(playBtn)
- //
- //        let settingsBtn = buttonStyle(text: "Settings", position: CGPoint(x: frame.midX, y: frame.midY + 150), name: "settingsBtn" )
- //        addChild(settingsBtn)
-         
+
          let playTitle = SKLabelNode(fontNamed:"Super Meatball")
          playTitle.text = "Play"
+         playTitle.name = "playTitle"
          playTitle.fontSize = 72
          playTitle.fontColor = SKColor.customOrange
          playTitle.position = CGPoint(x: -5, y: 130)
@@ -48,10 +43,10 @@ import Foundation
          mainMenuImage.zPosition = 1
          addChild(mainMenuImage)
          
-         let settingsBtn = SKSpriteNode(imageNamed: "gearshape.circle.fill")
-         settingsBtn.name = "settingsBtn"
-         settingsBtn.position = CGPoint(x: -350, y: 550)
-         addChild(settingsBtn)
+         let settingsMusicBtn = SKSpriteNode(imageNamed: "gearshape.circle.fill")
+         settingsMusicBtn.name = "settingsMusicBtn"
+         settingsMusicBtn.position = CGPoint(x: -350, y: 550)
+         addChild(settingsMusicBtn)
          
          
          let infoBtn = SKSpriteNode(imageNamed: "info.circle.fill")
@@ -59,6 +54,10 @@ import Foundation
          infoBtn.position = CGPoint(x: 350, y: 550)
          addChild(infoBtn)
          
+//         let exBtn = SKSpriteNode(imageNamed: "play.fill")
+//         exBtn.name = "exBtn"
+//         exBtn.position = CGPoint(x: 50, y: 50)
+//         addChild(exBtn)
      }
      
      
@@ -82,7 +81,7 @@ import Foundation
 
          
          let rulesContainer = SKNode()
-         rulesContainer.position = CGPoint(x: frame.midX, y: frame.midY + 300)
+         rulesContainer.position = CGPoint(x: frame.midX, y: frame.midY + 400)
          addChild(rulesContainer)
 
          let rulesData: [(String, String)] = [
@@ -92,7 +91,7 @@ import Foundation
              ("Rule 4:", "You have 3 lives. Tap the 'Replay' button to start a new game or tap the 'Home' button to return to the main menu.")
          ]
 
-         let rowSpacing: CGFloat = 200
+         let rowSpacing: CGFloat = 250
 
          for (index, rule) in rulesData.enumerated() {
 

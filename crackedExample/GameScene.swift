@@ -14,14 +14,20 @@ import Foundation
 
 class GameScene: SKScene {
     let settingsPopUp = SKSpriteNode(imageNamed:"settingsBgShape")
+    let settingsMusicPopUp = SKSpriteNode(imageNamed:"settingsBgShape")
+    let gameOverPopUp = SKNode()
     var swipeStartPoint: CGPoint?
     var selectedFeather: SKSpriteNode?
     var selectedPan: SKSpriteNode?
-
+    var score = 0
+    let scoreLabel = SKLabelNode()
+    
+    
     enum SceneSelection {
         case mainMenu
         case startGame
         case settings
+        case settingsMusicOnly
         case info
         case gameOver
     }
@@ -79,14 +85,14 @@ class GameScene: SKScene {
             print("play button tapped.")
             gameSetup()
         }
-        if node.name == "Play"{
+        if node.name == "playTitle"{
             print("Play button tapped.")
             gameSetup()
             
         }
-        if node.name == "settingsBtn" {
-            print("Settings butotn tapped.")
-            settingsView()
+        if node.name == "settingsMusicBtn" {
+            print("Settings button tapped.")
+            settingsMusicOnly()
             
         }
         
@@ -105,7 +111,20 @@ class GameScene: SKScene {
             mainMenu()
         }
         
+        if node.name == "homeBtn"{
+            print("Home button tapped.")
+            mainMenu()
+        }
         
+        if node.name == "exBtn"
+        {
+            gameOver()
+        }
+        
+        if node.name == "replayBtn"{
+            gameSetup()
+        }
+            
     }
     
     override func didChangeSize(_ oldSize: CGSize) {
@@ -121,7 +140,9 @@ class GameScene: SKScene {
         case .settings:
             showPopup()
             settingsView()
-            
+        case .settingsMusicOnly:
+            showPopup()
+            settingsMusicOnly()
         case .gameOver:
             mainMenu()
         }
@@ -210,6 +231,7 @@ class GameScene: SKScene {
             print("Music not playing.")
         }
     }
+    
     override func update(_ currentTime: TimeInterval) {
         // Called before each frame is rendered
     }

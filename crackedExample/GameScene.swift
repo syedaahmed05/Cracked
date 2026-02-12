@@ -13,6 +13,10 @@ import AVFoundation
 import Foundation
 
 class GameScene: SKScene {
+    
+//    required init?(coder aDecoder: NSCoder) {
+//        fatalError("init(coder:) has not been implemented")
+//    } 
     let settingsPopUp = SKSpriteNode(imageNamed:"settingsBgShape")
     let settingsMusicPopUp = SKSpriteNode(imageNamed:"settingsBgShape")
     let gameOverPopUp = SKNode()
@@ -21,7 +25,7 @@ class GameScene: SKScene {
     var selectedPan: SKSpriteNode?
     var score = 0
     let scoreLabel = SKLabelNode()
-    
+    var isGamePaused = false
     
     enum SceneSelection {
         case mainMenu
@@ -96,9 +100,15 @@ class GameScene: SKScene {
             
         }
         
+        if node.name == "settingsMusicCloseBtn" {
+            print("Music Settings button tapped.")
+            mainMenu()
+            
+            
+        }
         if node.name == "settingsCloseBtn" {
             print("Settings closed.")
-            mainMenu()
+            startGame()
         }//here we need to also be able to take it back to gameplay too
         
         if node.name == "infoBtn"{
@@ -124,25 +134,47 @@ class GameScene: SKScene {
         if node.name == "replayBtn"{
             gameSetup()
         }
+        
+        if node.name == "pauseBtn"{
+            settingsView()
+        }
+        
+        if node.name == "settingsQuitBtn"{
+            mainMenu()
+        }
+        
+        if node.name == "settingsQuitTitle"{
+            mainMenu()
+        }
+        
+        if node.name == "resumeBtn"{
             
+            
+        }
     }
-    
+        
+
     override func didChangeSize(_ oldSize: CGSize) {
         removeAllChildren()
         
         switch currentScene{
         case .mainMenu:
             mainMenu()
+            
         case .startGame:
             startGame()
+            
         case .info:
             info()
+            
         case .settings:
             showPopup()
             settingsView()
+            
         case .settingsMusicOnly:
             showPopup()
             settingsMusicOnly()
+            
         case .gameOver:
             mainMenu()
         }
@@ -150,8 +182,8 @@ class GameScene: SKScene {
 
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         guard let touch = touches.first else { return }
-        let location = touch.location(in: settingsPopUp)
-        let node = settingsPopUp.atPoint(location)
+        let location = touch.location(in: settingsMusicPopUp)
+        let node = settingsMusicPopUp.atPoint(location)
 
         if node.name == "musicSlider" {
                 updateSlider(locationX: location.x)
@@ -231,7 +263,7 @@ class GameScene: SKScene {
             print("Music not playing.")
         }
     }
-    
+
     override func update(_ currentTime: TimeInterval) {
         // Called before each frame is rendered
     }

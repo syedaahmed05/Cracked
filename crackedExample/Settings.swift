@@ -43,6 +43,7 @@ extension GameScene{
         settingsPopUp.addChild(settingsTitle)
         
         let settingsPlayBtn = SKSpriteNode(imageNamed: "settingsPlayBtn")
+        settingsPlayBtn.name = "settingsPlayBtn"
         settingsPlayBtn.position = CGPoint(x: -230, y: 120)
         settingsPlayBtn.zPosition = 100
         settingsPopUp.addChild(settingsPlayBtn)
@@ -57,6 +58,7 @@ extension GameScene{
         settingsPopUp.addChild(resumeTitle)
         
         let quitTitle = SKLabelNode(fontNamed: "Super Meatball")
+        quitTitle.name = "settingsQuitTitle"
         quitTitle.text = "Quit"
         quitTitle.fontSize = 48
         quitTitle.fontColor = .customRed
@@ -66,6 +68,7 @@ extension GameScene{
         settingsPopUp.addChild(quitTitle)
         
         let settingsQuitBtn = SKSpriteNode(imageNamed: "settingsQuitBtn")
+        settingsQuitBtn.name = "settingsQuitBtn"
         settingsQuitBtn.position = CGPoint(x: -230, y: 30)
         settingsQuitBtn.zPosition = 100
         settingsPopUp.addChild(settingsQuitBtn)
@@ -92,7 +95,7 @@ extension GameScene{
         musicCreditTitle.text = "Music by Motorcity Era"
         musicCreditTitle.fontSize = 24
         musicCreditTitle.fontColor = .customRed
-        musicCreditTitle.position = CGPoint(x: -70, y: -130)
+        musicCreditTitle.position = CGPoint(x: -170, y: -110)
         musicCreditTitle.zPosition = 100
         musicCreditTitle.horizontalAlignmentMode = .left
         settingsPopUp.addChild(musicCreditTitle)
@@ -114,12 +117,6 @@ extension GameScene{
         sfxSliderBg.zPosition = 101
         sfxSliderBg.name = "musicSliderBg"
         settingsPopUp.addChild(sfxSliderBg)
-//        musicSliderMinX = musicSliderBg.position.x - sliderWidth / 2
-//        musicSliderMaxX = musicSliderBg.position.x + sliderWidth / 2
-//        musicSlider = SKSpriteNode(imageNamed: "sliderCircleBtn")
-//        musicSlider.size = CGSize(width: 40, height: 40)
-//        musicSlider.name = "musicSlider"
-//        musicSlider.zPosition = 102
         
         let startX = musicSliderMinX + CGFloat(musicVolume) * sliderWidth
         musicSlider.position = CGPoint(x: startX, y: musicSliderBg.position.y)
@@ -128,12 +125,23 @@ extension GameScene{
         showPopup()
     }
     
+//    func togglePause(pause:Bool){
+//        isGamePaused = pause
+//       
+//        
+//        
+//        
+//    }
     
     func showPopup() {
         settingsPopUp.isHidden = false
         settingsPopUp.alpha = 0.0
         settingsPopUp.setScale(0.5)
-
+        
+//        settingsMusicPopUp.isHidden = false
+//        settingsMusicPopUp.alpha = 0.0
+//        settingsMusicPopUp.setScale(0.5)
+        
         let fadeIn = SKAction.fadeIn(withDuration: 0.3)
         let scaleUp = SKAction.scale(to: 1.1, duration: 0.3)
         let scaleDown = SKAction.scale(to: 1.0, duration: 0.15)
@@ -193,29 +201,37 @@ extension GameScene{
         settingsMusicPopUp.addChild(settingsTitle)
         
         let sfxBtn = SKSpriteNode(imageNamed: "sfxBtn")
-        sfxBtn.position = CGPoint(x: -230, y: -150)
+        sfxBtn.position = CGPoint(x: -230, y: 100)
         sfxBtn.zPosition = 100
         settingsMusicPopUp.addChild(sfxBtn)
 
         let musicBtn = SKSpriteNode(imageNamed: "musicBtn")
-        musicBtn.position = CGPoint(x: -235, y: -60)
+        musicBtn.position = CGPoint(x: -240, y: -50)
         musicBtn.zPosition = 100
         settingsMusicPopUp.addChild(musicBtn)
+        
+        let settingsMusicCloseBtn = SKSpriteNode(imageNamed: "infoCloseBtn")
+        settingsMusicCloseBtn.name = "settingsMusicCloseBtn"
+        settingsMusicCloseBtn.zPosition = 100
+        settingsMusicCloseBtn.position = CGPoint(x: 300, y: 250)
+        settingsMusicCloseBtn.size = CGSize(width: 60, height: 60)
+        settingsMusicPopUp.addChild(settingsMusicCloseBtn)
         
         let musicCreditTitle = SKLabelNode(fontNamed: "Boba Milky")
         musicCreditTitle.text = "Music by Motorcity Era"
         musicCreditTitle.fontSize = 24
         musicCreditTitle.fontColor = .customRed
-        musicCreditTitle.position = CGPoint(x: -190, y: -120)
+        musicCreditTitle.position = CGPoint(x: -180, y: 50)
         musicCreditTitle.zPosition = 100
         musicCreditTitle.horizontalAlignmentMode = .left
         settingsMusicPopUp.addChild(musicCreditTitle)
         
         let musicSliderBg = SKSpriteNode(color: .customOrange, size: CGSize(width: sliderWidth, height: 10))
-        musicSliderBg.position = CGPoint(x: -70, y: -50)
+        musicSliderBg.position = CGPoint(x: -70, y: 100)
         musicSliderBg.zPosition = 101
         musicSliderBg.name = "musicSliderBg"
         settingsMusicPopUp.addChild(musicSliderBg)
+        
         musicSliderMinX = musicSliderBg.position.x - sliderWidth / 2
         musicSliderMaxX = musicSliderBg.position.x + sliderWidth / 2
         musicSlider = SKSpriteNode(imageNamed: "sliderCircleBtn")
@@ -224,14 +240,26 @@ extension GameScene{
         musicSlider.zPosition = 102
         
         let sfxSliderBg = SKSpriteNode(color: .customOrange, size: CGSize(width: sliderWidth, height: 10))
-        sfxSliderBg.position = CGPoint(x: -70, y: -150)
+        sfxSliderBg.position = CGPoint(x: -70, y: -50)
         sfxSliderBg.zPosition = 101
         sfxSliderBg.name = "musicSliderBg"
         settingsMusicPopUp.addChild(sfxSliderBg)
         
+        
+        let sfxSlider = SKSpriteNode(imageNamed: "sliderCircleBtn")
+        musicSliderMinX = musicSliderBg.position.x - sliderWidth / 2
+        musicSliderMaxX = musicSliderBg.position.x + sliderWidth / 2
+        sfxSlider.size = CGSize(width: 40, height: 40)
+        sfxSlider.name = "sfxSlider"
+        sfxSlider.zPosition = 102
+
+        
         let startX = musicSliderMinX + CGFloat(musicVolume) * sliderWidth
         musicSlider.position = CGPoint(x: startX, y: musicSliderBg.position.y)
         settingsMusicPopUp.addChild(musicSlider)
+        
+        
+        
         
         showPopup()
     }

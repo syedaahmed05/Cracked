@@ -1,18 +1,29 @@
 {
   "images" : [
     {
-      "filename" : "wholeChicken@2x 2.pdf",
+      "filename" : "wholeChicken@2x~iphone 1.pdf",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "wholeChicken@2x 1.pdf",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "wholeChicken@2x.pdf",
       "idiom" : "universal",
+      "scale" : "3x"
+    },
+    {
+      "idiom" : "iphone",
+      "scale" : "1x"
+    },
+    {
+      "filename" : "wholeChicken@2x~iphone.pdf",
+      "idiom" : "iphone",
+      "scale" : "2x"
+    },
+    {
+      "idiom" : "iphone",
       "scale" : "3x"
     }
   ],

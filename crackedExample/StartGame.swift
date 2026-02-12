@@ -17,6 +17,7 @@ extension GameScene {
         // adding a backgound on the -1 layer
         self.anchorPoint = CGPoint(x: 0.0, y: 0.0)
         let background = SKSpriteNode(imageNamed: "background")
+        background.size = self.size
         background.position = CGPoint(x: size.width / 2, y: size.height / 2)
         background.blendMode = .replace
         background.zPosition = -1   //LOWEST LAYER
@@ -24,13 +25,13 @@ extension GameScene {
         
         //add the chicken butt to the scene
         let chicken = SKSpriteNode(imageNamed: "wholeChicken")
-        chicken.position = CGPoint(x: size.width / 2, y: self.size.height-30)
+        chicken.position = CGPoint(x: size.width / 2, y: self.size.height-100)
         chicken.zPosition = 2
         addChild(chicken)
         
         //add the pan to the scene
         let pan = SKSpriteNode(imageNamed: "pan")
-        pan.position = CGPoint(x: size.width / 2 + 15, y: 70)
+        pan.position = CGPoint(x: size.width / 2 + 30, y: 110)
         pan.zPosition = 0
         addChild(pan)
         

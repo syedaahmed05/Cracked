@@ -1,26 +1,17 @@
 {
   "images" : [
     {
+      "filename" : "panWithEggs.pdf",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "liquidEgg@3x.pdf",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
       "idiom" : "universal",
       "scale" : "3x"
-    },
-    {
-      "filename" : "liquidEgg@3x 1.pdf",
-      "idiom" : "ipad",
-      "scale" : "1x"
-    },
-    {
-      "idiom" : "ipad",
-      "scale" : "2x"
     }
   ],
   "info" : {

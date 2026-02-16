@@ -20,20 +20,22 @@ class GameScene: SKScene {
     let settingsPopUp = SKSpriteNode(imageNamed:"settingsBgShape")
     let settingsMusicPopUp = SKSpriteNode(imageNamed:"settingsBgShape")
     let gameOverPopUp = SKNode()
+    
+    
     var swipeStartPoint: CGPoint?
     var selectedFeather: SKSpriteNode?
     var selectedPan: SKSpriteNode?
-    var score = 0
-    let scoreLabel = SKLabelNode()
     var isGamePaused = false
+    
     let pan = SKSpriteNode(imageNamed: "emptyPan")
     var panIsFull = false
+    let scoreLabel = SKLabelNode(text: "0")
     var score = 0 {
         didSet {
             scoreLabel.text = "\(score)"
         }
     }
-    let scoreLabel = SKLabelNode(text: "0")
+    
     var lives = 3
     var livesLabel = SKLabelNode(text: "")
     //var isGameOVer = false
@@ -117,6 +119,8 @@ class GameScene: SKScene {
         
         if node.name == "homeBtn"{
             print("Home button tapped.")
+            score = 0
+            lives = 3
             mainMenu()
         }
         
@@ -126,6 +130,9 @@ class GameScene: SKScene {
         }
         
         if node.name == "replayBtn"{
+            print("Play again button tapped.")
+            score = 0
+            lives = 3
             gameSetup()
         }
         
@@ -139,7 +146,6 @@ class GameScene: SKScene {
         if node.name == "settingsQuitBtn"{
             isGamePaused = false
             self.isPaused = false
-            
             removeAllActions()
             removeAllChildren()
             currentScene = .mainMenu
@@ -276,16 +282,17 @@ class GameScene: SKScene {
     }
 
     override func update(_ currentTime: TimeInterval) {
-        // Called before each frame is rendered
-        let bottomLimit: CGFloat = self.pan.position.y
+        // Called before each frame is rendered self.pan.position.y
+        let bottomLimit = CGFloat(-350)
         //guard !panIsFull else { return }
         
         if currentScene == .gameOver { return }
         
         enumerateChildNodes(withName: "liquidEgg") { node, _ in
             if node.position.y <= bottomLimit {
-                node.removeFromParent()
                 self.fillPan(with: node)
+                node.removeFromParent()
+                
             }
         }
         

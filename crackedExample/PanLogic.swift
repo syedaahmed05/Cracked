@@ -29,19 +29,21 @@ extension GameScene {
         
     }
     
+    //CGPoint(
+//    x: size.width + pan.size.width,
+//    y: yPos
+//)
     func spawnNewPan(_ pan: SKSpriteNode) {
-        let yPos = pan.size.height / 2 + 20
-        pan.position = CGPoint(
-            x: size.width + pan.size.width,
-            y: yPos
-        )
+        //let yPos = pan.size.height / 2 + 20
+        pan.position = CGPoint(x: size.width * 0.05 , y: -size.height * 0.35)
         pan.texture = SKTexture(imageNamed: "emptyPan")
+        pan.name = "emptyPan"
         panIsFull = false
         
         addChild(pan)
         
         let moveIn = SKAction.moveTo(
-            x: size.width / 2 + 30,
+            x: size.width * 0.05 ,
             duration: 0.35
         )
         

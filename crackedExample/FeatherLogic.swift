@@ -34,7 +34,7 @@ extension GameScene {
         
         feather.name = "feather"
         let fallDuration = TimeInterval.random(in: 3.0...6.0)
-        let moveDown = SKAction.moveTo(y: -feather.size.height * 4.0, duration: fallDuration)
+        let moveDown = SKAction.moveTo(y: -feather.size.height * 8.0, duration: fallDuration)
         let remove = SKAction.removeFromParent()
         
         feather.run(SKAction.sequence([moveDown, remove]))

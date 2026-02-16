@@ -86,7 +86,7 @@ extension GameScene{
         
         
         let sfxBtn = SKSpriteNode(imageNamed: "sfxBtn")
-        //sfxBtn.setScale(popupW * 0.0015)
+        sfxBtn.setScale(popupW * 0.0015)
         sfxBtn.position = CGPoint(x: -popupW * 0.35,y: -popupH * 0.08)
         sfxBtn.zPosition = 101
         settingsPopUp.addChild(sfxBtn)
@@ -185,7 +185,7 @@ extension GameScene{
         darkenBg.name = "darkenBg"
         addChild(darkenBg)
         
-        settingsMusicPopUp.size = CGSize(width: size.width * 0.8,height:size.height * 0.4)
+        settingsMusicPopUp.size = CGSize(width: size.width * 0.9,height:size.height * 0.4)
         settingsMusicPopUp.zPosition = 100
         settingsMusicPopUp.position = CGPoint(x: size.width * 0.0,y: size.height * 0.0)
         settingsMusicPopUp.name = "settingsMusicPopUp"
@@ -205,11 +205,13 @@ extension GameScene{
         
         let sfxBtn = SKSpriteNode(imageNamed: "sfxBtn")
         sfxBtn.position = CGPoint(x: -popupW * 0.35, y: popupH * 0.15)
+        sfxBtn.setScale(size.width * 0.0015)
         sfxBtn.zPosition = 100
         settingsMusicPopUp.addChild(sfxBtn)
 
         let musicBtn = SKSpriteNode(imageNamed: "musicBtn")
         musicBtn.position = CGPoint(x: -popupW * 0.35, y: -popupH * 0.08)
+        musicBtn.setScale(size.width * 0.0015)
         musicBtn.zPosition = 100
         settingsMusicPopUp.addChild(musicBtn)
         
@@ -230,7 +232,7 @@ extension GameScene{
         settingsMusicPopUp.addChild(musicCreditTitle)
         
         let musicSliderBg = SKSpriteNode(color: .customOrange, size: CGSize(width: sliderWidth, height: 10))
-        musicSliderBg.position = CGPoint(x: -popupW * 0.18, y: popupH * 0.15)
+        musicSliderBg.position = CGPoint(x: -popupW * 0.01, y: popupH * 0.15)
         musicSliderBg.zPosition = 101
         musicSliderBg.name = "musicSliderBg"
         settingsMusicPopUp.addChild(musicSliderBg)
@@ -244,7 +246,7 @@ extension GameScene{
         musicSlider.zPosition = 102
         
         let sfxSliderBg = SKSpriteNode(color: .customOrange, size: CGSize(width: sliderWidth, height: 10))
-        sfxSliderBg.position = CGPoint(x: -popupW * 0.18, y: -popupH * 0.08)
+        sfxSliderBg.position = CGPoint(x: -popupW * 0.01, y: -popupH * 0.10)
         sfxSliderBg.zPosition = 101
         sfxSliderBg.name = "musicSliderBg"
         settingsMusicPopUp.addChild(sfxSliderBg)
@@ -253,7 +255,7 @@ extension GameScene{
         let sfxSlider = SKSpriteNode(imageNamed: "sliderCircleBtn")
         musicSliderMinX = musicSliderBg.position.x - sliderWidth / 2
         musicSliderMaxX = musicSliderBg.position.x + sliderWidth / 2
-        sfxSlider.size = CGSize(width:popupW*0.08,height:popupW * 0.08)
+        sfxSlider.size = CGSize(width:popupW * 0.04,height: popupW * 0.04)
         sfxSlider.name = "sfxSlider"
         sfxSlider.zPosition = 102
 

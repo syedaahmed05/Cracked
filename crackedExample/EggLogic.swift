@@ -28,9 +28,8 @@ extension GameScene {
 
         let xPos = CGFloat.random(in: (centerX - range)...(centerX + range))
 
-        egg.position = CGPoint(x: xPos, y: self.size.height + egg.size.height + 100)
+        egg.position = CGPoint(x: xPos, y: self.size.height + egg.size.height + 0.50)
         egg.zPosition = 1
-        
         egg.name = "egg"
         
         //falling action

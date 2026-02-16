@@ -17,6 +17,7 @@ extension GameScene {
         // adding a backgound on the -1 layer
         self.anchorPoint = CGPoint(x: 0.0, y: 0.0)
         let background = SKSpriteNode(imageNamed: "background")
+        background.size = self.size
         background.position = CGPoint(x: size.width / 2, y: size.height / 2)
         background.blendMode = .replace
         background.zPosition = -1   //LOWEST LAYER
@@ -24,19 +25,70 @@ extension GameScene {
         
         //add the chicken butt to the scene
         let chicken = SKSpriteNode(imageNamed: "wholeChicken")
-        chicken.position = CGPoint(x: size.width / 2, y: self.size.height-30)
+        chicken.position = CGPoint(x: size.width / 2, y: self.size.height-70)
         chicken.zPosition = 2
         addChild(chicken)
         
         //add the pan to the scene
-        let pan = SKSpriteNode(imageNamed: "pan")
-        pan.position = CGPoint(x: size.width / 2 + 15, y: 70)
+        
+        pan.position = CGPoint(x: size.width / 2 + 30, y: 110)
+        pan.name = "pan"
         pan.zPosition = 0
         addChild(pan)
+        
+        let eggScorePhoto = SKSpriteNode(imageNamed: "egg")
+        eggScorePhoto.size = CGSize(width: 50, height: 70)
+        eggScorePhoto.position = CGPoint(x: 40, y: size.height - 40)
+        eggScorePhoto.zPosition = 3
+        addChild(eggScorePhoto)
+        
+        scoreLabel.position = CGPoint(x: eggScorePhoto.position.x+70, y: size.height - 60)
+        scoreLabel.zPosition = 3
+        scoreLabel.fontSize = 60
+        scoreLabel.fontName = "Super Meatball"
+        scoreLabel.fontColor = .customRed
+        addChild(scoreLabel)
+        
+        livesLabel = SKLabelNode(fontNamed: "Super Meatball")
+        livesLabel.fontSize = 60
+        livesLabel.fontColor = .customRed
+        livesLabel.position = CGPoint(x: eggScorePhoto.position.x+30, y: size.height - 140)
+        livesLabel.zPosition = 100
+
+        livesLabel.text = "❌ \(lives)"
+
+        addChild(livesLabel)
         
         addingEggs()
         addingFeathers()
     }
+    
+    func loseLife() {
+        lives -= 1
+        animateLifeLoss()
+        print("Lost a life")
+        livesLabel.text = "❌ \(lives)"
 
+        if lives <= 0 {
+            gameOver()
+        }
+    }
+    
+    func animateLifeLoss() {
+        let shake = SKAction.sequence([
+            SKAction.scale(to: 1.3, duration: 0.1),
+            SKAction.scale(to: 1.0, duration: 0.1)
+        ])
+
+        livesLabel.run(shake)
+    }
+
+    func fadeAndRemove(_ node: SKNode) {
+
+        let fade = SKAction.fadeOut(withDuration: 0.3)
+        let remove = SKAction.removeFromParent()
+
+        node.run(SKAction.sequence([fade, remove]))
+    }
 }
 

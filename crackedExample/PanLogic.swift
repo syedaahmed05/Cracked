@@ -37,7 +37,7 @@ extension GameScene {
         //let yPos = pan.size.height / 2 + 20
         pan.position = CGPoint(x: size.width * 0.05 , y: -size.height * 0.35)
         pan.texture = SKTexture(imageNamed: "emptyPan")
-        pan.name = "emptyPan"
+        //pan.name = "emptyPan"
         panIsFull = false
         
         addChild(pan)

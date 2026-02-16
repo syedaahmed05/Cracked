@@ -29,7 +29,7 @@ extension GameScene {
         addChild(chicken)
         
         //add the pan to the scene
-        let pan = SKSpriteNode(imageNamed: "emptyPan")
+
         pan.position = CGPoint(x: size.width * 0.05 , y: -size.height * 0.35)
         pan.zPosition = 0
         pan.name = "pan"

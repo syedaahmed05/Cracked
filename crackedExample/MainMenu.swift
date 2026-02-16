@@ -13,45 +13,51 @@ import Foundation
          currentScene = .mainMenu
          removeAllChildren()
          backgroundColor = .customBeige
+
+         let titleFontSize = size.width * 0.12
+         let buttonFontSize = size.width * 0.06
          
          let gameTitle = SKLabelNode(fontNamed:"Super Meatball")
          gameTitle.text = "Cracked!"
-         gameTitle.fontSize = 140
+         gameTitle.fontSize = titleFontSize
          gameTitle.fontColor = SKColor.customRed
-         gameTitle.position = CGPoint(x: 5, y: 250)
+         gameTitle.position = CGPoint(x: 0, y: size.height * 0.25)
          gameTitle.zPosition = -1
          addChild(gameTitle)
 
          let playTitle = SKLabelNode(fontNamed:"Super Meatball")
          playTitle.text = "Play"
          playTitle.name = "playTitle"
-         playTitle.fontSize = 72
+         playTitle.fontSize = buttonFontSize
          playTitle.fontColor = SKColor.customOrange
-         playTitle.position = CGPoint(x: -5, y: 130)
+         playTitle.position = CGPoint(x:size.width * 0,y: size.height * 0.18)
          playTitle.zPosition = 1
          addChild(playTitle)
          
          let playBtn = SKSpriteNode(imageNamed: "play.fill")
          playBtn.name = "playBtn"
-         playBtn.position = CGPoint(x: -5, y: 50)
+         playBtn.setScale(size.width * 0.0015)
+         playBtn.position = CGPoint(x: -size.width * 0, y: size.height * 0.1)
          addChild(playBtn)
          
          let mainMenuImage = SKSpriteNode(imageNamed: "mainMenuImage")
          mainMenuImage.name = "mainMenuImage"
-         mainMenuImage.size = CGSize(width: 600, height: 450)
-         mainMenuImage.position = CGPoint(x: 0, y: -200)
+         mainMenuImage.size = CGSize(width: size.width * 0.5, height: size.height * 0.3)
+         mainMenuImage.position = CGPoint(x:size.width * 0.0 , y: -size.height * 0.20 )
          mainMenuImage.zPosition = 1
          addChild(mainMenuImage)
          
          let settingsMusicBtn = SKSpriteNode(imageNamed: "gearshape.circle.fill")
+         settingsMusicBtn.setScale(size.width * 0.001)
          settingsMusicBtn.name = "settingsMusicBtn"
-         settingsMusicBtn.position = CGPoint(x: -350, y: 550)
+         settingsMusicBtn.position = CGPoint(x: -size.width * 0.45 , y: size.height * 0.45)
          addChild(settingsMusicBtn)
          
          
          let infoBtn = SKSpriteNode(imageNamed: "info.circle.fill")
          infoBtn.name = "infoBtn"
-         infoBtn.position = CGPoint(x: 350, y: 550)
+         infoBtn.setScale(size.width * 0.001)
+         infoBtn.position = CGPoint(x: size.width * 0.45, y: size.height * 0.45)
          addChild(infoBtn)
          
 //         let exBtn = SKSpriteNode(imageNamed: "play.fill")
@@ -68,20 +74,20 @@ import Foundation
 
          let infoCloseBtn = SKSpriteNode(imageNamed: "infoCloseBtn")
          infoCloseBtn.name = "infoCloseBtn"
-         infoCloseBtn.position = CGPoint(x: frame.maxX - 60, y: frame.maxY - 60)
-         infoCloseBtn.size = CGSize(width: 60, height: 60)
+         infoCloseBtn.position = CGPoint(x: size.width * 0.40,y: size.height * 0.40)
+         infoCloseBtn.size = CGSize(width: size.width * 0.08, height: size.height * 0.08)
          addChild(infoCloseBtn)
 
          let infoTitle = SKLabelNode(fontNamed: "Super Meatball")
          infoTitle.text = "How to Play"
-         infoTitle.fontSize = 90
+         infoTitle.fontSize = size.width * 0.09
          infoTitle.fontColor = .customRed
-         infoTitle.position = CGPoint(x: frame.midX, y: frame.maxY - 140)
+         infoTitle.position = CGPoint(x: size.width * 0.0, y: size.height * 0.35)
          addChild(infoTitle)
 
          
          let rulesContainer = SKNode()
-         rulesContainer.position = CGPoint(x: frame.midX, y: frame.midY + 400)
+         rulesContainer.position = CGPoint(x: -size.width * 0.1, y: size.height * 0.25)
          addChild(rulesContainer)
 
          let rulesData: [(String, String)] = [
@@ -91,7 +97,7 @@ import Foundation
              ("Rule 4:", "You have 3 lives. Tap the 'Replay' button to start a new game or tap the 'Home' button to return to the main menu.")
          ]
 
-         let rowSpacing: CGFloat = 250
+         let rowSpacing = size.height * 0.13
 
          for (index, rule) in rulesData.enumerated() {
 
@@ -99,20 +105,20 @@ import Foundation
 
              let ruleLabel = SKLabelNode(fontNamed: "Super Meatball")
              ruleLabel.text = rule.0
-             ruleLabel.fontSize = 72
+             ruleLabel.fontSize = size.width * 0.05
              ruleLabel.fontColor = .customOrange
              ruleLabel.horizontalAlignmentMode = .right
-             ruleLabel.position = CGPoint(x: -180, y: yOffset)
+             ruleLabel.position = CGPoint(x: -size.width * 0.12, y: yOffset)
 
              let ruleText = SKLabelNode(fontNamed: "Boba Milky")
              ruleText.text = rule.1
-             ruleText.fontSize = 40
+             ruleText.fontSize = size.width * 0.035
              ruleText.fontColor = .customRed
              ruleText.horizontalAlignmentMode = .left
              ruleText.verticalAlignmentMode = .top
-             ruleText.preferredMaxLayoutWidth = 500
+             ruleText.preferredMaxLayoutWidth = size.width * 0.55
              ruleText.numberOfLines = 0
-             ruleText.position = CGPoint(x: -100, y: yOffset + 60)
+             ruleText.position = CGPoint(x: -size.width * 0.08, y: yOffset + size.height * 0.03)
 
              rulesContainer.addChild(ruleLabel)
              rulesContainer.addChild(ruleText)

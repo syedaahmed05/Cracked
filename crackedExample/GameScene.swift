@@ -45,29 +45,10 @@ class GameScene: SKScene {
         scaleMode = .resizeFill
         settingsPopUp.isHidden = true
         physicsWorld.gravity = CGVector(dx: 0, dy: -9.8)
-        //gameSetup()
         playMusic()
-        mainMenu()
-        //settingsView()
-        
+
     }
-    
-    
-    
-    func startGame() {
-        currentScene = .startGame
-        removeAllChildren()
-        backgroundColor = .customBeige
-        
-        let startTitle = SKLabelNode(text: "start game example")
-        startTitle.fontColor = .customRed
-        addChild(startTitle)
-        
-        }
-    
-
-
-    
+  
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         guard let touch = touches.first else { return }
         let location = touch.location(in:self )
@@ -108,7 +89,7 @@ class GameScene: SKScene {
         }
         if node.name == "settingsCloseBtn" {
             print("Settings closed.")
-            startGame()
+            gameSetup()
         }//here we need to also be able to take it back to gameplay too
         
         if node.name == "infoBtn"{
@@ -136,33 +117,69 @@ class GameScene: SKScene {
         }
         
         if node.name == "pauseBtn"{
+            isGamePaused = true
+            currentScene = .settings
             settingsView()
+            removeAllActions()
         }
         
         if node.name == "settingsQuitBtn"{
+            isGamePaused = false
+            self.isPaused = false
+            
+            removeAllActions()
+            removeAllChildren()
+            currentScene = .mainMenu
             mainMenu()
         }
         
         if node.name == "settingsQuitTitle"{
+            isGamePaused = false
+            self.isPaused = false
+            
+            removeAllActions()
+            removeAllChildren()
+            currentScene = .mainMenu
             mainMenu()
         }
         
         if node.name == "resumeBtn"{
-            
+            isGamePaused = false
+            settingsPopUp.removeFromParent()
+            childNode(withName: "darkenBg")?.removeFromParent()
+            currentScene = .startGame
+            gameSetup()
             
         }
     }
         
 
     override func didChangeSize(_ oldSize: CGSize) {
-        removeAllChildren()
+        //removeAllChildren()
+        if let darkenBg = childNode(withName: "darkenBg") as? SKSpriteNode {
+               darkenBg.size = CGSize(width: size.width, height: size.height)
+               darkenBg.position = CGPoint(x: size.width * 0.5, y: size.height * 0.5)
+           }
+
+           settingsPopUp.position = CGPoint(x: size.width * 0.5, y: size.height * 0.5)
+
+           if let musicSliderBg = settingsPopUp.childNode(withName: "musicSliderBg") as? SKSpriteNode {
+               musicSliderBg.position = CGPoint(x: 0, y: -settingsPopUp.size.height * 0.25)
+               musicSliderMinX = musicSliderBg.position.x - 200 / 2
+               musicSliderMaxX = musicSliderBg.position.x + 200 / 2
+           }
+
+           if let musicSlider = settingsPopUp.childNode(withName: "musicSlider") as? SKSpriteNode {
+               musicSlider.position.x = musicSliderMinX + CGFloat(musicVolume) * 200
+               musicSlider.position.y = -settingsPopUp.size.height * 0.25
+           }
         
         switch currentScene{
         case .mainMenu:
             mainMenu()
             
         case .startGame:
-            startGame()
+            gameSetup()
             
         case .info:
             info()

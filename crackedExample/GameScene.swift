@@ -20,16 +20,15 @@ class GameScene: SKScene {
     let settingsPopUp = SKSpriteNode(imageNamed:"settingsBgShape")
     let settingsMusicPopUp = SKSpriteNode(imageNamed:"settingsBgShape")
     let gameOverPopUp = SKNode()
-    
+    let pan = SKSpriteNode(imageNamed: "emptyPan")
+    let scoreLabel = SKLabelNode(text: "0")
     
     var swipeStartPoint: CGPoint?
     var selectedFeather: SKSpriteNode?
     var selectedPan: SKSpriteNode?
     var isGamePaused = false
-    
-    let pan = SKSpriteNode(imageNamed: "emptyPan")
     var panIsFull = false
-    let scoreLabel = SKLabelNode(text: "0")
+    
     var score = 0 {
         didSet {
             scoreLabel.text = "\(score)"
@@ -133,6 +132,8 @@ class GameScene: SKScene {
             print("Play again button tapped.")
             score = 0
             lives = 3
+            panIsFull = false
+            pan.texture = SKTexture(imageNamed: "emptyPan")
             gameSetup()
         }
         
@@ -290,8 +291,8 @@ class GameScene: SKScene {
         
         enumerateChildNodes(withName: "liquidEgg") { node, _ in
             if node.position.y <= bottomLimit {
-                self.fillPan(with: node)
                 node.removeFromParent()
+                self.fillPan(with: node)
                 
             }
         }

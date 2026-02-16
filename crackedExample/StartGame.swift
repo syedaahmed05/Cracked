@@ -29,9 +29,10 @@ extension GameScene {
         addChild(chicken)
         
         //add the pan to the scene
-        let pan = SKSpriteNode(imageNamed: "pan")
+        let pan = SKSpriteNode(imageNamed: "emptyPan")
         pan.position = CGPoint(x: size.width * 0.05 , y: -size.height * 0.35)
         pan.zPosition = 0
+        pan.name = "pan"
         addChild(pan)
         
         let pauseBtn = SKSpriteNode(imageNamed: "pauseBtn")
@@ -40,33 +41,26 @@ extension GameScene {
         pauseBtn.position = CGPoint(x:size.width  * 0.45,y: size.height * 0.45)
         pauseBtn.zPosition = 5
         addChild(pauseBtn)
-        
-        pan.position = CGPoint(x: size.width / 2 + 30, y: 110)
-        pan.name = "pan"
-        pan.zPosition = 0
-        addChild(pan)
-        
+
         let eggScorePhoto = SKSpriteNode(imageNamed: "egg")
-        eggScorePhoto.size = CGSize(width: 50, height: 70)
-        eggScorePhoto.position = CGPoint(x: 40, y: size.height - 40)
+        eggScorePhoto.size = CGSize(width: size.width * 0.035, height: size.height * 0.025)
+        eggScorePhoto.position = CGPoint(x: -size.width * 0.45, y: size.height * 0.45)
         eggScorePhoto.zPosition = 3
         addChild(eggScorePhoto)
         
-        scoreLabel.position = CGPoint(x: eggScorePhoto.position.x+70, y: size.height - 60)
+        scoreLabel.position = CGPoint(x: eggScorePhoto.position.x * 0.83, y: size.height * 0.43)
         scoreLabel.zPosition = 3
-        scoreLabel.fontSize = 60
+        scoreLabel.fontSize = size.height * 0.05
         scoreLabel.fontName = "Super Meatball"
         scoreLabel.fontColor = .customRed
         addChild(scoreLabel)
         
         livesLabel = SKLabelNode(fontNamed: "Super Meatball")
-        livesLabel.fontSize = 60
+        livesLabel.fontSize = size.height * 0.05
         livesLabel.fontColor = .customRed
-        livesLabel.position = CGPoint(x: eggScorePhoto.position.x+30, y: size.height - 140)
+        livesLabel.position = CGPoint(x:eggScorePhoto.position.x * 0.92, y: size.height * 0.35 )
         livesLabel.zPosition = 100
-
         livesLabel.text = "❌ \(lives)"
-
         addChild(livesLabel)
         
         addingEggs()

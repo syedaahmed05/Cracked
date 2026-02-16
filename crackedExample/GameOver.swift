@@ -13,6 +13,7 @@ extension GameScene{
     
     func gameOver(){
         currentScene = .gameOver
+        removeAllChildren()
         removeAllActions()
         let darkenBg = SKSpriteNode(color:UIColor.black.withAlphaComponent(0.5), size: frame.size)
         darkenBg.position = CGPoint(x: size.width * 0.0, y: size.width * 0.0)
@@ -24,39 +25,40 @@ extension GameScene{
         
         let scoreTitle = SKLabelNode(fontNamed: "Super Meatball")
         scoreTitle.text = "Score: \(score)"
-        scoreTitle.fontSize = 100
+        scoreTitle.fontSize = size.width * 0.12
         scoreTitle.fontColor = .white
         scoreTitle.name = "scoreTitle"
-        scoreTitle.position = CGPoint(x: 0, y: 400)
+        scoreTitle.position = CGPoint(x: 0, y: size.height * 0.30)
         scoreTitle.zPosition = 100
         gameOverPopUp.addChild(scoreTitle)
         
         let gameOverText = SKLabelNode(fontNamed: "Boba Milky")
         gameOverText.text = "You've fried your last egg!"
         gameOverText.fontColor = .customOrange
-        gameOverText.fontSize = 50
-        gameOverText.position = CGPoint(x: 0, y: 300)
+        gameOverText.fontSize = size.width * 0.06
+        gameOverText.position = CGPoint(x: 0, y: size.height * 0.23)
         gameOverText.zPosition = 100
         gameOverText.name = "gameOverText"
         gameOverPopUp.addChild(gameOverText)
         
         
         let endGameChicken = SKSpriteNode(imageNamed: "endGameChicken")
-        endGameChicken.position = CGPoint(x: -120, y: frame.midY)
+        endGameChicken.position = CGPoint(x: -size.width * 0.03, y: size.height * 0)
+        endGameChicken.size = CGSize(width: size.width * 0.8, height: size.height * 0.35)
         endGameChicken.zPosition = 100
         endGameChicken.name = "endGameChicken"
         gameOverPopUp.addChild(endGameChicken)
         
         let homeBtn = SKSpriteNode(imageNamed: "homeBtn")
-        homeBtn.size = CGSize(width: 450, height: 100)
-        homeBtn.position = CGPoint(x: 0, y: -300)
+        homeBtn.size = CGSize(width: size.width * 0.65, height: size.height * 0.08)
+        homeBtn.position = CGPoint(x: size.width * 0.0, y: -size.height * 0.2)
         homeBtn.name = "homeBtn"
         homeBtn.zPosition = 100
         gameOverPopUp.addChild(homeBtn)
         
         let replayBtn = SKSpriteNode(imageNamed: "replayBtn")
-        replayBtn.size = CGSize(width: 100, height: 100)
-        replayBtn.position = CGPoint(x: 0, y: -430)
+        replayBtn.size = CGSize(width: size.width * 0.1, height: size.height * 0.06)
+        replayBtn.position = CGPoint(x: -size.width * 0.01, y: -size.height * 0.28)
         replayBtn.name = "replayBtn"
         replayBtn.zPosition = 100
         gameOverPopUp.addChild(replayBtn)
@@ -64,9 +66,9 @@ extension GameScene{
         let playAgainTitle = SKLabelNode(fontNamed: "Boba Milky")
         playAgainTitle.text = "Play Again"
         playAgainTitle.name = "playAgainTitle"
-        playAgainTitle.fontSize = 40
+        playAgainTitle.fontSize = size.width * 0.05
         playAgainTitle.fontColor = .white
-        playAgainTitle.position = CGPoint(x: 0, y: -550)
+        playAgainTitle.position = CGPoint(x: -size.width * 0.01, y: -size.height * 0.37)
         playAgainTitle.zPosition = 100
         gameOverPopUp.addChild(playAgainTitle)
         

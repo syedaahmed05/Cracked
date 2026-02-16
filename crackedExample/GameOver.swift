@@ -15,7 +15,7 @@ extension GameScene{
         currentScene = .gameOver
         removeAllActions()
         let darkenBg = SKSpriteNode(color:UIColor.black.withAlphaComponent(0.5), size: frame.size)
-        darkenBg.position = CGPoint(x: frame.midX, y: frame.midY)
+        darkenBg.position = CGPoint(x: size.width * 0.0, y: size.width * 0.0)
         darkenBg.zPosition = 99
         darkenBg.name = "darkenBg"
         addChild(darkenBg)

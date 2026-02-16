@@ -13,12 +13,19 @@ import AVFoundation
 import Foundation
 
 class GameScene: SKScene {
+    
+//    required init?(coder aDecoder: NSCoder) {
+//        fatalError("init(coder:) has not been implemented")
+//    } 
     let settingsPopUp = SKSpriteNode(imageNamed:"settingsBgShape")
     let settingsMusicPopUp = SKSpriteNode(imageNamed:"settingsBgShape")
     let gameOverPopUp = SKNode()
     var swipeStartPoint: CGPoint?
     var selectedFeather: SKSpriteNode?
     var selectedPan: SKSpriteNode?
+    var score = 0
+    let scoreLabel = SKLabelNode()
+    var isGamePaused = false
     let pan = SKSpriteNode(imageNamed: "emptyPan")
     var panIsFull = false
     var score = 0 {
@@ -50,29 +57,10 @@ class GameScene: SKScene {
         scaleMode = .resizeFill
         settingsPopUp.isHidden = true
         physicsWorld.gravity = CGVector(dx: 0, dy: -9.8)
-        //gameSetup()
         playMusic()
-        mainMenu()
-        //settingsView()
-        
+
     }
-    
-    
-    
-    func startGame() {
-        currentScene = .startGame
-        removeAllChildren()
-        backgroundColor = .customBeige
-        
-        let startTitle = SKLabelNode(text: "start game example")
-        startTitle.fontColor = .customRed
-        addChild(startTitle)
-        
-        }
-    
-
-
-    
+  
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         guard let touch = touches.first else { return }
         let location = touch.location(in:self )
@@ -106,9 +94,15 @@ class GameScene: SKScene {
             
         }
         
+        if node.name == "settingsMusicCloseBtn" {
+            print("Music Settings button tapped.")
+            mainMenu()
+            
+            
+        }
         if node.name == "settingsCloseBtn" {
             print("Settings closed.")
-            mainMenu()
+            gameSetup()
         }//here we need to also be able to take it back to gameplay too
         
         if node.name == "infoBtn"{
@@ -134,25 +128,83 @@ class GameScene: SKScene {
         if node.name == "replayBtn"{
             gameSetup()
         }
+        
+        if node.name == "pauseBtn"{
+            isGamePaused = true
+            currentScene = .settings
+            settingsView()
+            removeAllActions()
+        }
+        
+        if node.name == "settingsQuitBtn"{
+            isGamePaused = false
+            self.isPaused = false
             
+            removeAllActions()
+            removeAllChildren()
+            currentScene = .mainMenu
+            mainMenu()
+        }
+        
+        if node.name == "settingsQuitTitle"{
+            isGamePaused = false
+            self.isPaused = false
+            
+            removeAllActions()
+            removeAllChildren()
+            currentScene = .mainMenu
+            mainMenu()
+        }
+        
+        if node.name == "resumeBtn"{
+            isGamePaused = false
+            settingsPopUp.removeFromParent()
+            childNode(withName: "darkenBg")?.removeFromParent()
+            currentScene = .startGame
+            gameSetup()
+            
+        }
     }
-    
+        
+
     override func didChangeSize(_ oldSize: CGSize) {
-        removeAllChildren()
+        //removeAllChildren()
+        if let darkenBg = childNode(withName: "darkenBg") as? SKSpriteNode {
+               darkenBg.size = CGSize(width: size.width, height: size.height)
+               darkenBg.position = CGPoint(x: size.width * 0.5, y: size.height * 0.5)
+           }
+
+           settingsPopUp.position = CGPoint(x: size.width * 0.5, y: size.height * 0.5)
+
+           if let musicSliderBg = settingsPopUp.childNode(withName: "musicSliderBg") as? SKSpriteNode {
+               musicSliderBg.position = CGPoint(x: 0, y: -settingsPopUp.size.height * 0.25)
+               musicSliderMinX = musicSliderBg.position.x - 200 / 2
+               musicSliderMaxX = musicSliderBg.position.x + 200 / 2
+           }
+
+           if let musicSlider = settingsPopUp.childNode(withName: "musicSlider") as? SKSpriteNode {
+               musicSlider.position.x = musicSliderMinX + CGFloat(musicVolume) * 200
+               musicSlider.position.y = -settingsPopUp.size.height * 0.25
+           }
         
         switch currentScene{
         case .mainMenu:
             mainMenu()
+            
         case .startGame:
-            startGame()
+            gameSetup()
+            
         case .info:
             info()
+            
         case .settings:
             showPopup()
             settingsView()
+            
         case .settingsMusicOnly:
             showPopup()
             settingsMusicOnly()
+            
         case .gameOver:
             mainMenu()
         }
@@ -160,8 +212,8 @@ class GameScene: SKScene {
 
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         guard let touch = touches.first else { return }
-        let location = touch.location(in: settingsPopUp)
-        let node = settingsPopUp.atPoint(location)
+        let location = touch.location(in: settingsMusicPopUp)
+        let node = settingsMusicPopUp.atPoint(location)
 
         if node.name == "musicSlider" {
                 updateSlider(locationX: location.x)
@@ -222,7 +274,7 @@ class GameScene: SKScene {
             print("Music not playing.")
         }
     }
-    
+
     override func update(_ currentTime: TimeInterval) {
         // Called before each frame is rendered
         let bottomLimit: CGFloat = self.pan.position.y

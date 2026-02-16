@@ -23,8 +23,8 @@ extension GameScene {
     func spawnEgg() {
         let egg = SKSpriteNode(imageNamed: "egg")
         
-        let centerX = size.width / 2
-        let range: CGFloat = 100       // how wide the spawn area is (pixels)
+        let centerX = size.width * 0.05
+        let range: CGFloat = 80       // how wide the spawn area is (pixels)
 
         let xPos = CGFloat.random(in: (centerX - range)...(centerX + range))
 
@@ -35,7 +35,7 @@ extension GameScene {
         
         //falling action
         let fallDuration = TimeInterval.random(in: 3.0...6.0)
-        let moveDown = SKAction.moveTo(y: -egg.size.height, duration: fallDuration)
+        let moveDown = SKAction.moveTo(y: -egg.size.height * 8.0, duration: fallDuration)
         let remove = SKAction.removeFromParent()
         
         egg.run(SKAction.sequence([moveDown, remove]))

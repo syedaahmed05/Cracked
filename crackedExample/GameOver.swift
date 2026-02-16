@@ -13,6 +13,7 @@ extension GameScene{
     
     func gameOver(){
         currentScene = .gameOver
+        removeAllActions()
         let darkenBg = SKSpriteNode(color:UIColor.black.withAlphaComponent(0.5), size: frame.size)
         darkenBg.position = CGPoint(x: size.width * 0.0, y: size.width * 0.0)
         darkenBg.zPosition = 99
@@ -22,7 +23,7 @@ extension GameScene{
         if gameOverPopUp.parent == nil {addChild(gameOverPopUp)}
         
         let scoreTitle = SKLabelNode(fontNamed: "Super Meatball")
-        scoreTitle.text = "Score: "
+        scoreTitle.text = "Score: \(score)"
         scoreTitle.fontSize = 100
         scoreTitle.fontColor = .white
         scoreTitle.name = "scoreTitle"

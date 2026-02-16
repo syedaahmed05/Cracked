@@ -5,20 +5,20 @@
       "scale" : "1x"
     },
     {
+      "filename" : "egg@2x 1.pdf",
       "idiom" : "iphone",
       "scale" : "2x"
     },
     {
-      "filename" : "egg@2x 1.pdf",
       "idiom" : "iphone",
       "scale" : "3x"
     },
     {
+      "filename" : "egg@2x.pdf",
       "idiom" : "ipad",
       "scale" : "1x"
     },
     {
-      "filename" : "egg@2x.pdf",
       "idiom" : "ipad",
       "scale" : "2x"
     }

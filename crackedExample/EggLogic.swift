@@ -28,11 +28,9 @@ extension GameScene {
 
         let xPos = CGFloat.random(in: (centerX - range)...(centerX + range))
 
-        
         egg.position = CGPoint(x: xPos, y: self.size.height + egg.size.height + 100)
         egg.zPosition = 1
         
-         
         egg.name = "egg"
         
         //falling action
@@ -82,12 +80,12 @@ extension GameScene {
     
     func spawnLiquidEgg(from egg: SKSpriteNode) {
         guard let scene = egg.scene else { return }
-        
         let liquid = SKSpriteNode(imageNamed: "liquidEgg")
         liquid.position = egg.position
+        liquid.name = "liquidEgg"
         liquid.zPosition = egg.zPosition - 1
         liquid.setScale(0.6)
-        
+
         liquid.physicsBody = SKPhysicsBody(circleOfRadius: liquid.size.width / 2)
         liquid.physicsBody?.affectedByGravity = true
         liquid.physicsBody?.allowsRotation = true

@@ -1,7 +1,7 @@
 {
   "images" : [
     {
-      "filename" : "wholeChicken.pdf",
+      "filename" : "panWithEggs.pdf",
       "idiom" : "universal",
       "scale" : "1x"
     },
@@ -11,19 +11,6 @@
     },
     {
       "idiom" : "universal",
-      "scale" : "3x"
-    },
-    {
-      "idiom" : "iphone",
-      "scale" : "1x"
-    },
-    {
-      "filename" : "wholeChicken@2x~iphone.pdf",
-      "idiom" : "iphone",
-      "scale" : "2x"
-    },
-    {
-      "idiom" : "iphone",
       "scale" : "3x"
     }
   ],

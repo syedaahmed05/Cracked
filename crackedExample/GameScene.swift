@@ -19,8 +19,17 @@ class GameScene: SKScene {
     var swipeStartPoint: CGPoint?
     var selectedFeather: SKSpriteNode?
     var selectedPan: SKSpriteNode?
-    var score = 0
-    let scoreLabel = SKLabelNode()
+    let pan = SKSpriteNode(imageNamed: "emptyPan")
+    var panIsFull = false
+    var score = 0 {
+        didSet {
+            scoreLabel.text = "\(score)"
+        }
+    }
+    let scoreLabel = SKLabelNode(text: "0")
+    var lives = 3
+    var livesLabel = SKLabelNode(text: "")
+    //var isGameOVer = false
     
     
     enum SceneSelection {
@@ -77,6 +86,7 @@ class GameScene: SKScene {
         for node in nodesAtPoint {
                     if node.name == "egg" {
                         crackEgg(node: node)
+                        score += 1
                         break
                     }
                 }
@@ -183,34 +193,15 @@ class GameScene: SKScene {
             }
             
             if let pan = selectedPan {
-                swipePan(pan, directio: direction)
+                swipePan(pan, direction: direction)
             }
-           
-
-            
+        
             swipeStartPoint = nil
             selectedFeather = nil
             selectedPan = nil
             
         }
     
-    func swipePan(_ pan: SKSpriteNode, directio: CGVector) {
-        pan.removeAllActions()
-        
-        let multiplier: CGFloat = 3.0
-        let moveVector = CGVector (
-            dx: directio.dx * multiplier,
-            dy: directio.dy * multiplier
-        )
-        
-        let move = SKAction.move(by: moveVector, duration: 0.4)
-        let fade = SKAction.fadeOut(withDuration: 0.4)
-        let group = SKAction.group([move, fade])
-        let remove = SKAction.removeFromParent()
-        
-        pan.run(SKAction.sequence([group, remove]))
-        
-    }
     func updateSlider(locationX: CGFloat) {
         let clampedX = max(min(locationX, musicSliderMaxX), musicSliderMinX)
             musicSlider.position.x = clampedX
@@ -234,5 +225,30 @@ class GameScene: SKScene {
     
     override func update(_ currentTime: TimeInterval) {
         // Called before each frame is rendered
+        let bottomLimit: CGFloat = self.pan.position.y
+        //guard !panIsFull else { return }
+        
+        if currentScene == .gameOver { return }
+        
+        enumerateChildNodes(withName: "liquidEgg") { node, _ in
+            if node.position.y <= bottomLimit {
+                node.removeFromParent()
+                self.fillPan(with: node)
+            }
+        }
+        
+        enumerateChildNodes(withName: "egg") { node, _ in
+            if node.position.y <= bottomLimit {
+                node.removeFromParent()
+                self.loseLife()
+            }
+        }
+        
+        enumerateChildNodes(withName: "feather") { node, _ in
+            if node.position.y <= bottomLimit {
+                node.removeFromParent()
+                self.loseLife()
+            }
+        }
     }
 }

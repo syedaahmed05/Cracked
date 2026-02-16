@@ -25,7 +25,7 @@ extension GameScene {
         feather.isUserInteractionEnabled = false
         
         let centerX = size.width / 2
-        let range: CGFloat = 200
+        let range: CGFloat = 100
         
         let xPos = CGFloat.random(in: (centerX - range)...(centerX + range))
         

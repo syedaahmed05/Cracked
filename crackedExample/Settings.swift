@@ -48,7 +48,7 @@ extension GameScene{
         
         let settingsPlayBtn = SKSpriteNode(imageNamed: "settingsPlayBtn")
         settingsPlayBtn.name = "settingsPlayBtn"
-        settingsPlayBtn.position = CGPoint(x: -popupW * 0.25, y: popupH * 0.12)
+        settingsPlayBtn.position = CGPoint(x: -popupW * 0.35,y: popupH * 0.15)
         settingsPlayBtn.zPosition = 101
         settingsPopUp.addChild(settingsPlayBtn)
         
@@ -58,7 +58,7 @@ extension GameScene{
         resumeTitle.fontColor = .customRed
         resumeTitle.horizontalAlignmentMode = .center
         resumeTitle.zPosition = 101
-        resumeTitle.position = CGPoint(x: popupW * 0.05, y: popupH * 0.12)
+        resumeTitle.position = CGPoint(x: -popupW * 0.05, y: popupH * 0.12)
         settingsPopUp.addChild(resumeTitle)
         
         let quitTitle = SKLabelNode(fontNamed: "Super Meatball")
@@ -68,12 +68,12 @@ extension GameScene{
         quitTitle.fontColor = .customRed
         quitTitle.horizontalAlignmentMode = .center
         quitTitle.zPosition = 101
-        quitTitle.position = CGPoint(x:0, y: -popupH * 0.15)
+        quitTitle.position = CGPoint(x:-popupW * 0.08, y: popupH * 0.02)
         settingsPopUp.addChild(quitTitle)
         
         let settingsQuitBtn = SKSpriteNode(imageNamed: "settingsQuitBtn")
         settingsQuitBtn.name = "settingsQuitBtn"
-        settingsQuitBtn.position = CGPoint(x: popupW * 0.25, y: -popupH * 0.12)
+        settingsQuitBtn.position = CGPoint(x: -popupW * 0.35, y: popupH * 0.04)
         settingsQuitBtn.zPosition = 101
         settingsPopUp.addChild(settingsQuitBtn)
         
@@ -93,7 +93,7 @@ extension GameScene{
 
         let musicBtn = SKSpriteNode(imageNamed: "musicBtn")
         musicBtn.setScale(popupW * 0.0015)
-        musicBtn.position = CGPoint(x: -popupW * 0.35,y: -popupH * 0.08)
+        musicBtn.position = CGPoint(x: -popupW * 0.35,y: -popupH * 0.20)
         musicBtn.zPosition = 101
         settingsPopUp.addChild(musicBtn)
         
@@ -101,7 +101,7 @@ extension GameScene{
         musicCreditTitle.text = "Music by Motorcity Era"
         musicCreditTitle.fontSize = popupH * 0.05
         musicCreditTitle.fontColor = .customRed
-        musicCreditTitle.position = CGPoint(x: -popupW * 0.3,y: -popupH * 0.15)
+        musicCreditTitle.position = CGPoint(x: -popupW * 0.05,y: -popupH * 0.15)
         musicCreditTitle.zPosition = 101
         musicCreditTitle.horizontalAlignmentMode = .left
         settingsPopUp.addChild(musicCreditTitle)
@@ -116,7 +116,7 @@ extension GameScene{
         musicSliderMaxX = musicSliderBg.position.x + sliderWidth / 2
         
         musicSlider = SKSpriteNode(imageNamed: "sliderCircleBtn")
-        musicSlider.size = CGSize(width: popupW * 0.08,height: popupW * 0.08)
+        musicSlider.size = CGSize(width: popupW * 0.04, height: popupW * 0.04)
         musicSlider.name = "musicSlider"
         musicSlider.zPosition = 102
         

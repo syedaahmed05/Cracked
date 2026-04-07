@@ -30,7 +30,7 @@ extension GameScene {
         
         //add the pan to the scene
         pan.position = CGPoint(x: size.width * 0.05 , y: -size.height * 0.35)
-        pan.zPosition = 0
+        pan.zPosition = 1
         pan.name = "pan"
         addChild(pan)
         
@@ -42,24 +42,24 @@ extension GameScene {
         addChild(pauseBtn)
 
         let eggScorePhoto = SKSpriteNode(imageNamed: "egg")
-        eggScorePhoto.size = CGSize(width: size.width * 0.035, height: size.height * 0.025)
-        eggScorePhoto.position = CGPoint(x: -size.width * 0.45, y: size.height * 0.45)
-        eggScorePhoto.zPosition = 3
+        eggScorePhoto.size = CGSize(width: size.width * 0.01, height: size.height * 0.01)
+        eggScorePhoto.position = CGPoint(x: -size.width * 0.35, y: -size.height * 0.1)
+        eggScorePhoto.zPosition = -1
         addChild(eggScorePhoto)
         
-        scoreLabel.position = CGPoint(x: eggScorePhoto.position.x * 0.83, y: size.height * 0.43)
+        scoreLabel.position = CGPoint(x: eggScorePhoto.position.x * 0.70, y: -size.height * 0.45)
         scoreLabel.zPosition = 3
-        scoreLabel.fontSize = size.height * 0.05
+        scoreLabel.fontSize = size.height * 0.055
         scoreLabel.fontName = "Super Meatball"
         scoreLabel.fontColor = .customRed
         addChild(scoreLabel)
         
         livesLabel = SKLabelNode(fontNamed: "Super Meatball")
-        livesLabel.fontSize = size.height * 0.05
+        livesLabel.fontSize = size.height * 0.045
         livesLabel.fontColor = .customRed
-        livesLabel.position = CGPoint(x:eggScorePhoto.position.x * 0.92, y: size.height * 0.35 )
+        livesLabel.position = CGPoint(x:-eggScorePhoto.position.x * 0.50, y: -size.height * 0.45 )
         livesLabel.zPosition = 100
-        livesLabel.text = "❌ \(lives)"
+        livesLabel.text = "❌❌❌\(lives)"
         addChild(livesLabel)
         
         addingEggs()
@@ -71,6 +71,14 @@ extension GameScene {
         animateLifeLoss()
         print("Lost a life")
         livesLabel.text = "❌ \(lives)"
+        
+        if lives == 3 {
+            livesLabel.text = "❌❌❌ \(lives)"
+        } else if lives == 2 {
+            livesLabel.text = "❌❌ \(lives)"
+        } else if lives == 1 {
+            livesLabel.text = "❌ \(lives)"
+        }
 
         if lives <= 0 {
             gameOver()

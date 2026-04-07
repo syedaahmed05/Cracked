@@ -24,17 +24,17 @@ extension GameScene {
         let egg = SKSpriteNode(imageNamed: "egg")
         
         let centerX = size.width * 0.05
-        let range: CGFloat = 80       // how wide the spawn area is (pixels)
+        let range: CGFloat = 100       // how wide the spawn area is (pixels)
 
         let xPos = CGFloat.random(in: (centerX - range)...(centerX + range))
 
         egg.position = CGPoint(x: xPos, y: self.size.height + egg.size.height + 0.50)
-        egg.zPosition = 1
+        egg.zPosition = 0
         egg.name = "egg"
         
         //falling action
-        let fallDuration = TimeInterval.random(in: 3.0...6.0)
-        let moveDown = SKAction.moveTo(y: -egg.size.height * 8.0, duration: fallDuration)
+        let fallDuration = TimeInterval.random(in: 4.0...7.0)
+        let moveDown = SKAction.moveTo(y: -600, duration: fallDuration)
         let remove = SKAction.removeFromParent()
         
         egg.run(SKAction.sequence([moveDown, remove]))

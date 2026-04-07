@@ -25,7 +25,7 @@ extension GameScene {
         feather.isUserInteractionEnabled = false
         
         let centerX = size.width * 0.05
-        let range: CGFloat = 200
+        let range: CGFloat = 120
         
         let xPos = CGFloat.random(in: (centerX - range)...(centerX + range))
         
@@ -33,8 +33,8 @@ extension GameScene {
         feather.zPosition = 1
         
         feather.name = "feather"
-        let fallDuration = TimeInterval.random(in: 3.0...6.0)
-        let moveDown = SKAction.moveTo(y: -feather.size.height * 8.0, duration: fallDuration)
+        let fallDuration = TimeInterval.random(in: 4.0...7.0)
+        let moveDown = SKAction.moveTo(y: -600, duration: fallDuration)
         let remove = SKAction.removeFromParent()
         
         feather.run(SKAction.sequence([moveDown, remove]))

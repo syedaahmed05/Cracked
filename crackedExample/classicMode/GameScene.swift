@@ -276,6 +276,7 @@ class GameScene: SKScene {
             musicPlayer = try AVAudioPlayer(contentsOf: url)
             musicPlayer?.numberOfLoops = -1
             musicPlayer?.volume = musicVolume
+            
             musicPlayer?.play()
         } catch {
             print("Music not playing.")
@@ -298,7 +299,7 @@ class GameScene: SKScene {
         }
         
         enumerateChildNodes(withName: "egg") { node, _ in
-            if node.position.y <= bottomLimit {
+            if node.position.y <=  bottomLimit {
                 node.removeFromParent()
                 self.loseLife()
             }

@@ -41,14 +41,14 @@ class GameScene: SKScene {
     
     
     enum SceneSelection {
-        case mainMenu
+        //case mainMenu
         case startGame
         case settings
         case settingsMusicOnly
-        case info
+        //case info
         case gameOver
     }
-    var currentScene: SceneSelection = .mainMenu
+    var currentScene: SceneSelection = .startGame
     var musicPlayer: AVAudioPlayer?
     var musicVolume: Float = 1.0
     var musicSliderMinX: CGFloat = 0
@@ -97,7 +97,7 @@ class GameScene: SKScene {
         
         if node.name == "settingsMusicCloseBtn" {
             print("Music Settings button tapped.")
-            mainMenu()
+            //mainMenu()
             
             
         }
@@ -108,19 +108,19 @@ class GameScene: SKScene {
         
         if node.name == "infoBtn"{
             print("Info button tapped.")
-            info()
+            //info()
         }
         
         if node.name == "infoCloseBtn"{
             print("Info screen closed.")
-            mainMenu()
+            //mainMenu()
         }
         
         if node.name == "homeBtn"{
             print("Home button tapped.")
             score = 0
             lives = 3
-            mainMenu()
+            MainMenu()
         }
         
         if node.name == "exBtn"
@@ -149,8 +149,8 @@ class GameScene: SKScene {
             self.isPaused = false
             removeAllActions()
             removeAllChildren()
-            currentScene = .mainMenu
-            mainMenu()
+            //currentScene = .mainMenu
+            //mainMenu()
         }
         
         if node.name == "settingsQuitTitle"{
@@ -159,8 +159,8 @@ class GameScene: SKScene {
             
             removeAllActions()
             removeAllChildren()
-            currentScene = .mainMenu
-            mainMenu()
+            //currentScene = .mainMenu
+            //mainMenu()
         }
         
         if node.name == "resumeBtn"{
@@ -195,14 +195,8 @@ class GameScene: SKScene {
            }
         
         switch currentScene{
-        case .mainMenu:
-            mainMenu()
-            
         case .startGame:
             gameSetup()
-            
-        case .info:
-            info()
             
         case .settings:
             showPopup()
@@ -213,7 +207,7 @@ class GameScene: SKScene {
             settingsMusicOnly()
             
         case .gameOver:
-            mainMenu()
+            MainMenu()
         }
     }
 

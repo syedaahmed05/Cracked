@@ -32,7 +32,7 @@ struct  MainMenu: View {
                     GameView()
                 }
                 
-                Button("Zen Mode") {
+                Button("Zen Modee") {
                     startZenMode = true
                 }
                 .padding()

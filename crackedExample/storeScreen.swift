@@ -4,7 +4,6 @@
 //
 //  Created by Manar Hizam on 4/7/26.
 //
-
 import SwiftUI
 
 struct storeScreen: View {
@@ -34,20 +33,45 @@ struct storeScreen: View {
                 .resizable()
                 .ignoresSafeArea()
             
-            ScrollView(.vertical, showsIndicators: false) {
-                VStack(spacing: 30) {
-                    
-                    Image("xpRectangle")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 120)
-                        .offset(y:-30)
+//                        ScrollView(.vertical, showsIndicators: false) {
+//                          VStack(spacing: 30) {
+            VStack(spacing: 0){
+                ZStack{
+            HStack{
+                Image("coinBox")
+                // .resizeable()
+                    .scaledToFit()
+                    .frame(width: 120)
+                    .offset(x:-15, y:-10)
+                
+                Spacer()
+                
+                Image("xpRectangle")
+                //  .resizable()
+                    .scaledToFit()
+                    .frame(width: 120)
+                    .offset(x:-150, y: -10)
+            }
+            .padding(.horizontal,20)
+            
+            Text("SHOP")
+                .font(.custom("Super Meatball", size: 50))
+                .foregroundStyle(.orange)
+                .offset(x:120, y: -20)
+            
+        }
+        .padding(.top, 20)
+        .padding(.bottom,10)
+        
+        ScrollView(.vertical, showsIndicators: false) {
+            VStack(spacing: 0) {
                     
                     Image("ChickenPlank")
                         .resizable()
                         .scaledToFit()
-                        .frame(width: 280)
-                        .offset(y:-30)
+                        .frame(maxWidth: .infinity)
+                        .offset(y:-10)
+                        .frame(height:110)
                     
                     
                     ScrollView(.horizontal, showsIndicators: false) {
@@ -58,12 +82,14 @@ struct storeScreen: View {
                         }
                         .padding(.horizontal)
                     }
+                    .offset(y:-12)
                     
                     Image("eggsWoodenPlank")
                         .resizable()
                         .scaledToFit()
                         .frame(maxWidth: .infinity)
-                        .offset(y:-60)
+                        .frame(height:170)
+                        .offset(y:-40)
                     
                     ScrollView(.horizontal, showsIndicators: false) {
                         HStack(spacing: 20) {
@@ -73,12 +99,14 @@ struct storeScreen: View {
                         }
                         .padding(.horizontal)
                     }
+                    .offset(y:-12)
                     
                     Image("chefPlank")
                         .resizable()
-                        .scaledToFit()
+                       // .scaledToFit()
                         .frame(maxWidth: .infinity)
-                        .offset(y:-57)
+                        .frame(height: 170)
+                        .offset(y:-39)
                     
                     ScrollView(.horizontal, showsIndicators: false) {
                         HStack(spacing: 20) {
@@ -88,12 +116,15 @@ struct storeScreen: View {
                         }
                         .padding(.horizontal)
                     }
+                    .offset(y:-12)
                 }
-                .padding(.top, 100)
-                .padding(.bottom, 40)
+                //.padding(.top, 100)
+                .padding(.bottom, 30)
             }
         }
     }
+
+}
 }
 
 #Preview {

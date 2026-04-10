@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "CoinRectangle.png",
+      "filename" : "coinBox1x.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "CoinRectangle2x.png",
+      "filename" : "coinBox2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "CoinRectangle3x.png",
+      "filename" : "coinBox3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

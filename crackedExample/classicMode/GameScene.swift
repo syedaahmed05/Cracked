@@ -128,7 +128,7 @@ class GameScene: SKScene {
             gameOver()
         }
         
-        if node.name == "replayBtn"{
+        if node.name == "menuBtn"{
             print("Play again button tapped.")
             score = 0
             lives = 3

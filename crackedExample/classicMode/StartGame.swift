@@ -24,19 +24,19 @@ extension GameScene {
         
         //add the chicken butt to the scene
         let chicken = SKSpriteNode(imageNamed: "wholeChicken")
-        chicken.position = CGPoint(x: size.width * 0.5, y: size.height * 0.8)
+        chicken.position = CGPoint(x: size.width * 0.5, y: size.height * 0.9)
         chicken.zPosition = 2
         addChild(chicken)
         
         //add the pan to the scene
-        pan.position = CGPoint(x: size.width * 0.05 , y: -size.height * 0.35)
+        pan.position = CGPoint(x: size.width * 0.0 , y: -size.height * 0.0)
         pan.zPosition = 1
         pan.name = "pan"
         addChild(pan)
         
         let pauseBtn = SKSpriteNode(imageNamed: "pauseBtn")
         pauseBtn.name = "pauseBtn"
-        pauseBtn.size = CGSize(width: size.width * 0.04, height: size.height * 0.04)
+        pauseBtn.size = CGSize(width: size.width * 0.0, height: size.height * 0.0)
         pauseBtn.position = CGPoint(x:size.width  * 0.45,y: size.height * 0.45)
         pauseBtn.zPosition = 5
         addChild(pauseBtn)

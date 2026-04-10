@@ -11,6 +11,7 @@ import SwiftUI
 struct  MainMenu: View {
     @State private var startClassicMode = false
     @State private var startZenMode = false
+    @State private var openStore = false
 //new comment
     
     var body: some View {
@@ -99,8 +100,8 @@ struct  MainMenu: View {
                                     .stroke(Color.black, lineWidth: 0.8)
                             }
                             .shadow(radius: 5)
-                            .navigationDestination(isPresented: $startZenMode) {
-                                GameView()
+                            .navigationDestination(isPresented: $openStore) {
+                                storeScreen()
                             }
                             Button(action: {}){
                                 Image(systemName: "crown.fill")

@@ -18,7 +18,7 @@ struct  MainMenu: View {
         GeometryReader  { geo in
             NavigationStack{
                 ZStack {
-                    Image("background")
+                    Image("mainMenuBackground")
                         .resizable()
                         .edgesIgnoringSafeArea(.all)
                         .scaledToFill()

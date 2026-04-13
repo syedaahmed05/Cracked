@@ -105,19 +105,15 @@ class GameScene: SKScene {
             print("Settings closed.")
             gameSetup()
         }//here we need to also be able to take it back to gameplay too
-        
-        if node.name == "infoBtn"{
-            print("Info button tapped.")
-            //info()
-        }
+
         
         if node.name == "infoCloseBtn"{
             print("Info screen closed.")
             //mainMenu()
         }
         
-        if node.name == "homeBtn"{
-            print("Home button tapped.")
+        if node.name == "mainMenuBtn"{
+            print("Menu button tapped.")
             score = 0
             lives = 3
             MainMenu()

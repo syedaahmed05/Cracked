@@ -87,8 +87,10 @@ struct  MainMenu: View {
                                 GameView()
                             }
                             Button(action: {}){
+                                //openStore = true
                                 Image(systemName: "storefront.fill")
                                     .accessibilityLabel("Access the store.")
+                                
                             }
                             .padding()
                             .background(Color.customBeige)

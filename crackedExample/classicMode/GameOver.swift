@@ -64,7 +64,7 @@ extension GameScene{
         let menuBtn = SKSpriteNode(imageNamed: "menuBtn")
         menuBtn.size = CGSize(width: size.width * 0.65, height: size.height * 0.08)
         menuBtn.position = CGPoint(x: size.width * 0.5, y: size.height * 0.3)
-        menuBtn.name = "menuBtn"
+        menuBtn.name = "mainMenuBtn"
         menuBtn.zPosition = 100
         gameOverPopUp.addChild(menuBtn)
         

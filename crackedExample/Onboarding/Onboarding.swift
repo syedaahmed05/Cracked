@@ -1,4 +1,3 @@
-
 //
 //  OnBoarding.swift
 //  crackedExample
@@ -30,7 +29,14 @@ struct OnboardingView: View {
     var body: some View {
         TabView(selection: $currentTab) {
             //Screen 1
-            //OnboardingDetail(
+            OnboardingDetail(
+                image: "angryChefPoint",
+                
+                description: "Welcome to Cracked! This is a fast-paced game where you crack eggs and swipe feathers!"
+            ).tag(0)
+            
+            //Screen 2
+            OnboardingDetail(image: "angryChefPoint", description: "Click on the egg to crack it").tag(1)
         }
     }
 }
@@ -38,14 +44,43 @@ struct OnboardingView: View {
 //Reusable view for each step/screen
 struct OnboardingDetail: View {
     var image: String
-    var title: String
+    //var title: String
     var description: String
     var body: some View {
-        ZStack {
-            Image("background")
-            VStack {
-                //Image()
+        GeometryReader { geo in
+            ZStack {
+                Image("onboardingBackground")
+                    .resizable()
+                    .ignoresSafeArea()
+                
+                
+                
+                ZStack {
+                    
+                    
+                    VStack {
+                        Spacer()
+                        
+                        HStack {
+                            Image(.angryChefPoint)
+                                .resizable()
+                            //.scaledToFit()
+                                .frame(width: 160, height: 200)
+                            
+                            
+                            Text(description)
+                                .font(.body)
+                                .multilineTextAlignment(.center)
+                                .padding(.horizontal)
+                        }
+                        
+                    }
+                }
             }
         }
     }
+}
+
+#Preview {
+    FirstView()
 }

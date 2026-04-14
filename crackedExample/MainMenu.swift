@@ -23,18 +23,62 @@ struct  MainMenu: View {
                         .edgesIgnoringSafeArea(.all)
                         .scaledToFill()
                         .frame(width:geo.size.width, height:geo.size.height,alignment: .center)
-                    //insert background here
                     VStack{
+                        HStack{
+                            Button(action:{} ) {
+//                                Label("Profile", Image(systemName: "coin"))
+                                //startClassicMode = true
+                            }
+                            .padding(30)
+                            .frame(maxWidth: .infinity)
+                            .font(Font.custom("Super Meatball", size: 20))
+                            .background(Color.customBeige)
+                            .shadow(radius: 2)
+                            .foregroundStyle(Color.customRed)
+                            .clipShape(Capsule())
+                            .overlay{
+                                Capsule()
+                                    .inset(by: 10)
+                                    .strokeBorder()
+                            }
+                            .overlay{
+                                Capsule()
+                                    .stroke(Color.black, lineWidth: 0.8)
+                            }
+                            .shadow(radius: 5)
+                            
+                            
+                            Button(action:{}) {
+                                VStack {
+                                        Image(systemName: "coin") // Asset
+                                        Text("Favorite")              // Text
+                                    }
+                            }
+                            .padding(30)
+                            .frame(maxWidth: .infinity)
+                            .font(Font.custom("Super Meatball", size: 20))
+                            .background(Color.customBeige)
+                            .shadow(radius: 5)
+                            .foregroundStyle(Color.black)
+                            .clipShape(Capsule())
+                            .overlay{
+                                Capsule()
+                                    .stroke(Color.black, lineWidth: 0.8)
+                            }
+                            .shadow(radius: 5)
+                        }
+                        
                         Spacer()
+                        
                         Button("Classic Mode") {
                             startClassicMode = true
                         }
                         .padding(30)
-                        .frame(maxWidth: .infinity)
-                        .font(Font.custom("Super Meatball", size: 20))
+                        .frame(minWidth: 250)
+                        .font(Font.custom("Super Meatball", size: 30))
                         .background(Color.customBeige)
-                        .shadow(radius: 5)
-                        .foregroundStyle(Color.black)
+                        .shadow(radius: 2)
+                        .foregroundStyle(Color.customRed)
                         .clipShape(Capsule())
                         .overlay{
                             Capsule()
@@ -52,11 +96,11 @@ struct  MainMenu: View {
                             startZenMode = true
                         }
                         .padding(30)
-                        .frame(maxWidth: .infinity)
-                        .font(Font.custom("Super Meatball", size: 20))
+                        .frame(minWidth: 250)
+                        .font(Font.custom("Super Meatball", size: 30))
                         .background(Color.customBeige)
-                        .shadow(radius: 5)
-                        .foregroundStyle(Color.black)
+                        .shadow(radius: 2)
+                        .foregroundStyle(Color.customRed)
                         .clipShape(Capsule())
                         .overlay{
                             Capsule()
@@ -76,7 +120,7 @@ struct  MainMenu: View {
                             
                             .background(Color.customBeige)
                             .shadow(radius: 5)
-                            .foregroundStyle(Color.black)
+                            .foregroundStyle(Color.customRed)
                             .clipShape(Circle())
                             .overlay{
                                 Circle()
@@ -95,7 +139,7 @@ struct  MainMenu: View {
                             .padding()
                             .background(Color.customBeige)
                             .shadow(radius: 5)
-                            .foregroundStyle(Color.black)
+                            .foregroundStyle(Color.customRed)
                             .clipShape(Circle())
                             .overlay{
                                 Circle()
@@ -112,7 +156,7 @@ struct  MainMenu: View {
                             .padding()
                             .background(Color.customBeige)
                             .shadow(radius: 5)
-                            .foregroundStyle(Color.black)
+                            .foregroundStyle(Color.customRed)
                             .clipShape(Circle())
                             .fixedSize()
                             .overlay{

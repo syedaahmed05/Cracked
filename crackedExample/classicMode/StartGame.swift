@@ -29,7 +29,7 @@ extension GameScene {
         addChild(chicken)
         
         //add the pan to the scene
-        pan.position = CGPoint(x: size.width * 0.0 , y: -size.height * 0.0)
+        pan.position = CGPoint(x: size.width * 0.5 , y: size.height * 0.5)
         pan.zPosition = 1
         pan.name = "pan"
         addChild(pan)

@@ -9,7 +9,7 @@ import Foundation
 import SwiftUI
 
 struct FirstView: View {
-    @AppStorage("isFirstLaunch") var isFirstLaunch: Bool = true
+    @AppStorage("isFirstLaunch") var isFirstLaunch: Bool = true //remembers if user has done onboarding
     
     var body: some View {
         if isFirstLaunch {
@@ -24,21 +24,28 @@ struct FirstView: View {
 
 struct OnboardingView: View {
     @Binding var isFirstLaunch: Bool
-    @State private var currentTab = 0
+    @State private var currentStep = 0
     
     var body: some View {
-        TabView(selection: $currentTab) {
+        
             //Screen 1
+        if (currentStep == 0) {
             OnboardingDetail(
                 image: "angryChefPoint",
                 
-                description: "Welcome to Cracked! This is a fast-paced game where you crack eggs and swipe feathers!"
-            ).tag(0)
-            
-            //Screen 2
-            OnboardingDetail(image: "angryChefPoint", description: "Click on the egg to crack it").tag(1)
+                description: "Welcome to Cracked! This is a fast-paced game where you crack eggs and swipe feathers!")
+            .onTapGesture(coordinateSpace: .global) { location in print("Global X: \(location.x), Y: \(location.y)") //printing coordinates to know which x/y coordinates to have objects drop from
+                currentStep += 1
+            }
         }
+            
+        else if (currentStep == 1) {
+            //Screen 2
+            OnboardingDetail(image: "angryChefPoint", description: "Click on the egg to crack it")
+        }
+        
     }
+    
 }
 
 //Reusable view for each step/screen
@@ -81,6 +88,12 @@ struct OnboardingDetail: View {
     }
 }
 
+struct fallingObject {
+    @State var yPosition: Double
+    var image: String
+}
+
 #Preview {
     FirstView()
 }
+

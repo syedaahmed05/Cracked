@@ -25,48 +25,61 @@ struct  MainMenu: View {
                         .frame(width:geo.size.width, height:geo.size.height,alignment: .center)
                     VStack{
                         HStack{
+                                Button(action:{}) {
+                                    HStack {
+                                        Image("coin") // Asset
+                                        Text("36")              // Text
+                                    }
+                                }
+                                .padding(10)
+                                .frame(maxWidth: .infinity)
+                                .font(Font.custom("Super Meatball", size: 30))
+                                .foregroundStyle(Color.customRed)
+                                .background{
+                                    Capsule()
+                                        .fill(Color.customBeige)
+                                        .overlay{
+                                            Capsule()
+                                                .inset(by: 10)
+                                                .fill(Color.customLightBeige)
+                                        }
+                                }
+                                .overlay {
+                                    Capsule()
+                                        .stroke(Color.black, lineWidth: 0.8)
+                                }
+                                .shadow(radius: 5)
+                           
                             Button(action:{} ) {
-//                                Label("Profile", Image(systemName: "coin"))
-                                //startClassicMode = true
+                                ZStack{
+                                    Text("15")
+                                }
                             }
-                            .padding(30)
+                            .padding(10)
                             .frame(maxWidth: .infinity)
-                            .font(Font.custom("Super Meatball", size: 20))
-                            .background(Color.customBeige)
-                            .shadow(radius: 2)
+                            .font(Font.custom("Super Meatball", size: 30))
+                            //.background(Color.customBeige)
+                            //.shadow(radius: 2)
                             .foregroundStyle(Color.customRed)
-                            .clipShape(Capsule())
-                            .overlay{
+                            .background{
                                 Capsule()
-                                    .inset(by: 10)
-                                    .strokeBorder()
-                            }
-                            .overlay{
-                                Capsule()
-                                    .stroke(Color.black, lineWidth: 0.8)
-                            }
-                            .shadow(radius: 5)
-                            
-                            
-                            Button(action:{}) {
-                                VStack {
-                                        Image(systemName: "coin") // Asset
-                                        Text("Favorite")              // Text
+                                    .fill(Color.customBeige)
+                                    .overlay{
+                                        Capsule()
+                                            .inset(by: 10)
+                                            .fill(Color.customLightBeige)
                                     }
                             }
-                            .padding(30)
-                            .frame(maxWidth: .infinity)
-                            .font(Font.custom("Super Meatball", size: 20))
-                            .background(Color.customBeige)
-                            .shadow(radius: 5)
-                            .foregroundStyle(Color.black)
-                            .clipShape(Capsule())
-                            .overlay{
+                            .overlay {
                                 Capsule()
                                     .stroke(Color.black, lineWidth: 0.8)
                             }
                             .shadow(radius: 5)
-                        }
+                            
+                            
+
+                        }.frame(maxWidth: .infinity)
+                            .padding(.horizontal)
                         
                         Spacer()
                         

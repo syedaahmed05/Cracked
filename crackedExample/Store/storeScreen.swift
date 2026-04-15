@@ -14,7 +14,7 @@ struct storeScreen: View {
     let chickenItems = [
     StoreItem(name: "CowBoy Chicken", assetName: "cowboyChicken", description:" A chicken with a cowboy style", powerText:" Looks cool in coop" , unlockText: "XP must reach: 10", price: 100, category: "Chicken"),
         
-        StoreItem(name: "CowBoy Chicken", assetName: "cowboyChicken", description:" A chicken with a cowboy style", powerText:" Looks cool in coop" , unlockText: "XP must reach: 10", price: 100, category: "Chicken"),
+        StoreItem(name: "Punk Chicken", assetName: "punkChicken", description:" A chicken with a emo style", powerText:" Makes the power " , unlockText: "XP must reach: 30", price: 100, category: "Chicken"),
         
         StoreItem(name: "CowBoy Chicken", assetName: "cowboyChicken", description:" A chicken with a cowboy style", powerText:" Looks cool in coop" , unlockText: "XP must reach: 10", price: 100, category: "Chicken"),
         
@@ -50,8 +50,7 @@ struct storeScreen: View {
                 .resizable()
                 .ignoresSafeArea()
             
-                        //            ScrollView(.vertical, showsIndicators: false) {
-            //                          VStack(spacing: 30) {
+                        
             VStack(spacing: 0){
                 ZStack{
                     HStack{
@@ -64,7 +63,6 @@ struct storeScreen: View {
                         Spacer()
                         
                         Image("xpRectangle")
-                        //  .resizable()
                             .scaledToFit()
                             .frame(width: 120)
                             .offset(x:-150, y: -10)
@@ -83,12 +81,7 @@ struct storeScreen: View {
                 
                 VStack(spacing: 0) {
                     
-                    //                    Image("ChickenPlank")
-                    //                        .resizable()
-                    //                        .scaledToFit()
-                    //                        .frame(maxWidth: .infinity)
-                    //                        .offset(y:-16)
-                    //                        .frame(height:110)
+                    
                     
                     ScrollView(.vertical, showsIndicators: false) {
                         VStack(spacing:0){
@@ -98,7 +91,7 @@ struct storeScreen: View {
                                 .frame(maxWidth: .infinity)
                                 .offset(y:-16)
                                 .frame(height:110)
-                                // Spacer()
+                                
                             
                             ScrollView(.horizontal, showsIndicators: false) {
                                 HStack(spacing: 20) {
@@ -110,7 +103,7 @@ struct storeScreen: View {
                                 }
                                 .padding(.horizontal)
                             }
-                            //  .offset(y:-1)
+                            
                             
                             Image("eggsWoodenPlank")
                                 .resizable()
@@ -154,7 +147,7 @@ struct storeScreen: View {
                     }
                     .padding(.bottom,110)
                 }
-                //here
+                
                 
             }
             
@@ -166,8 +159,7 @@ struct storeScreen: View {
                     
                         .scaledToFit( )
                         .frame(width :190, height:70)
-                    //  .offset(x:-100, y: -20)
-                    // .offset(x:-90, y:162)
+                    
                 }
                 
                 Button(action: {
@@ -177,7 +169,7 @@ struct storeScreen: View {
                     Image("powerupButton")
                         .scaledToFit()
                         .frame(width: 190, height:70)
-                    //  .offset(x:110, y: 62)
+                    
                 }
                 
                 
@@ -194,13 +186,12 @@ struct storeScreen: View {
                 }
 
             ZStack {
-                Image("itemsBox") // 👈 your asset
+                Image("itemsBox")
                     .resizable()
                     .scaledToFit()
-                    .frame(width: 360) // make it bigger
+                    .frame(width: 360)
 
                 VStack(spacing: 12) {
-
                     Image(selected.assetName)
                         .resizable()
                         .scaledToFit()
@@ -223,7 +214,7 @@ struct storeScreen: View {
                         print("buy")
                     }
                 }
-                .frame(width: 260) // keeps text inside the box
+                .frame(width: 260)
             }
         }}
             }

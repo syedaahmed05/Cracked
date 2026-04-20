@@ -41,7 +41,12 @@ struct OnboardingView: View {
             
         else if (currentStep == 1) {
             //Screen 2
-            OnboardingDetail(image: "angryChefPoint", description: "Click on the egg to crack it")
+            ZStack {
+                Image("egg")
+                    .resizable()
+                    //.overlay()
+                OnboardingDetail(image: "angryChefPoint", description: "Click on the egg to crack it")
+            }
         }
         
     }
@@ -64,9 +69,13 @@ struct OnboardingDetail: View {
                 
                 ZStack {
                     
-                    
+                    Spacer()
                     VStack {
                         Spacer()
+                        Image("emptyPan")
+                            .resizable()
+                            .scaledToFit()
+                            .padding(.top)
                         
                         HStack {
                             Image(.angryChefPoint)
@@ -80,6 +89,7 @@ struct OnboardingDetail: View {
                                 .multilineTextAlignment(.center)
                                 .padding(.horizontal)
                         }
+                            
                         
                     }
                 }
@@ -88,12 +98,56 @@ struct OnboardingDetail: View {
     }
 }
 
-struct fallingObject {
-    @State var yPosition: Double
+struct FallingObject: View {
     var image: String
+    var size: CGFloat = 90 //core graphics float. responsible for coordinates, sizes, positions
+    @Binding var yOffset: CGFloat
+    
+    var body: some View {
+        Image(image)
+            .resizable()
+            .frame(width: size, height: size)
+            .offset(y: yOffset)
+    }
+}
+
+struct SpotlightOverLay: View {
+    var radius: Double //to calculate radius of the circle
+    //to find x,y coordinates for where to put the circle
+    var xPosition: Double
+    var yPosition: Double
+    
+    private var holeRect: CGRect { //internal math should be private because these are kitchen tasks
+        CGRect ( //creates invisible box x,y coordinates is the top left corner
+            x: xPosition - radius,
+            y: yPosition - radius,
+            width: radius * 2,
+            height: radius * 2
+        )
+    }
+    
+    var body: some View {
+        Canvas { context, size in //Canvas is a raw drawing surface! context = paintbrush
+            context.fill(Path(CGRect(origin: .zero, size: size)), with: .color(.black.opacity(0.75))) //fills entire screen with origin and size into a black overlay
+            var ctx = context
+            ctx.blendMode = .destinationOut //erases the foreground like clipshape? like a hole punch
+            ctx.fill(Path(ellipseIn: holeRect), with: .color(.white))
+        }//code above creates circle inside holeRect color doesnt matter because destinationOut takes precedence
+        .ignoresSafeArea()
+    }
+    
+    
+}
+
+
+enum TutorialPhase {
+    case eggFalling //egg animates down, freezes
+    case spotlight //overlay appears, chef speaks
+    case eggTapped //cracked egg shows, yolk falls
 }
 
 #Preview {
     FirstView()
 }
+
 

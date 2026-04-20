@@ -43,8 +43,8 @@ class GameScene: SKScene {
     enum SceneSelection {
         //case mainMenu
         case startGame
-        case settings
-        case settingsMusicOnly
+        //case settings
+        //case settingsMusicOnly
         //case info
         case gameOver
     }
@@ -91,7 +91,7 @@ class GameScene: SKScene {
         }
         if node.name == "settingsMusicBtn" {
             print("Settings button tapped.")
-            settingsMusicOnly()
+            //settingsMusicOnly()
             
         }
         
@@ -135,8 +135,8 @@ class GameScene: SKScene {
         
         if node.name == "pauseBtn"{
             isGamePaused = true
-            currentScene = .settings
-            settingsView()
+            //currentScene = .settings
+            //settingsView()
             removeAllActions()
         }
         
@@ -194,13 +194,13 @@ class GameScene: SKScene {
         case .startGame:
             gameSetup()
             
-        case .settings:
-            showPopup()
-            settingsView()
+        //case .settings:
+            //showPopup()
+            //settingsView()
             
-        case .settingsMusicOnly:
-            showPopup()
-            settingsMusicOnly()
+       // case .settingsMusicOnly:
+            //showPopup()
+            //settingsMusicOnly()
             
         case .gameOver:
             MainMenu()
@@ -209,12 +209,12 @@ class GameScene: SKScene {
 
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         guard let touch = touches.first else { return }
-        let location = touch.location(in: settingsMusicPopUp)
-        let node = settingsMusicPopUp.atPoint(location)
-
-        if node.name == "musicSlider" {
-                updateSlider(locationX: location.x)
-            }
+        //let location = touch.location(in: settingsMusicPopUp)
+//        let node = settingsMusicPopUp.atPoint(location)
+//
+//        if node.name == "musicSlider" {
+//                updateSlider(locationX: location.x)
+//            }
 
     }
     
@@ -251,14 +251,7 @@ class GameScene: SKScene {
             
         }
     
-    func updateSlider(locationX: CGFloat) {
-        let clampedX = max(min(locationX, musicSliderMaxX), musicSliderMinX)
-            musicSlider.position.x = clampedX
 
-            let value = Float((clampedX - musicSliderMinX) / sliderWidth)
-            musicVolume = value
-            musicPlayer?.volume = musicVolume
-    }
     
     func playMusic() {
         guard let url = Bundle.main.url(forResource: "crackedOriginalVer", withExtension: "mp3") else { return }

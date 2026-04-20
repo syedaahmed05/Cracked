@@ -12,7 +12,7 @@ struct storeScreen: View {
     
     
     let chickenItems = [
-    StoreItem(name: "CowBoy Chicken", assetName: "cowboyChicken", description:" A chicken with a cowboy style", powerText:" Looks cool in coop" , unlockText: "XP must reach: 10", price: 100, category: "Chicken"),
+        StoreItem(name: "CowBoy Chicken", assetName: "cowboyChicken", description:" A chicken with a cowboy style", powerText:" Looks cool in coop" , unlockText: "XP must reach: 10", price: 100, category: "Chicken"),
         
         StoreItem(name: "Punk Chicken", assetName: "punkChicken", description:" A chicken with a emo style", powerText:" Makes the power " , unlockText: "XP must reach: 30", price: 100, category: "Chicken"),
         
@@ -50,7 +50,7 @@ struct storeScreen: View {
                 .resizable()
                 .ignoresSafeArea()
             
-                        
+            
             VStack(spacing: 0){
                 ZStack{
                     HStack{
@@ -58,21 +58,21 @@ struct storeScreen: View {
                         // .resizeable()
                             .scaledToFit()
                             .frame(width: 120)
-                            .offset(x:-15, y:-10)
+                            .offset(x:20, y:-1)
                         
                         Spacer()
                         
                         Image("xpRectangle")
                             .scaledToFit()
                             .frame(width: 120)
-                            .offset(x:-150, y: -10)
+                            .offset(x:-40, y: -1)
                     }
                     .padding(.horizontal,20)
                     
                     Text("SHOP")
-                        .font(.custom("Super Meatball", size: 50))
-                        .foregroundStyle(.orange)
-                        .offset(x:120, y: -20)
+                        .font(.custom("Super Meatball", size: 52))
+                        .foregroundStyle(.customBeige)
+                        .offset(x:-4, y: -40)
                     
                 }
                 .padding(.top, 20)
@@ -82,7 +82,7 @@ struct storeScreen: View {
                 VStack(spacing: 0) {
                     
                     
-                    
+                    //     Spacer()
                     ScrollView(.vertical, showsIndicators: false) {
                         VStack(spacing:0){
                             Image("ChickenPlank")
@@ -91,7 +91,7 @@ struct storeScreen: View {
                                 .frame(maxWidth: .infinity)
                                 .offset(y:-16)
                                 .frame(height:110)
-                                
+                            // figure out a way to keep it not moving down when i scroll down, scroll issue
                             
                             ScrollView(.horizontal, showsIndicators: false) {
                                 HStack(spacing: 20) {
@@ -130,7 +130,7 @@ struct storeScreen: View {
                         // .scaledToFit()
                             .frame(maxWidth: .infinity)
                             .frame(height: 170)
-                        //   .offset(y:-39)
+                        //  .offset(y:-39)
                         
                         ScrollView(.horizontal, showsIndicators: false) {
                             HStack(spacing: 20) {
@@ -178,50 +178,59 @@ struct storeScreen: View {
             .offset(y:48)
         }
         if let selected = selectedItem {
-
+            
             Color.black.opacity(0.3)
                 .ignoresSafeArea()
+                //.frame(width: 440, height: 338)
+            
                 .onTapGesture {
                     selectedItem = nil
                 }
-
+            
             ZStack {
-                Image("itemsBox")
+                Image("popUp")
                     .resizable()
                     .scaledToFit()
-                    .frame(width: 360)
-
+                    .frame(width: 320, height:430)
+                //pop up that appear when i click on itemBox
+                
                 VStack(spacing: 12) {
                     Image(selected.assetName)
                         .resizable()
                         .scaledToFit()
                         .frame(width: 90, height: 90)
-
+                    
                     Text(selected.name)
                         .font(.custom("Super Meatball", size: 24))
-
+                    
                     Text(selected.description)
                         .font(.custom("Boba Milky", size: 16))
                         .multilineTextAlignment(.center)
-
+                    
                     Text(selected.powerText)
                         .font(.custom("Boba Milky", size: 14))
-
+                    
                     Text(selected.unlockText)
                         .font(.custom("Boba Milky", size: 14))
-
-                    Button("\(selected.price) Buy") {
+                    
+                    Button("\(selected.price) Buy" ) {
                         print("buy")
+                        
+                            
                     }
                 }
-                .frame(width: 260)
+                //                    .frame(maxWidth: .infinity, maxHeight: .infinity)
             }
-        }}
-            }
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
             
+        }
+        
+    }
+    
+    }
+//}
       
 
 #Preview {
     storeScreen()
 }
-

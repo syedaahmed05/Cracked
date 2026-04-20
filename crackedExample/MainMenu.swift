@@ -6,7 +6,55 @@
 
 import SwiftUI
 
+struct FeedbackButtonStyle: ButtonStyle {
+    func makeBody(configuration: Configuration) -> some View {
+        configuration.label
+            .scaleEffect(configuration.isPressed ? 0.95 : 1.0)
+            .opacity(configuration.isPressed ? 0.9 : 1.0)
+            .animation(.spring(response: 0.25, dampingFraction: 0.6), value: configuration.isPressed)
+    }
+}
 
+struct CircleButtonModifier: ViewModifier {
+    func body(content: Content) -> some View {
+        content
+            .padding()
+            .foregroundStyle(Color.customRed)
+            .background(Color.customBeige)
+            .clipShape(Circle())
+            .overlay {
+                Circle()
+                    .stroke(Color.black, lineWidth: 0.8)
+            }
+            .shadow(radius: 5)
+    }
+}
+struct CapsuleButtonModifier: ViewModifier {
+    func body(content: Content) -> some View {
+        content
+            .padding(30)
+            .frame(minWidth: 250)
+            .font(Font.custom("Super Meatball", size: 30))
+            .background(Color.customBeige)
+            .shadow(radius: 2)
+            .foregroundStyle(Color.customRed)
+            .clipShape(Capsule())
+            .overlay{
+                Capsule()
+                    .stroke(Color.black, lineWidth: 0.8)
+            }
+            .shadow(radius: 5)
+    }
+}
+extension View {
+    func circleButtonStyle() -> some View {
+        self.modifier(CircleButtonModifier())
+    }
+    
+    func capsuleButtonStyle() -> some View {
+        self.modifier(CapsuleButtonModifier())
+    }
+}
 
 struct  MainMenu: View {
     @State private var startClassicMode = false
@@ -27,8 +75,8 @@ struct  MainMenu: View {
                         HStack{
                                 Button(action:{}) {
                                     HStack {
-                                        Image("coin") // Asset
-                                        Text("36")              // Text
+                                        Image("coin")
+                                        Text("36")
                                     }
                                 }
                                 .padding(10)
@@ -83,21 +131,11 @@ struct  MainMenu: View {
                         
                         Spacer()
                         
-                        Button("Classic Mode") {
-                            startClassicMode = true
+                        Button(action: {startClassicMode = true} ) {
+                            Text("Classic Mode")
+                                    .capsuleButtonStyle()
+                                
                         }
-                        .padding(30)
-                        .frame(minWidth: 250)
-                        .font(Font.custom("Super Meatball", size: 30))
-                        .background(Color.customBeige)
-                        .shadow(radius: 2)
-                        .foregroundStyle(Color.customRed)
-                        .clipShape(Capsule())
-                        .overlay{
-                            Capsule()
-                                .stroke(Color.black, lineWidth: 0.8)
-                        }
-                        .shadow(radius: 5)
                         .navigationDestination(isPresented: $startClassicMode) {
                             GameView()
                                 .navigationBarBackButtonHidden(true)
@@ -105,21 +143,11 @@ struct  MainMenu: View {
                         }
                         
                         
-                        Button("Zen Mode") {
-                            startZenMode = true
+                        Button(action: {startZenMode = true }) {
+                            Text("Zen Mode")
+                            .capsuleButtonStyle()
                         }
-                        .padding(30)
-                        .frame(minWidth: 250)
-                        .font(Font.custom("Super Meatball", size: 30))
-                        .background(Color.customBeige)
-                        .shadow(radius: 2)
-                        .foregroundStyle(Color.customRed)
-                        .clipShape(Capsule())
-                        .overlay{
-                            Capsule()
-                                .stroke(Color.black, lineWidth: 0.8)
-                        }
-                        .shadow(radius: 5)
+                        
                         .navigationDestination(isPresented: $startZenMode) {
                             GameView()
                         }
@@ -127,56 +155,30 @@ struct  MainMenu: View {
                         HStack{
                             Button(action: {}){
                                 Image(systemName: "gearshape.fill")
+                                    .circleButtonStyle()
                                     .accessibilityLabel("Access settings.")
+                                
                             }
-                            .padding()
-                            
-                            .background(Color.customBeige)
-                            .shadow(radius: 5)
-                            .foregroundStyle(Color.customRed)
-                            .clipShape(Circle())
-                            .overlay{
-                                Circle()
-                                    .stroke(Color.black, lineWidth: 0.8)
-                            }
-                            .shadow(radius: 5)
                             .navigationDestination(isPresented: $startZenMode) {
                                 GameView()
                             }
-                            Button(action: {}){
+                            
+                            Button(action: {openStore = true}){
                                 //openStore = true
                                 Image(systemName: "storefront.fill")
+                                    .circleButtonStyle()
                                     .accessibilityLabel("Access the store.")
                                 
                             }
-                            .padding()
-                            .background(Color.customBeige)
-                            .shadow(radius: 5)
-                            .foregroundStyle(Color.customRed)
-                            .clipShape(Circle())
-                            .overlay{
-                                Circle()
-                                    .stroke(Color.black, lineWidth: 0.8)
-                            }
-                            .shadow(radius: 5)
                             .navigationDestination(isPresented: $openStore) {
                                 storeScreen()
                             }
+                            
                             Button(action: {}){
                                 Image(systemName: "crown.fill")
+                                    .circleButtonStyle()
                                     .accessibilityLabel("Access the global and daily leaderboards.")
                             }
-                            .padding()
-                            .background(Color.customBeige)
-                            .shadow(radius: 5)
-                            .foregroundStyle(Color.customRed)
-                            .clipShape(Circle())
-                            .fixedSize()
-                            .overlay{
-                                Circle()
-                                    .stroke(Color.black, lineWidth: 0.8)
-                            }
-                            .shadow(radius: 5)
                             .navigationDestination(isPresented: $startZenMode) {
                                 GameView()
                             }
@@ -184,6 +186,7 @@ struct  MainMenu: View {
                         }
                     }
                     .fixedSize(horizontal: true, vertical: false)
+                    .buttonStyle(FeedbackButtonStyle())
                 }
             }
         }

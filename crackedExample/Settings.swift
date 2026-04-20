@@ -1,0 +1,88 @@
+//
+//  Settings.swift
+//  crackedExample
+//
+//  Created by Angela on 2/4/26.
+//
+
+import Foundation
+import UIKit
+import SwiftUI
+import AVFAudio
+import AVFoundation
+struct Settings: View {
+    @State private var isSoundOn = true
+    @State private var isSFXOn = true
+    var body: some View {
+        GeometryReader { geo in
+            ZStack{
+                Image("settingsBgShape")
+                    .resizable()
+                    //.edgesIgnoringSafeArea(.all)
+                    .scaledToFit()
+                    .frame(width:geo.size.width, height:geo.size.height,alignment: .center)
+                VStack {
+                    HStack {
+                        
+                        Text("Settings")
+                            .font(Font.custom("Super Meatball", size: 40))
+                            .foregroundStyle(Color.customRed)
+                            .frame(alignment: .center)
+                        
+                        Image("settingsQuitBtn")
+                            //.resizable()
+                            //.frame(width: 50, height: 50, alignment: .center)
+                            .frame(alignment: .trailing)
+                    }
+                    
+                    Text("Music by Motorcity Era")
+                        .font(Font.custom("Boba Milky", size:20))
+                        .foregroundStyle(Color.customRed)
+                    
+                    HStack {
+                        Button(action: {withAnimation {isSoundOn.toggle()
+                                       // add my logic ere later
+                                   }
+                               }) {
+                                   Image(systemName: isSoundOn ? "speaker.wave.2.fill" : "speaker.slash.fill")
+                                       .font(.largeTitle)
+                                       .foregroundColor(isSoundOn ? .customOrange : .gray)
+                               }
+                               .contentTransition(.symbolEffect(.replace))
+                        
+                        Text("Music")
+                            .font(Font.custom("Super Meatball", size: 30))
+                            .foregroundStyle(Color.customRed)
+                    }
+                    HStack {
+                        Button(action: {withAnimation {isSFXOn.toggle()
+                                       // add my logic ere later
+                                   }
+                               }) {
+                                   Image(systemName: isSFXOn ? "music.note" : "music.note.slash")
+                                       .font(.largeTitle)
+                                       .foregroundColor(isSFXOn ? .customOrange : .gray)
+                               }
+                               .contentTransition(.symbolEffect(.replace))
+                        
+                        Text("Sfx")
+                            .font(Font.custom("Super Meatball", size: 30))
+                            .foregroundStyle(Color.customRed)
+                    }
+
+                }
+            }
+        }
+        
+    }
+    
+    
+    
+    
+    
+    
+}
+
+#Preview (){
+    Settings()
+}

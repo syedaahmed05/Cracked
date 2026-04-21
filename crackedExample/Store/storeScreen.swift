@@ -9,7 +9,7 @@ import SwiftUI
 
 struct storeScreen: View {
     @State private var selectedItem: StoreItem? = nil
-    
+    @State private var showingPopUp = false
     
     let chickenItems = [
         StoreItem(name: "CowBoy Chicken", assetName: "cowboyChicken", description:" A chicken with a cowboy style", powerText:" Looks cool in coop" , unlockText: "XP must reach: 10", price: 100, category: "Chicken"),
@@ -98,6 +98,7 @@ struct storeScreen: View {
                                     ForEach(chickenItems) { item in
                                         nestTile(item: item){
                                             selectedItem = item
+                                            showingPopUp = true
                                         }
                                     }
                                 }
@@ -117,6 +118,7 @@ struct storeScreen: View {
                                     ForEach(eggItems) { item in
                                         nestTile(item: item){
                                             selectedItem = item
+                                            showingPopUp = true
                                         }
                                     }
                                 }
@@ -137,6 +139,7 @@ struct storeScreen: View {
                                 ForEach(chefItems) { item in
                                     nestTile(item: item){
                                         selectedItem = item
+                                        showingPopUp = true
                                     }
                                 }
                             }
@@ -177,59 +180,57 @@ struct storeScreen: View {
             .frame(maxWidth:.infinity)
             .offset(y:48)
         }
-        if let selected = selectedItem {
-            
-            Color.black.opacity(0.3)
-                .ignoresSafeArea()
-                //.frame(width: 440, height: 338)
-            
-                .onTapGesture {
-                    selectedItem = nil
-                }
-            
-            ZStack {
-                Image("popUp")
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 320, height:430)
-                //pop up that appear when i click on itemBox
-                
-                VStack(spacing: 12) {
-                    Image(selected.assetName)
+        //    .popup(isPresented: $showingPopUp) {
+        //    if let selected = selectedItem {
+        
+        //            Color.black.opacity(0.3)
+        //                .ignoresSafeArea()
+        //.frame(width: 440, height: 338)
+        
+        //                .onTapGesture {
+        //                    withAnimation {
+        //                        showingPopUp = false
+        //                    }
+        //                }
+        //
+        .popup(isPresented: $showingPopUp) {
+            if let selected = selectedItem {
+                ZStack {
+                    Image("popUp")
                         .resizable()
                         .scaledToFit()
-                        .frame(width: 90, height: 90)
+                        .frame(width: 320, height: 430)
                     
-                    Text(selected.name)
-                        .font(.custom("Super Meatball", size: 24))
-                    
-                    Text(selected.description)
-                        .font(.custom("Boba Milky", size: 16))
-                        .multilineTextAlignment(.center)
-                    
-                    Text(selected.powerText)
-                        .font(.custom("Boba Milky", size: 14))
-                    
-                    Text(selected.unlockText)
-                        .font(.custom("Boba Milky", size: 14))
-                    
-                    Button("\(selected.price) Buy" ) {
-                        print("buy")
+                    VStack(spacing: 12) {
+                        Image(selected.assetName)
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 90, height: 90)
                         
-                            
+                        Text(selected.name)
+                            .font(.custom("Super Meatball", size: 24))
+                        
+                        Text(selected.description)
+                            .font(.custom("Boba Milky", size: 16))
+                            .multilineTextAlignment(.center)
+                        
+                        Text(selected.powerText)
+                            .font(.custom("Boba Milky", size: 14))
+                        
+                        Text(selected.unlockText)
+                            .font(.custom("Boba Milky", size: 14))
+                        
+                        Button("\(selected.price) Buy") {
+                            print("buy")
+                        }
                     }
+                    .frame(width: 250)
                 }
-                //                    .frame(maxWidth: .infinity, maxHeight: .infinity)
             }
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
-            
         }
-        
     }
     
-    }
-//}
-      
+}
 
 #Preview {
     storeScreen()

@@ -1,7 +1,7 @@
 {
   "images" : [
     {
-      "filename" : "playAgainBtn.png",
+      "filename" : "playAgainBtn1x.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
@@ -11,7 +11,7 @@
       "scale" : "2x"
     },
     {
-      "filename" : "playAgainBtn3x.png",
+      "filename" : "playAgain3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

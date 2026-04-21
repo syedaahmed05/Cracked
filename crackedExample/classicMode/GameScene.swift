@@ -112,7 +112,7 @@ class GameScene: SKScene {
             //mainMenu()
         }
         
-        if node.name == "mainMenuBtn"{
+        if node.name == "mainMenuBtn"{  //this is btn name in Spritekit for the GameOver()
             print("Menu button tapped.")
             score = 0
             lives = 3

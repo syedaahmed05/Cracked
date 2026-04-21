@@ -20,12 +20,31 @@ extension GameScene{
         }
     }
     
+//    func createCombinedNode(imageName: String, text: String) -> SKNode {
+//        let container = SKNode()
+//
+//    
+//        let coin = SKSpriteNode(imageNamed: "coin")
+//        coin.position = CGPoint(x: -50, y: 0)
+//        container.addChild(coin)
+//
+//
+//        let label = SKLabelNode(fontNamed: "Super Meatball")
+//        label.text = text
+//        label.fontSize = 24
+//        label.position = CGPoint(x: 20, y: -10)
+//        label.horizontalAlignmentMode = .left
+//        container.addChild(label)
+//
+//        return container
+//    }
+    
     func gameOver(){
         currentScene = .gameOver
         //removeAllChildren()
         removeAllActions()
         
-        let darkenBg = SKSpriteNode(color:UIColor.black.withAlphaComponent(0.5), size: frame.size)
+        let darkenBg = SKSpriteNode(color:UIColor.black.withAlphaComponent(0.9), size: frame.size)
         darkenBg.position = CGPoint(x: size.width * 0.5, y: size.width * 1.1)
         darkenBg.zPosition = 99
         darkenBg.size = self.size
@@ -38,20 +57,35 @@ extension GameScene{
         let scoreTitle = SKLabelNode(fontNamed: "Super Meatball")
         scoreTitle.text = "Score: \(score)"
         scoreTitle.fontSize = size.width * 0.12
-        scoreTitle.fontColor = .white
+        scoreTitle.fontColor = .customBeige
         scoreTitle.name = "scoreTitle"
         scoreTitle.position = CGPoint(x: size.width * 0.5, y: size.height * 0.8)
         scoreTitle.zPosition = 100
         gameOverPopUp.addChild(scoreTitle)
         
+        let bestScoreTitle = SKLabelNode(fontNamed: "Super Meatball")
+        bestScoreTitle.text = "best: ENTER HERE"
+        bestScoreTitle.fontSize = size.width * 0.12
+        bestScoreTitle.fontColor = .customBeige
+        bestScoreTitle.name = "bestScoreTitle"
+        bestScoreTitle.position = CGPoint(x: size.width * 0.5, y: size.height * 0.8)
+        bestScoreTitle.zPosition = 100
+        gameOverPopUp.addChild(bestScoreTitle)
+        
+        
         let gameOverText = SKLabelNode(fontNamed: "Boba Milky")
         gameOverText.text = "You've fried your last egg!"
-        gameOverText.fontColor = .customOrange
+        gameOverText.fontColor = .customBeige
         gameOverText.fontSize = size.width * 0.06
         gameOverText.position = CGPoint(x: size.width * 0.5, y: size.height * 0.88)
         gameOverText.zPosition = 100
         gameOverText.name = "gameOverText"
         gameOverPopUp.addChild(gameOverText)
+        
+//        //put coin here
+//        let combinedNode = createCombinedNode(imageName: "coin.png", text: "best: \(score)")
+//        combinedNode.position = CGPoint(x: frame.midX, y: frame.midY)
+//        addChild(combinedNode)
         
         
         let endGameChicken = SKSpriteNode(imageNamed: "endGameChicken")

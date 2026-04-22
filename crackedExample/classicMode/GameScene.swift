@@ -44,7 +44,7 @@ class GameScene: SKScene {
         //case mainMenu
         case startGame
         //case settings
-        //case settingsMusicOnly
+        case PausePopUp
         //case info
         case gameOver
     }
@@ -135,8 +135,8 @@ class GameScene: SKScene {
         
         if node.name == "pauseBtn"{
             isGamePaused = true
-            //currentScene = .settings
-            //settingsView()
+            currentScene = .PausePopUp
+            PausePopUp()
             removeAllActions()
         }
         
@@ -198,9 +198,9 @@ class GameScene: SKScene {
             //showPopup()
             //settingsView()
             
-       // case .settingsMusicOnly:
-            //showPopup()
-            //settingsMusicOnly()
+        case .PausePopUp:
+            showPopup()
+            PausePopUp()
             
         case .gameOver:
             MainMenu()
@@ -208,7 +208,7 @@ class GameScene: SKScene {
     }
 
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-        guard let touch = touches.first else { return }
+       // guard let touch = touches.first else { return }
         //let location = touch.location(in: settingsMusicPopUp)
 //        let node = settingsMusicPopUp.atPoint(location)
 //

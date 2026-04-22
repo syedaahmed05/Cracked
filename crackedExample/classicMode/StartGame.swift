@@ -36,8 +36,8 @@ extension GameScene {
         
         let pauseBtn = SKSpriteNode(imageNamed: "pauseBtn")
         pauseBtn.name = "pauseBtn"
-        pauseBtn.size = CGSize(width: size.width * 0.0, height: size.height * 0.0)
-        pauseBtn.position = CGPoint(x:size.width  * 0.45,y: size.height * 0.45)
+        pauseBtn.size = CGSize(width: size.width * 0.5, height: size.height * 0.5)
+        pauseBtn.position = CGPoint(x: size.width * 0.5 , y: size.height * 0.9) //CGPoint(x:size.width  * 0.45,y: size.height * 0.45)
         pauseBtn.zPosition = 5
         addChild(pauseBtn)
 

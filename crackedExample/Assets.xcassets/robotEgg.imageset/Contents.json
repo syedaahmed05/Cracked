@@ -1,14 +1,17 @@
 {
   "images" : [
     {
+      "filename" : "robotEgg.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
+      "filename" : "robotEgg2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
+      "filename" : "robotEgg3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

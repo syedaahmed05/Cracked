@@ -1,32 +1,32 @@
 {
   "images" : [
     {
-      "filename" : "scary chicken 1x.png",
+      "filename" : "grimReaper1x.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "scary chicken 2x.png",
+      "filename" : "grimReaper2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "scary chicken 3x.png",
+      "filename" : "grimReaper3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     },
     {
-      "filename" : "scary chicken 1x 1.png",
+      "filename" : "grimReaper1x 1.png",
       "idiom" : "iphone",
       "scale" : "1x"
     },
     {
-      "filename" : "scary chicken 2x 1.png",
+      "filename" : "grimReaper2x 1.png",
       "idiom" : "iphone",
       "scale" : "2x"
     },
     {
-      "filename" : "scary chicken 3x 1.png",
+      "filename" : "grimReaper3x 1.png",
       "idiom" : "iphone",
       "scale" : "3x"
     }

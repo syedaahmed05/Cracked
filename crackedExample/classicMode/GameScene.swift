@@ -28,7 +28,7 @@ class GameScene: SKScene {
     var selectedPan: SKSpriteNode?
     var isGamePaused = false
     var panIsFull = false
-    
+    var lifeNodes : [SKSpriteNode] = []
     var score = 0 {
         didSet {
             scoreLabel.text = "\(score)"

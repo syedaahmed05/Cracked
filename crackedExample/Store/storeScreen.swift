@@ -12,25 +12,25 @@ struct storeScreen: View {
     @State private var showingPopUp = false
     
     let chickenItems = [
-        StoreItem(name: "CowBoy Chicken", assetName: "cowboyChicken", description:" A chicken with a cowboy style", powerText:" Looks cool in coop" , unlockText: "XP must reach: 10", price: 100, category: "Chicken"),
+        StoreItem(name: "CowBoy Chicken", assetName: "cowboyChicken", description:" A chicken with a cowboy style", powerText:" Looks cool in a coop" , unlockText: "XP must reach: 10", price: 100, category: "Chicken"),
         
-        StoreItem(name: "Punk Chicken", assetName: "punkChicken", description:" A chicken with a emo style", powerText:" Makes the power " , unlockText: "XP must reach: 30", price: 100, category: "Chicken"),
+        StoreItem(name: "Punk Chicken", assetName: "punkChicken", description:" A chicken with a emo style", powerText:" Makes the vibe more emo-like " , unlockText: "XP must reach: 30", price: 100, category: "Chicken"),
         
-        StoreItem(name: "CowBoy Chicken", assetName: "cowboyChicken", description:" A chicken with a cowboy style", powerText:" Looks cool in coop" , unlockText: "XP must reach: 10", price: 100, category: "Chicken"),
+        StoreItem(name: "CowBoy Chicken", assetName: "cowboyChicken", description:" A chicken with a cowboy style", powerText:" Gives users the ability to revive" , unlockText: "XP must reach: 10", price: 100, category: "Chicken"),
         
         
     ]
     
     let eggItems = [
-        StoreItem(name: "Robot Egg", assetName: "robotEgg", description:" An Egg that gives you life back", powerText:" Looks cool and techy" , unlockText: "XP must reach: 30", price: 100, category: "Egg"),
+        StoreItem(name: "Robot Egg", assetName: "robotEgg", description:" An Egg that gives you life back", powerText:" Adds double score for faster score increases" , unlockText: "XP must reach: 30", price: 100, category: "Egg"),
         
-        StoreItem(name: "Dragen Egg", assetName: "dragenEgg", description:" An egg that has strong and medievil essence", powerText:" Fire bonus" , unlockText: "XP must reach: 40", price: 100, category: "Egg"),
+        StoreItem(name: "Dragen Egg", assetName: "dragenEgg", description:" An egg that has strong and medievil essence", powerText:"  Allows you to burn away the feathers away like a flamethrower" , unlockText: "XP must reach: 40", price: 100, category: "Egg"),
         
-        StoreItem(name: "Rocket Egg", assetName: "rocketEgg", description:" A rocket egg that makes you feel like your in space", powerText:" Makes you heal" , unlockText: "XP must reach: 40", price: 100, category: "Egg"),
+        StoreItem(name: "Rocket Egg", assetName: "rocketEgg", description:" A rocket egg that makes you feel like your in space", powerText:" Allows you to sheild from eggs and feathers for a time being (temporary immunity)" , unlockText: "XP must reach: 40", price: 100, category: "Egg"),
         
-        StoreItem(name: "Bat egg", assetName: "batEgg", description:" A spooky egg that for a spooky feel", powerText:" Looks cool in coop" , unlockText: "XP must reach: 10", price: 100, category: "Egg"),
+        StoreItem(name: "Bat egg", assetName: "batEgg", description:" A spooky egg that for a spooky feel", powerText:" Allows users to multi-wipe" , unlockText: "XP must reach: 10", price: 100, category: "Egg"),
         
-        StoreItem(name: "Tumble weed", assetName: "tumbleWeed", description: "A dry climate coyboy themed egg", powerText:" Pairs well with cowboy chicken", unlockText:" XP much reach: 60", price: 130, category: "Egg"),
+        StoreItem(name: "Tumble weed", assetName: "tumbleWeed", description: "A dry climate coyboy themed egg", powerText:" Reduces the amount of feathers that drop down", unlockText:" XP much reach: 60", price: 130, category: "Egg"),
         
     ]
     
@@ -90,7 +90,7 @@ struct storeScreen: View {
                                 .scaledToFit()
                                 .frame(maxWidth: .infinity)
                                 .offset(y:-16)
-                                .frame(height:110)
+                                .frame(height:120)
                             // figure out a way to keep it not moving down when i scroll down, scroll issue
                             
                             ScrollView(.horizontal, showsIndicators: false) {
@@ -132,7 +132,7 @@ struct storeScreen: View {
                         // .scaledToFit()
                             .frame(maxWidth: .infinity)
                             .frame(height: 170)
-                        //  .offset(y:-39)
+                         // .offset(y:-39)
                         
                         ScrollView(.horizontal, showsIndicators: false) {
                             HStack(spacing: 20) {
@@ -162,7 +162,7 @@ struct storeScreen: View {
                     
                         .scaledToFit( )
                         .frame(width :190, height:70)
-                    
+                    //adding a type of filter for the skins
                 }
                 
                 Button(action: {
@@ -172,7 +172,7 @@ struct storeScreen: View {
                     Image("powerupButton")
                         .scaledToFit()
                         .frame(width: 190, height:70)
-                    
+                    //adding a filter for the powerups
                 }
                 
                 
@@ -208,21 +208,39 @@ struct storeScreen: View {
                             .frame(width: 90, height: 90)
                         
                         Text(selected.name)
-                            .font(.custom("Super Meatball", size: 24))
+                            .font(.custom("Boba Milky", size: 24))
+                            .foregroundColor(.customBrown)
                         
                         Text(selected.description)
                             .font(.custom("Boba Milky", size: 16))
                             .multilineTextAlignment(.center)
+                            .foregroundColor(.customBrown)
                         
                         Text(selected.powerText)
                             .font(.custom("Boba Milky", size: 14))
+                        .foregroundColor(.customBrown)
                         
                         Text(selected.unlockText)
                             .font(.custom("Boba Milky", size: 14))
+                .foregroundColor(.customBrown)
                         
-                        Button("\(selected.price) Buy") {
+//                        Button("\(selected.price) Buy") {
+//                            print("buy")
+//                        }
+                        Button(action: {
                             print("buy")
+                        }) {
+                            ZStack {
+                                Image("buyButton")
+                                    .resizable()
+                                    .frame(width: 100, height: 30)
+                                Text("\(selected.price) Buy")
+                                    .font(.custom("Boba Milky", size: 14))
+                                    .foregroundColor(.customBrown)
+                                
+                            }
                         }
+
                     }
                     .frame(width: 250)
                 }
@@ -235,3 +253,4 @@ struct storeScreen: View {
 #Preview {
     storeScreen()
 }
+

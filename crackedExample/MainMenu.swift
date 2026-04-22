@@ -60,6 +60,7 @@ struct  MainMenu: View {
     @State private var startClassicMode = false
     @State private var startZenMode = false
     @State private var openStore = false
+    @State private var openSettings = false
 //new comment
     
     var body: some View {
@@ -159,8 +160,8 @@ struct  MainMenu: View {
                                     .accessibilityLabel("Access settings.")
                                 
                             }
-                            .navigationDestination(isPresented: $startZenMode) {
-                                GameView()
+                            .navigationDestination(isPresented: $openSettings) {
+                                Settings()
                             }
                             
                             Button(action: {openStore = true}){

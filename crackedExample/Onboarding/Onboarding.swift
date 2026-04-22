@@ -22,6 +22,40 @@ struct FirstView: View {
     }
 }
 
+struct TutorialStepView: View {
+    //starts above screen
+    @State private var phase: TutorialPhase = .eggFalling
+    @State private var eggY: CGFloat = -200
+    @State private var overlayOpacity: Double = 0
+    @State private var showCracked = false
+    @State private var yolkY: CGFloat = 0
+    @State private var yolkOpacity: Double = 0
+    
+    //where egg freezes center-ish above pan
+    private let eggFreezeY: CGFloat = 0
+    private let eggSize: CGFloat = 90
+    
+    enum TutorialPhase {
+        case eggFalling //egg animates down, freezes
+        case spotlight //overlay appears, chef speaks
+        case eggTapped //cracked egg shows, yolk falls
+    }
+    
+    var body: some View {
+        GeometryReader { geo in
+            let screenMid = geo.size.width / 2
+            let eggFreeze = geo.size.height * 0.35 //egg freezes at 35% down
+            let eggRect = CGRect(
+                x: screenMid - eggSize / 2,
+                y: eggFreeze - eggSize / 2,
+                width: eggSize,
+                height: eggSize
+                )
+            
+        }
+    }
+}
+
 struct OnboardingView: View {
     @Binding var isFirstLaunch: Bool
     @State private var currentStep = 0
@@ -100,14 +134,14 @@ struct OnboardingDetail: View {
 
 struct FallingObject: View {
     var image: String
-    var size: CGFloat = 90 //core graphics float. responsible for coordinates, sizes, positions
-    @Binding var yOffset: CGFloat
+    var size: CGFloat = 90 //core graphics float. responsible for coordinates, sizes, positions default val 90x90 pt
+    @Binding var yOffset: CGFloat //@Binding means the state of yOffset is owned by somebody else
     
     var body: some View {
         Image(image)
             .resizable()
             .frame(width: size, height: size)
-            .offset(y: yOffset)
+            .offset(y: yOffset) //shift the object relative to the view
     }
 }
 
@@ -140,14 +174,10 @@ struct SpotlightOverLay: View {
 }
 
 
-enum TutorialPhase {
-    case eggFalling //egg animates down, freezes
-    case spotlight //overlay appears, chef speaks
-    case eggTapped //cracked egg shows, yolk falls
-}
 
 #Preview {
     FirstView()
 }
+
 
 

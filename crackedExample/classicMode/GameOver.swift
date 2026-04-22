@@ -20,24 +20,24 @@ extension GameScene{
         }
     }
     
-//    func createCombinedNode(imageName: String, text: String) -> SKNode {
-//        let container = SKNode()
-//
-//    
-//        let coin = SKSpriteNode(imageNamed: "coin")
-//        coin.position = CGPoint(x: -50, y: 0)
-//        container.addChild(coin)
-//
-//
-//        let label = SKLabelNode(fontNamed: "Super Meatball")
-//        label.text = text
-//        label.fontSize = 24
-//        label.position = CGPoint(x: 20, y: -10)
-//        label.horizontalAlignmentMode = .left
-//        container.addChild(label)
-//
-//        return container
-//    }
+    func createCombinedNode(imageName: String, text: String) -> SKNode {
+        let container = SKNode()
+
+    
+        let coin = SKSpriteNode(imageNamed: "coin")
+        coin.position = CGPoint(x: -50, y: 0)
+        container.addChild(coin)
+
+
+        let label = SKLabelNode(fontNamed: "Super Meatball")
+        label.text = text
+        label.fontSize = 24
+        label.position = CGPoint(x: 20, y: -10)
+        label.horizontalAlignmentMode = .left
+        container.addChild(label)
+
+        return container
+    }
     
     func gameOver(){
         currentScene = .gameOver
@@ -82,10 +82,11 @@ extension GameScene{
         gameOverText.name = "gameOverText"
         gameOverPopUp.addChild(gameOverText)
         
-//        //put coin here
-//        let combinedNode = createCombinedNode(imageName: "coin.png", text: "best: \(score)")
-//        combinedNode.position = CGPoint(x: frame.midX, y: frame.midY)
-//        addChild(combinedNode)
+        //put coin here
+        let combinedNode = createCombinedNode(imageName: "coin.png", text: "33")
+        combinedNode.zPosition = 100
+        combinedNode.position = CGPoint(x: size.width * 0.5, y: size.height * 0.5)
+        addChild(combinedNode)
         
         
         let endGameChicken = SKSpriteNode(imageNamed: "endGameChicken")

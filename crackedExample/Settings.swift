@@ -30,6 +30,9 @@ struct Settings: View {
                             .font(Font.custom("Super Meatball", size: 40))
                             .foregroundStyle(Color.customRed)
                             .frame(alignment: .center)
+                            .offset(x: 120, y: -85)
+                        
+                        
                         
                         Spacer()
                         
@@ -40,6 +43,7 @@ struct Settings: View {
                                 .frame(width: 90, height: 50)
                                 .font(Font.system(size: 40))
                                 .accessibilityLabel("Close settings.")
+                                .offset(x: 0, y: -85)
                             
                         }
                         .navigationDestination(isPresented: $backtoView) {
@@ -53,6 +57,7 @@ struct Settings: View {
                     Text("Music by Motorcity Era")
                         .font(Font.custom("Boba Milky", size:20))
                         .foregroundStyle(Color.customRed)
+                        .offset(x: 0, y: -80)
                     
                     HStack {
                         Button(action: {withAnimation {isSoundOn.toggle()
@@ -62,12 +67,15 @@ struct Settings: View {
                                    Image(systemName: isSoundOn ? "speaker.wave.2.fill" : "speaker.slash.fill")
                                        .font(.largeTitle)
                                        .foregroundColor(isSoundOn ? .customOrange : .gray)
+                                       
                                }
                                .contentTransition(.symbolEffect(.replace))
+                               .offset(x:-40 ,y:-50)
                         
                         Text("Music")
                             .font(Font.custom("Super Meatball", size: 30))
                             .foregroundStyle(Color.customRed)
+                            .offset(x:-20,y:-50)
                     }
                     HStack {
                         Button(action: {withAnimation {isSFXOn.toggle()
@@ -79,10 +87,12 @@ struct Settings: View {
                                        .foregroundColor(isSFXOn ? .customOrange : .gray)
                                }
                                .contentTransition(.symbolEffect(.replace))
+                               .offset(x:-60 ,y:-10)
                         
                         Text("Sfx")
                             .font(Font.custom("Super Meatball", size: 30))
                             .foregroundStyle(Color.customRed)
+                            .offset(x:-30,y:-10)
                     }
 
                 }

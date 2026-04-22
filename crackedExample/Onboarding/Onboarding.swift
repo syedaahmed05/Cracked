@@ -13,7 +13,7 @@ struct FirstView: View {
     
     var body: some View {
         if isFirstLaunch {
-            OnboardingView(isFirstLaunch: $isFirstLaunch)
+            TutorialStepView()
             
         }
         else {
@@ -27,18 +27,32 @@ struct TutorialStepView: View {
     @State private var phase: TutorialPhase = .eggFalling
     @State private var eggY: CGFloat = -200
     @State private var overlayOpacity: Double = 0
-    @State private var showCracked = false
-    @State private var yolkY: CGFloat = 0
+    
+    
+    //Shell animation variables
+    @State private var leftShellX: CGFloat = 0
+    @State private var rightShellX: CGFloat = 0
+    @State private var leftShellY: CGFloat = 0
+    @State private var rightShellY: CGFloat = 0
+    @State private var shellOpacity: Double = 0 //fades in when egg is tapped
+    @State private var intactEggOpacity: Double = 1 //fades out when egg is tapped
+    
+    //Yolk animation
+    @State private var yolkY: CFloat = 0
     @State private var yolkOpacity: Double = 0
     
-    //where egg freezes center-ish above pan
-    private let eggFreezeY: CGFloat = 0
-    private let eggSize: CGFloat = 90
+    //Pan
+    @State private var showFilledPan: Bool = false
+    
+    private let eggSize: CGFloat = 65
+    
     
     enum TutorialPhase {
         case eggFalling //egg animates down, freezes
         case spotlight //overlay appears, chef speaks
         case eggTapped //cracked egg shows, yolk falls
+        case yolkFalling //yolk falls into pan
+        case panFilled //show filled pan
     }
     
     var body: some View {
@@ -46,13 +60,145 @@ struct TutorialStepView: View {
             let screenMid = geo.size.width / 2
             let eggFreeze = geo.size.height * 0.35 //egg freezes at 35% down
             let eggRect = CGRect(
-                x: screenMid - eggSize / 2,
-                y: eggFreeze - eggSize / 2,
+                x: screenMid - eggSize / 2, //center - half width to get left edge
+                y: eggFreeze - eggSize / 2, //center - half height = top height
                 width: eggSize,
                 height: eggSize
-                )
+            )
+            let panY = geo.size.height * 0.75 //where pan sits on screen
+            
+            ZStack {
+                //Add background
+                Image("onboardingBackground")
+                    .resizable()
+                    .ignoresSafeArea()
+                
+                //Empty pan
+                
+                
+                if !showFilledPan {
+                    VStack {
+                        Spacer()
+                        Image("emptyPan")
+                            .resizable()
+                            .scaledToFit() //test this
+                            .padding(.bottom, 140)
+                    }
+                }
+                //Filled pan when yolk falls into it
+                if showFilledPan {
+                    VStack {
+                        Spacer()
+                        Image("filledPan")
+                            .resizable()
+                            .scaledToFit()
+                            .padding(.bottom, 140)
+                            .transition(.opacity) //what does transition do???
+                    }
+                }
+                
+                //Intact egg (fades out when tapped)
+                if phase == .eggFalling || phase == .spotlight {
+                    Image("egg")
+                        .resizable()
+                        .frame(width: eggSize, height: eggSize)
+                        .position(x: screenMid, y: eggFreeze + eggY) //dont have egg appear yet
+                        .opacity(intactEggOpacity)
+                }
+                
+                //left shell logic
+                if phase == .eggTapped || phase == .yolkFalling || phase == .panFilled {
+                    Image("leftShell")
+                        .resizable()
+                        .frame(width: eggSize, height: eggSize / 2)
+                        .position(x: screenMid, y: eggFreeze)
+                        .offset(x: leftShellX, y: leftShellY)
+                        .opacity(shellOpacity)
+                }
+                
+                //right shell logic
+                if phase == .eggTapped || phase == .yolkFalling || phase == .panFilled {
+                    Image("rightShell")
+                        .resizable()
+                        .frame(width: eggSize, height: eggSize / 2)
+                        .position(x: screenMid, y: eggFreeze) //position shell here
+                        .offset(x: rightShellX, y: rightShellY) //shift the egg
+                        .opacity(shellOpacity)
+                }
+                
+                //Yolk logic
+                if phase == .yolkFalling || phase == .panFilled {
+                    Image("yolk")
+                        .resizable()
+                        .frame(width: 44, height: 44)
+                        .position(x: screenMid, y: eggFreeze + Double(yolkY))
+                        .opacity(yolkOpacity)
+                }
+                
+               
+                //Spotlight overlay
+                if phase == .spotlight {
+                    SpotlightOverLay(radius: Double(eggSize / 2 ) + 15, xPosition: Double(screenMid), yPosition: Double(eggFreeze))
+                        .opacity(overlayOpacity)
+                        .ignoresSafeArea()
+                        //.allowsHitTesting(phase == .spotlight) //ask about this
+                        .onTapGesture {
+                            //code would change state to transiton to step 2; this is supposed to take the taps that arent in the circle
+                        }
+                }
+                
+                //invisible egg tap target
+                if phase == .spotlight {
+                    Circle()
+                        .fill(.clear)
+                        .frame(width: eggSize + 20, height: eggSize + 20)
+                        .position(x: screenMid, y: eggFreeze)
+                        .contentShape(Circle())
+                        .onTapGesture {
+                            handleEggTap (eggFreeze: eggFreeze, panY: panY)
+                        }
+                }
+                
+                if phase == .spotlight {
+                    VStack {
+                        Spacer()
+                        HStack(alignment: .bottom) {
+                            Image("angryChefPoint")
+                                .resizable()
+                                .frame(width: 160, height: 200)
+                            Text("Tap the egg to crack it!")
+                                
+                        }
+                        .padding(.bottom, 8)
+                    }
+                    .ignoresSafeArea()
+                }
+                
+            }
+            .onAppear {
+                startEggDrop(targetY: eggFreeze)
+            }
             
         }
+    }
+    
+    func startEggDrop(targetY: CGFloat) {
+        eggY = -(targetY + 200) //start above screen
+        withAnimation(.easeIn(duration: 0.6)) {
+            eggY = 0 //fall to freeze point in 0.6 seconds (starts slow then accelerates)
+        }
+        
+        //after egg lands, show spotlight
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
+            phase = .spotlight
+            withAnimation(.easeIn(duration: 0.4)) {
+                overlayOpacity = 1
+            }
+        }
+    }
+    
+    func handleEggTap(eggFreeze: CGFloat, panY: CGFloat) {
+        
     }
 }
 
@@ -178,6 +324,10 @@ struct SpotlightOverLay: View {
 #Preview {
     FirstView()
 }
+
+
+
+
 
 
 

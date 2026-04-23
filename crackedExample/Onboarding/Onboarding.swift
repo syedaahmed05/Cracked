@@ -38,7 +38,7 @@ struct TutorialStepView: View {
     @State private var intactEggOpacity: Double = 1 //fades out when egg is tapped
     
     //Yolk animation
-    @State private var yolkY: CFloat = 0
+    @State private var yolkY: CGFloat = 0
     @State private var yolkOpacity: Double = 0
     
     //Pan
@@ -101,7 +101,7 @@ struct TutorialStepView: View {
                 if phase == .eggFalling || phase == .spotlight {
                     Image("egg")
                         .resizable()
-                        .frame(width: eggSize, height: eggSize)
+                        .frame(width: eggSize, height: eggSize + 20)
                         .position(x: screenMid, y: eggFreeze + eggY) //dont have egg appear yet
                         .opacity(intactEggOpacity)
                 }
@@ -189,6 +189,10 @@ struct TutorialStepView: View {
         }
         
         //after egg lands, show spotlight
+        //DispatchQueue manages when/where code runs
+        //use .main because to use main thread
+        //asyncAfter runs the code after a delay
+        
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
             phase = .spotlight
             withAnimation(.easeIn(duration: 0.4)) {
@@ -198,6 +202,49 @@ struct TutorialStepView: View {
     }
     
     func handleEggTap(eggFreeze: CGFloat, panY: CGFloat) {
+        phase = .eggTapped
+        
+        //fade overlay out, fade intact egg out, fade shells in
+        withAnimation(.easeOut(duration: 0.2)) {
+            overlayOpacity = 0
+            intactEggOpacity = 0
+            shellOpacity = 1
+        }
+        
+        //show shells splitting
+        withAnimation(.easeOut(duration: 0.35).delay(0.15)) {
+            leftShellX = -25
+            rightShellX = 25
+            leftShellY = -10
+            rightShellY = -10 //why - 10? wouldnt you increase y to make it go lower?
+        }
+        
+        //yolk appears and falls into pan
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
+            phase = .yolkFalling
+            yolkOpacity = 1
+            withAnimation(.easeIn(duration: 0.5)) {
+                yolkY = panY - eggFreeze //falls from egg position into pan
+                
+            }
+        }
+        
+        //shell fades out as yolk lands
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
+            withAnimation(.easeOut(duration: 0.3)) {
+                shellOpacity = 0
+            }
+        }
+        
+        //swap empty pan with filled pan
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.9) {
+            phase = .panFilled
+            withAnimation(.easeIn(duration: 0.4)) {
+                showFilledPan = true
+            }
+        }
+        
+        
         
     }
 }
@@ -324,6 +371,14 @@ struct SpotlightOverLay: View {
 #Preview {
     FirstView()
 }
+
+
+
+
+
+
+
+
 
 
 

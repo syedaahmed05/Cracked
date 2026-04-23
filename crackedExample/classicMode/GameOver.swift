@@ -82,7 +82,7 @@ extension GameScene{
         gameOverText.name = "gameOverText"
         gameOverPopUp.addChild(gameOverText)
         
-        //put coin here
+
         let combinedNode = createCombinedNode(imageName: "coin.png", text: "33")
         combinedNode.zPosition = 100
         combinedNode.position = CGPoint(x: -size.width * 0.5, y: size.height * 0.5)

@@ -62,7 +62,7 @@ struct  MainMenu: View {
     @State private var openStore = false
     @State private var openSettings = false
     @State private var isStatusBarHidden = true
-//new comment
+
     
     var body: some View {
         GeometryReader  { geo in
@@ -78,6 +78,7 @@ struct  MainMenu: View {
                                 Button(action:{}) {
                                     HStack {
                                         Image("coin")
+                                            
                                         Text("36")
                                     }
                                 }
@@ -155,15 +156,15 @@ struct  MainMenu: View {
                         }
                         
                         HStack{
-                            Button(action: {openSettings = true}){
+                            Button(action: {withAnimation {
+                                openSettings = true
+                            }} ){
                                 Image(systemName: "gearshape.fill")
                                     .circleButtonStyle()
                                     .accessibilityLabel("Access settings.")
                                 
                             }
-                            .navigationDestination(isPresented: $openSettings) {
-                                Settings()
-                            }
+                            
                             
                             Button(action: {openStore = true}){
                                 //openStore = true
@@ -187,9 +188,32 @@ struct  MainMenu: View {
                             
                         }
                     }
+                    .frame(
+                                width: geo.size.width * 0.8,
+                                height: geo.size.height * 0.4
+                            )
                     .fixedSize(horizontal: true, vertical: false)
                     .buttonStyle(FeedbackButtonStyle())
+                    
+                    if openSettings {
+                        Color.black.opacity(0.5)
+                            .zIndex(0)
+                            .ignoresSafeArea()
+                            .transition(.opacity)
+                            .onTapGesture {
+                                withAnimation {
+                                    openSettings = false
+                                }
+                            }
+
+                        Settings(openSettings: $openSettings)
+                            .scaleEffect(openSettings ? 1 : 0.5)
+                            .opacity(openSettings ? 1 : 0)
+                            .animation(.spring(response: 0.3, dampingFraction: 0.5), value: openSettings)
+                            .zIndex(1)
+                    }
                 }
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
             }
             .statusBarHidden(isStatusBarHidden)
         }

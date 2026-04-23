@@ -13,50 +13,55 @@ import AVFoundation
 struct Settings: View {
     @State private var isSoundOn = true
     @State private var isSFXOn = true
-    @Environment(\.dismiss) var dismiss
-    //@State private var backtoView = true
+    @Binding var openSettings: Bool
+
+    
     var body: some View {
         GeometryReader { geo in
-            ZStack{
+            ZStack(alignment: .topTrailing){
                 Image("settingsBgShape")
                     .resizable()
-                    //.edgesIgnoringSafeArea(.all)
                     .scaledToFit()
-                    .frame(width:geo.size.width, height:geo.size.height,alignment: .center)
+                    .frame(width:geo.size.width * 0.8, height:geo.size.height * 0.4,alignment: .center)
                 VStack {
                     HStack {
                         
-                        Text("Settings")
-                            .font(Font.custom("Super Meatball", size: 40))
+                        Text("settings")
+                            .font(Font.custom("Super Meatball", size: 35))
                             .foregroundStyle(Color.customRed)
                             .frame(alignment: .center)
-                            .offset(x: 120, y: -85)
+                            .offset(x: 80, y: -115)
                         
                         
                         
                         Spacer()
                         
-                        Button(action: { dismiss() }){
-                            Image(systemName: "xmark.circle.fill")
-                                //.circleButtonStyle()
-                                .foregroundStyle(Color.customRed)
-                                .frame(width: 90, height: 50)
-                                .font(Font.system(size: 40))
-                                .accessibilityLabel("Close settings.")
-                                .offset(x: 0, y: -85)
-                                
-                        }
+                        
                         
                         }
-                            .buttonStyle(FeedbackButtonStyle())
+                            
                     }
+                    .frame(width: geo.size.width * 0.8,height: geo.size.height * 0.4)
                     
-                    
-                    
+                Button(action: {
+                    withAnimation(.spring(response: 0.25, dampingFraction: 0.6)) {
+                        openSettings = false
+                    }
+                }){
+                    Image(systemName: "xmark.circle.fill")
+                        //.circleButtonStyle()
+                        .foregroundStyle(Color.customRed)
+                        .frame(width: 90, height: 50)
+                        .font(Font.system(size: 35))
+                        .accessibilityLabel("Close settings.")
+                        
+                }
+                .buttonStyle(FeedbackButtonStyle())
+                
                     Text("Music by Motorcity Era")
                         .font(Font.custom("Boba Milky", size:20))
                         .foregroundStyle(Color.customRed)
-                        .offset(x: 0, y: -80)
+                        .offset(x: -50, y:80)
                     
                     HStack {
                         Button(action: {withAnimation {isSoundOn.toggle()
@@ -69,12 +74,12 @@ struct Settings: View {
                                        
                                }
                                .contentTransition(.symbolEffect(.replace))
-                               .offset(x:-40 ,y:-50)
+                               .offset(x:-40 ,y:-20)
                         
-                        Text("Music")
+                        Text("music")
                             .font(Font.custom("Super Meatball", size: 30))
                             .foregroundStyle(Color.customRed)
-                            .offset(x:-20,y:-50)
+                            //.offset(x:20,y:100)
                     }
                     HStack {
                         Button(action: {withAnimation {isSFXOn.toggle()
@@ -86,15 +91,16 @@ struct Settings: View {
                                        .foregroundColor(isSFXOn ? .customOrange : .gray)
                                }
                                .contentTransition(.symbolEffect(.replace))
-                               .offset(x:-60 ,y:-10)
+                               .offset(x:-60 ,y:30)
                         
-                        Text("Sfx")
+                        Text("sfx")
                             .font(Font.custom("Super Meatball", size: 30))
                             .foregroundStyle(Color.customRed)
-                            .offset(x:-30,y:-10)
+                            .offset(x:-30,y:30)
                     }
 
                 }
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
             }
         }
         
@@ -103,5 +109,5 @@ struct Settings: View {
 
 
 #Preview (){
-    Settings()
+    MainMenu()
 }

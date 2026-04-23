@@ -61,6 +61,7 @@ struct  MainMenu: View {
     @State private var startZenMode = false
     @State private var openStore = false
     @State private var openSettings = false
+    @State private var isStatusBarHidden = true
 //new comment
     
     var body: some View {
@@ -154,7 +155,7 @@ struct  MainMenu: View {
                         }
                         
                         HStack{
-                            Button(action: {}){
+                            Button(action: {openSettings = true}){
                                 Image(systemName: "gearshape.fill")
                                     .circleButtonStyle()
                                     .accessibilityLabel("Access settings.")
@@ -190,6 +191,7 @@ struct  MainMenu: View {
                     .buttonStyle(FeedbackButtonStyle())
                 }
             }
+            .statusBarHidden(isStatusBarHidden)
         }
     }
 }

@@ -13,8 +13,8 @@ import AVFoundation
 struct Settings: View {
     @State private var isSoundOn = true
     @State private var isSFXOn = true
-    
-    @State private var backtoView = true
+    @Environment(\.dismiss) var dismiss
+    //@State private var backtoView = true
     var body: some View {
         GeometryReader { geo in
             ZStack{
@@ -36,7 +36,7 @@ struct Settings: View {
                         
                         Spacer()
                         
-                        Button(action: {}){
+                        Button(action: { dismiss() }){
                             Image(systemName: "xmark.circle.fill")
                                 //.circleButtonStyle()
                                 .foregroundStyle(Color.customRed)
@@ -44,10 +44,9 @@ struct Settings: View {
                                 .font(Font.system(size: 40))
                                 .accessibilityLabel("Close settings.")
                                 .offset(x: 0, y: -85)
-                            
+                                
                         }
-                        .navigationDestination(isPresented: $backtoView) {
-                            MainMenu()
+                        
                         }
                             .buttonStyle(FeedbackButtonStyle())
                     }
@@ -101,12 +100,7 @@ struct Settings: View {
         
     }
     
-    
-    
-    
-    
-    
-}
+
 
 #Preview (){
     Settings()

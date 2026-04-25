@@ -63,7 +63,7 @@ struct TutorialStepView: View {
                 x: screenMid - eggSize / 2, //center - half width to get left edge
                 y: eggFreeze - eggSize / 2, //center - half height = top height
                 width: eggSize,
-                height: eggSize
+                height: eggSize + 20
             )
             let panY = geo.size.height * 0.75 //where pan sits on screen
             
@@ -82,7 +82,7 @@ struct TutorialStepView: View {
                         Image("emptyPan")
                             .resizable()
                             .scaledToFit() //test this
-                            .padding(.bottom, 140)
+                            .padding(.bottom, 120)
                     }
                 }
                 //Filled pan when yolk falls into it
@@ -138,7 +138,7 @@ struct TutorialStepView: View {
                
                 //Spotlight overlay
                 if phase == .spotlight {
-                    SpotlightOverLay(radius: Double(eggSize / 2 ) + 15, xPosition: Double(screenMid), yPosition: Double(eggFreeze))
+                    SpotlightOverLay(radius: Double(eggSize), xPosition: Double(screenMid), yPosition: Double(eggFreeze + eggY))
                         .opacity(overlayOpacity)
                         .ignoresSafeArea()
                         //.allowsHitTesting(phase == .spotlight) //ask about this
@@ -166,7 +166,9 @@ struct TutorialStepView: View {
                             Image("angryChefPoint")
                                 .resizable()
                                 .frame(width: 160, height: 200)
-                            Text("Tap the egg to crack it!")
+                            speechBubble(image: "step1")
+                                .padding(.bottom, 98) //push speech bubble up
+                                //.padding(.trailing, 45)
                                 
                         }
                         .padding(.bottom, 8)
@@ -347,7 +349,7 @@ struct SpotlightOverLay: View {
     private var holeRect: CGRect { //internal math should be private because these are kitchen tasks
         CGRect ( //creates invisible box x,y coordinates is the top left corner
             x: xPosition - radius,
-            y: yPosition - radius,
+            y: yPosition,
             width: radius * 2,
             height: radius * 2
         )
@@ -365,6 +367,16 @@ struct SpotlightOverLay: View {
     
     
 }
+
+struct speechBubble: View {
+    var image: String
+    var body: some View {
+        Image(image)
+            
+    }
+}
+
+
 
 
 

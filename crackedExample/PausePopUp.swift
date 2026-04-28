@@ -36,7 +36,7 @@ extension GameScene{
         
         let settingsTitle = SKLabelNode(fontNamed: "Super Meatball")
         settingsTitle.text = "paused"
-        settingsTitle.fontSize = popupW * 0.08
+        settingsTitle.fontSize = popupW * 0.10
         settingsTitle.fontColor = .customRed
         settingsTitle.horizontalAlignmentMode = .center
         settingsTitle.position = CGPoint(x: 0, y: popupH * 0.35)
@@ -50,9 +50,9 @@ extension GameScene{
         settingsPopUp.addChild(settingsPlayBtn)
         
         let resumeTitle = SKLabelNode(fontNamed: "Super Meatball")
-        resumeTitle.text = "Resume"
+        resumeTitle.text = "resume"
         resumeTitle.name = "resumeTitle"
-        resumeTitle.fontSize = popupW * 0.05
+        resumeTitle.fontSize = popupW * 0.10
         resumeTitle.fontColor = .customRed
         resumeTitle.horizontalAlignmentMode = .center
         resumeTitle.zPosition = 101
@@ -62,7 +62,7 @@ extension GameScene{
         let quitTitle = SKLabelNode(fontNamed: "Super Meatball")
         quitTitle.name = "settingsQuitTitle"
         quitTitle.text = "Quit"
-        quitTitle.fontSize = popupW * 0.05
+        quitTitle.fontSize = popupW * 0.10
         quitTitle.fontColor = .customRed
         quitTitle.horizontalAlignmentMode = .center
         quitTitle.zPosition = 101
@@ -71,7 +71,7 @@ extension GameScene{
         
         let settingsQuitBtn = SKSpriteNode(imageNamed: "settingsQuitBtn")
         settingsQuitBtn.name = "settingsQuitBtn"
-        settingsQuitBtn.position = CGPoint(x: popupW * 0.25, y: -popupH * 0.12)
+        settingsQuitBtn.position = CGPoint(x: -popupW * 0.25, y: -popupH * 0.12)
         settingsQuitBtn.zPosition = 101
         settingsPopUp.addChild(settingsQuitBtn)
         

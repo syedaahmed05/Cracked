@@ -1,7 +1,5 @@
-//
 //  GameOver.swift
 //  crackedExample
-//
 //  Created by Angela on 2/9/26.
 //
 import Foundation
@@ -83,7 +81,7 @@ extension GameScene{
         gameOverPopUp.addChild(coinTitle)
         
         let endGameChicken = SKSpriteNode(imageNamed: "endGameChicken")
-        endGameChicken.position = CGPoint(x: size.width * 0.5, y: size.height * 0.35)
+        endGameChicken.position = CGPoint(x: size.width * 0.5, y: size.height * 0.45)
         endGameChicken.size = CGSize(width: size.width * 0.8, height: size.height * 0.35)
         endGameChicken.zPosition = 100
         endGameChicken.name = "endGameChicken"

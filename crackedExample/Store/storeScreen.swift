@@ -10,37 +10,38 @@ import SwiftUI
 struct storeScreen: View {
     @State private var selectedItem: StoreItem? = nil
     @State private var showingPopUp = false
+    @State private var showingComingSoon = false
     
     let chickenItems = [
-        StoreItem(name: "CowBoy Chicken", assetName: "cowboyChicken", description:" A chicken with a cowboy style", powerText:" Looks cool in a coop" , unlockText: "XP must reach: 10", price: 100, category: "Chicken"),
+        StoreItem(name: "CowBoy Chicken", assetName: "cowboyChicken", description:" A chicken with a cowboy style", powerText:" Get immersed into the world of cowboys" , unlockText: "XP must reach: 10", price: 100, category: "Chicken"),
         
-        StoreItem(name: "Punk Chicken", assetName: "punkChicken", description:" A chicken with a emo style", powerText:" Makes the vibe more emo-like " , unlockText: "XP must reach: 30", price: 100, category: "Chicken"),
+        StoreItem(name: "Punk Chicken", assetName: "punkChicken", description:" A chicken with a emo style", powerText:" Get into the rock and roll edgy feel " , unlockText: "XP must reach: 30", price: 120, category: "Chicken"),
         
-        StoreItem(name: "CowBoy Chicken", assetName: "cowboyChicken", description:" A chicken with a cowboy style", powerText:" Gives users the ability to revive" , unlockText: "XP must reach: 10", price: 100, category: "Chicken"),
+        StoreItem(name: "Princess Chicken", assetName: "cowboyChicken", description:" A chicken with a cute and pretty princess vibe", powerText:" Immerses you into a girly and pink world" , unlockText: "XP must reach: 10", price: 130, category: "Chicken"),
         
         
     ]
     
     let eggItems = [
-        StoreItem(name: "Robot Egg", assetName: "robotEgg", description:" An Egg that gives you life back", powerText:" Adds double score for faster score increases" , unlockText: "XP must reach: 30", price: 100, category: "Egg"),
+        StoreItem(name: "Robot Egg", assetName: "robotEgg", description:" An Egg that has a techy feel", powerText:" Dive into that techy world" , unlockText: "XP must reach: 30", price: 50, category: "Egg"),
         
-        StoreItem(name: "Dragen Egg", assetName: "dragenEgg", description:" An egg that has strong and medievil essence", powerText:"  Allows you to burn away the feathers away like a flamethrower" , unlockText: "XP must reach: 40", price: 100, category: "Egg"),
+        StoreItem(name: "Dragen Egg", assetName: "dragenEgg", description:" An egg that has magical and medievil essence", powerText:" Get immersed into that firey and medieval world" , unlockText: "XP must reach: 40", price: 60, category: "Egg"),
         
-        StoreItem(name: "Rocket Egg", assetName: "rocketEgg", description:" A rocket egg that makes you feel like your in space", powerText:" Allows you to sheild from eggs and feathers for a time being (temporary immunity)" , unlockText: "XP must reach: 40", price: 100, category: "Egg"),
+        StoreItem(name: "Rocket Egg", assetName: "rocketEgg", description:" A rocket egg that makes you feel like your in space", powerText:" Get immersed into the wide galaxy universe of stars" , unlockText: "XP must reach: 40", price: 70, category: "Egg"),
         
-        StoreItem(name: "Bat egg", assetName: "batEgg", description:" A spooky egg that for a spooky feel", powerText:" Allows users to multi-wipe" , unlockText: "XP must reach: 10", price: 100, category: "Egg"),
+        StoreItem(name: "Bat egg", assetName: "batEgg", description:" A spooky egg that for a spooky feel", powerText:" Get immersed into that spooky and supernatural world" , unlockText: "XP must reach: 10", price: 80, category: "Egg"),
         
-        StoreItem(name: "Tumble weed", assetName: "tumbleWeed", description: "A dry climate coyboy themed egg", powerText:" Reduces the amount of feathers that drop down", unlockText:" XP much reach: 60", price: 130, category: "Egg"),
+        StoreItem(name: "Tumble weed", assetName: "tumbleWeed", description: "A dry climate cowboy themed egg for those hor days", powerText:" Get immersed in that wild west vibe ", unlockText:" XP much reach: 60", price: 90, category: "Egg"),
         
     ]
     
     let chefItems = [
         
-        StoreItem(name: "Chef1", assetName: "egg", description:" A chicken with a cowboy style", powerText:" Looks cool in coop" , unlockText: "XP must reach: 10", price: 100, category: "Egg"),
+        StoreItem(name: "Chef1", assetName: "egg", description:" A chicken with a cowboy style", powerText:" Looks cool in the coop" , unlockText: "XP must reach: 10", price: 110, category: "Egg"),
         
-        StoreItem(name: "Chef2", assetName: "egg", description:" A chicken with a cowboy style", powerText:" Looks cool in coop" , unlockText: "XP must reach: 10", price: 100, category: "Egg"),
+        StoreItem(name: "Chef2", assetName: "egg", description:" A chicken with a cowboy style", powerText:" Gets immersive with the edgy feel" , unlockText: "XP must reach: 10", price: 120, category: "Egg"),
         
-        StoreItem(name: "Chef3", assetName: "egg", description:" A chicken with a cowboy style", powerText:" Looks cool in coop" , unlockText: "XP must reach: 10", price: 100, category: "Egg")
+        StoreItem(name: "Chef3", assetName: "egg", description:" A chicken with a cowboy style", powerText:" Looks cool in coop" , unlockText: "XP must reach: 10", price: 140, category: "Egg")
         //i will add the chefs when we have them
     ]
     
@@ -49,7 +50,7 @@ struct storeScreen: View {
             Image("storeBackground")
                 .resizable()
                 .ignoresSafeArea()
-            
+            // Spacer()
             
             VStack(spacing: 0){
                 ZStack{
@@ -59,7 +60,6 @@ struct storeScreen: View {
                             .scaledToFit()
                             .frame(width: 120)
                             .offset(x:20, y:-1)
-                        
                         Spacer()
                         
                         Image("xpRectangle")
@@ -82,16 +82,13 @@ struct storeScreen: View {
                 VStack(spacing: 0) {
                     
                     
-                    //     Spacer()
                     ScrollView(.vertical, showsIndicators: false) {
                         VStack(spacing:0){
                             Image("ChickenPlank")
                                 .resizable()
                                 .scaledToFit()
                                 .frame(maxWidth: .infinity)
-                                .offset(y:-16)
                                 .frame(height:120)
-                            // figure out a way to keep it not moving down when i scroll down, scroll issue
                             
                             ScrollView(.horizontal, showsIndicators: false) {
                                 HStack(spacing: 20) {
@@ -105,13 +102,12 @@ struct storeScreen: View {
                                 .padding(.horizontal)
                             }
                             
-                            
                             Image("eggsWoodenPlank")
                                 .resizable()
                                 .scaledToFit()
                                 .frame(maxWidth: .infinity)
                                 .frame(height:170)
-                            //
+                            //   Spacer()
                             
                             ScrollView(.horizontal, showsIndicators: false) {
                                 HStack(spacing: 20) {
@@ -125,14 +121,15 @@ struct storeScreen: View {
                             }
                             .padding(.horizontal)
                         }
+                        
+                        
                         .offset(y:-12)
                         
                         Image("chefPlank")
                             .resizable()
-                        // .scaledToFit()
                             .frame(maxWidth: .infinity)
                             .frame(height: 170)
-                         // .offset(y:-39)
+                        
                         
                         ScrollView(.horizontal, showsIndicators: false) {
                             HStack(spacing: 20) {
@@ -152,6 +149,7 @@ struct storeScreen: View {
                 }
                 
                 
+                
             }
             
             HStack(spacing: 0){
@@ -162,93 +160,130 @@ struct storeScreen: View {
                     
                         .scaledToFit( )
                         .frame(width :190, height:70)
-                    //adding a type of filter for the skins
+                    //the skins is what the user is seeing in the main store
                 }
                 
                 Button(action: {
-                    print("button tapped!")
+                    showingComingSoon = true
                 })
                 {
                     Image("powerupButton")
                         .scaledToFit()
                         .frame(width: 190, height:70)
-                    //adding a filter for the powerups
+                    
+                    
                 }
-                
-                
+            
             }
+            
             .frame(maxWidth:.infinity)
             .offset(y:48)
-        }
-        //    .popup(isPresented: $showingPopUp) {
-        //    if let selected = selectedItem {
-        
-        //            Color.black.opacity(0.3)
-        //                .ignoresSafeArea()
-        //.frame(width: 440, height: 338)
-        
-        //                .onTapGesture {
-        //                    withAnimation {
-        //                        showingPopUp = false
-        //                    }
-        //                }
-        //
-        .popup(isPresented: $showingPopUp) {
-            if let selected = selectedItem {
-                ZStack {
+            
+            
+            if showingComingSoon{
+                Color.black.opacity(0.4)
+                    .ignoresSafeArea()
+                    .onTapGesture {
+                        showingComingSoon = false
+                    }
+                ZStack{
                     Image("popUp")
                         .resizable()
                         .scaledToFit()
                         .frame(width: 320, height: 430)
+
+                        
                     
                     VStack(spacing: 12) {
-                        Image(selected.assetName)
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 90, height: 90)
-                        
-                        Text(selected.name)
+                        Text("Coming Soon!")
                             .font(.custom("Boba Milky", size: 24))
                             .foregroundColor(.customBrown)
                         
-                        Text(selected.description)
-                            .font(.custom("Boba Milky", size: 16))
-                            .multilineTextAlignment(.center)
+                        Text("We are working on this feature, stay tuned!")
+                            .font(.custom("Boba Milky", size: 18))
                             .foregroundColor(.customBrown)
+                            .multilineTextAlignment(.center)
                         
-                        Text(selected.powerText)
-                            .font(.custom("Boba Milky", size: 14))
-                        .foregroundColor(.customBrown)
-                        
-                        Text(selected.unlockText)
-                            .font(.custom("Boba Milky", size: 14))
-                .foregroundColor(.customBrown)
-                        
-//                        Button("\(selected.price) Buy") {
-//                            print("buy")
-//                        }
-                        Button(action: {
-                            print("buy")
+                        Button(action:{
+                            showingComingSoon = false
                         }) {
-                            ZStack {
+                            ZStack{
                                 Image("buyButton")
                                     .resizable()
                                     .frame(width: 100, height: 30)
-                                Text("\(selected.price) Buy")
+                                    .offset(x:30,y:4)
+                            }
+                            Text("Okay")
+                                .font(Font.custom("Boba Milky", size: 20))
+                                .foregroundColor(.customBrown)
+                                .offset(x:-50, y:5)
+                        }
+                    }
+                }
+                
+                .frame(width: 250)
+            }
+            
+        }
+           
+                .popup(isPresented: $showingPopUp) {
+                    if let selected = selectedItem {
+                        ZStack {
+                            Image("popUp")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 320, height: 430)
+                            
+                            
+                            VStack(spacing: 12) {
+                                Image(selected.assetName)
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(width: 90, height: 90)
+                                
+                                Text(selected.name)
+                                    .font(.custom("Boba Milky", size: 24))
+                                    .foregroundColor(.customBrown)
+                                
+                                Text(selected.description)
+                                    .font(.custom("Boba Milky", size: 16))
+                                    .multilineTextAlignment(.center)
+                                    .foregroundColor(.customBrown)
+                                
+                                Text(selected.powerText)
                                     .font(.custom("Boba Milky", size: 14))
                                     .foregroundColor(.customBrown)
                                 
+                                Text(selected.unlockText)
+                                    .font(.custom("Boba Milky", size: 14))
+                                    .foregroundColor(.customBrown)
+                                
+                                
+                                Button(action: {
+                                    print("buy")
+                                }) {
+                                    ZStack {
+                                        Image("buyButton")
+                                            .resizable()
+                                            .frame(width: 100, height: 30)
+                                        Text("\(selected.price) Buy")
+                                            .font(.custom("Boba Milky", size: 14))
+                                            .foregroundColor(.customBrown)
+                                        
+                                    }
+                                }
+                                
                             }
+                            .frame(width: 250)
                         }
-
                     }
-                    .frame(width: 250)
                 }
-            }
         }
-    }
-    
+        
+
 }
+
+
 
 #Preview {
     storeScreen()

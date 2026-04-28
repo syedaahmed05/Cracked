@@ -25,6 +25,11 @@ extension GameScene{
         //removeAllChildren()
         removeAllActions()
         
+        isChefOnScreen = false
+        
+        let updatedProfile = updateAndSaveState()
+        
+
         let darkenBg = SKSpriteNode(color:UIColor.black.withAlphaComponent(0.9), size: frame.size)
         darkenBg.position = CGPoint(x: size.width * 0.5, y: size.height * 0.5)
         darkenBg.zPosition = 99
@@ -45,7 +50,12 @@ extension GameScene{
         gameOverPopUp.addChild(scoreTitle)
         
         let bestScoreTitle = SKLabelNode(fontNamed: "Super Meatball")
-        bestScoreTitle.text = "best: enter here"
+        if gameMode == .classic{
+            bestScoreTitle.text = "best: \(updatedProfile.highscoreClassic)"
+        }else{
+            bestScoreTitle.text = "best: \(updatedProfile.highscoreZen)"
+        }
+        //bestScoreTitle.text = "best: enter here"
         bestScoreTitle.fontSize = size.width * 0.06
         bestScoreTitle.fontColor = .customBeige
         bestScoreTitle.name = "bestScoreTitle"
@@ -66,22 +76,22 @@ extension GameScene{
 
         let coinImg = SKSpriteNode(imageNamed: "coin")
         coinImg.position = CGPoint(x: size.width * 0.2, y: size.height * 0.65)
-        coinImg.size = CGSize(width: size.width * 0.08, height: size.height * 0.08)
+        coinImg.size = CGSize(width: size.width * 0.15, height: size.height * 0.08)
         coinImg.zPosition = 100
         coinImg.name = "coin"
         gameOverPopUp.addChild(coinImg)
         
         let coinTitle = SKLabelNode(fontNamed: "Super Meatball")
         coinTitle.text = "27"
-        coinTitle.fontSize = size.width * 0.06
+        coinTitle.fontSize = size.width * 0.09
         coinTitle.fontColor = .customBeige
         coinTitle.name = "coinTitle"
-        coinTitle.position = CGPoint(x: size.width * 0.5, y: size.height * 0.65)
+        coinTitle.position = CGPoint(x: size.width * 0.4, y: size.height * 0.65)
         coinTitle.zPosition = 100
         gameOverPopUp.addChild(coinTitle)
         
         let endGameChicken = SKSpriteNode(imageNamed: "endGameChicken")
-        endGameChicken.position = CGPoint(x: size.width * 0.5, y: size.height * 0.45)
+        endGameChicken.position = CGPoint(x: size.width * 0.6, y: size.height * 0.45)
         endGameChicken.size = CGSize(width: size.width * 0.8, height: size.height * 0.35)
         endGameChicken.zPosition = 100
         endGameChicken.name = "endGameChicken"

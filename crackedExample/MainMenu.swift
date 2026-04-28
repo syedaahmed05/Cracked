@@ -68,20 +68,34 @@ struct  MainMenu: View {
     @State private var startZenMode = false
     @State private var openStore = false
     @State private var openSettings = false
+    @State private var openLeaderboard = false
     @State private var isStatusBarHidden = true
-
+    
     
     var body: some View {
         GeometryReader  { geo in
             NavigationStack{
                 ZStack {
-                    Image("mainMenuBackground")
-                        .resizable()
-                        .edgesIgnoringSafeArea(.all)
-                        .scaledToFill()
-                        .frame(width:geo.size.width, height:geo.size.height,alignment: .center)
-                    VStack{
-                        HStack{
+                    if startClassicMode {
+                        GameView(mode: .classic)
+                            .id(UUID()) // Ensures GameView resets when restarted to prevent state issues
+                            .onReceive(NotificationCenter.default.publisher(for: NSNotification.Name("exitToMainMenu"))) { _ in
+                                startClassicMode = false // Listens for an exit notification to return to the main menu
+                            }
+                    } else if startZenMode {
+                        GameView(mode: .zen)
+                            .id(UUID()) //  Ensures GameView resets when restarted to prevent state issues
+                            .onReceive(NotificationCenter.default.publisher(for: NSNotification.Name("exitToMainMenu"))) { _ in
+                                startZenMode = false // Listens for an exit notification to return to the main menu
+                            }
+                    }else{
+                        Image("mainMenuBackground")
+                            .resizable()
+                            .edgesIgnoringSafeArea(.all)
+                            .scaledToFill()
+                            .frame(width:geo.size.width, height:geo.size.height,alignment: .center)
+                        VStack{
+                            HStack{
                                 Button(action:{}) {
                                     HStack {
                                         Spacer()
@@ -114,131 +128,136 @@ struct  MainMenu: View {
                                         .stroke(Color.black, lineWidth: 0.8)
                                 }
                                 .shadow(radius: 5)
-                           
-                            Button(action:{} ) {
-                                ZStack{
-                                    Text("15")
-                                }
-                            }
-                            .padding(10)
-                            .frame(maxWidth: .infinity)
-                            .font(Font.custom("Super Meatball", size: 30))
-                            //.background(Color.customBeige)
-                            //.shadow(radius: 2)
-                            .foregroundStyle(Color.customRed)
-                            .background{
-                                Capsule()
-                                    .fill(Color.customBeige)
-                                    .overlay{
-                                        Capsule()
-                                            .inset(by: 10)
-                                            .fill(Color.customLightBeige)
+                                
+                                Button(action:{} ) {
+                                    ZStack{
+                                        Text("15")
                                     }
-                            }
-                            .overlay {
-                                Capsule()
-                                    .stroke(Color.black, lineWidth: 0.8)
-                            }
-                            .shadow(radius: 5)
+                                }
+                                .padding(10)
+                                .frame(maxWidth: .infinity)
+                                .font(Font.custom("Super Meatball", size: 30))
+                                //.background(Color.customBeige)
+                                //.shadow(radius: 2)
+                                .foregroundStyle(Color.customRed)
+                                .background{
+                                    Capsule()
+                                        .fill(Color.customBeige)
+                                        .overlay{
+                                            Capsule()
+                                                .inset(by: 10)
+                                                .fill(Color.customLightBeige)
+                                        }
+                                }
+                                .overlay {
+                                    Capsule()
+                                        .stroke(Color.black, lineWidth: 0.8)
+                                }
+                                .shadow(radius: 5)
+                                
+                                
+                                
+                            }.frame(maxWidth: .infinity)
+                                .padding(.horizontal)
                             
+                            Spacer().frame(height: geo.size.height * 0.5)
                             
-
-                        }.frame(maxWidth: .infinity)
-                            .padding(.horizontal)
-                        
-                        Spacer().frame(height: geo.size.height * 0.5)
-                        
-                        Button(action: {startClassicMode = true} ) {
-                            Text("classic mode")
+                            Button(action: {startClassicMode = true} ) {
+                                Text("classic mode")
                                     .capsuleButtonStyle()
                                 
-                        }
-                        .navigationDestination(isPresented: $startClassicMode) {
-                            GameView()
-                                .navigationBarBackButtonHidden(true)
-                            
-                        }
-                        
-                        Spacer().frame(height: geo.size.height * 0.05)
-                        Button(action: {startZenMode = true }) {
-                            Text("zen mode")
-                            .capsuleButtonStyle()
-                        }
-                        
-                        .navigationDestination(isPresented: $startZenMode) {
-                            GameView()
-                        }
-                        Spacer().frame(height: geo.size.height * 0.02)
-                        HStack{
-                            Button(action: {withAnimation {
-                                openSettings = true
-                            }} ){
-                                Image(systemName: "gearshape.fill")
-                                    .circleButtonStyle()
-                                    .accessibilityLabel("Access settings.")
+                            }
+                            .navigationDestination(isPresented: $startClassicMode) {
+                                GameView(mode: .classic)
+                                    .navigationBarBackButtonHidden(true)
                                 
                             }
                             
-                            
-                            Button(action: {openStore = true}){
-                                //openStore = true
-                                Image(systemName: "storefront.fill")
-                                    .circleButtonStyle()
-                                    .accessibilityLabel("Access the store.")
-                                
-                            }
-                            .navigationDestination(isPresented: $openStore) {
-                                storeScreen()
+                            Spacer().frame(height: geo.size.height * 0.05)
+                            Button(action: {startZenMode = true }) {
+                                Text("zen mode")
+                                    .capsuleButtonStyle()
                             }
                             
-                            Button(action: {}){
-                                Image(systemName: "crown.fill")
-                                    .circleButtonStyle()
-                                    .accessibilityLabel("Access the global and daily leaderboards.")
-                            }
                             .navigationDestination(isPresented: $startZenMode) {
-                                GameView()
+                                GameView(mode: .zen)
+                            }
+                            Spacer().frame(height: geo.size.height * 0.02)
+                            HStack{
+                                Button(action: {withAnimation {
+                                    openSettings = true
+                                }} ){
+                                    Image(systemName: "gearshape.fill")
+                                        .circleButtonStyle()
+                                        .accessibilityLabel("Access settings.")
+                                    
+                                }
+                                
+                                
+                                Button(action: {openStore = true}){
+                                    //openStore = true
+                                    Image(systemName: "storefront.fill")
+                                        .circleButtonStyle()
+                                        .accessibilityLabel("Access the store.")
+                                    
+                                }
+                                .navigationDestination(isPresented: $openStore) {
+                                    storeScreen()
+                                }
+                                
+                                Button(action: {}){
+                                    Image(systemName: "crown.fill")
+                                        .circleButtonStyle()
+                                        .accessibilityLabel("Access the global and daily leaderboards.")
+                                }
+                                .navigationDestination(isPresented: $openLeaderboard) {
+                                   // put leaderbord file here
+                                }
+                                
                             }
                             
+                            
                         }
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                        .onAppear {
+                            MenuMusic.shared.playMusic()
+                        }
+                        //                    .frame(
+                        //                                width: geo.size.width * 0.8,
+                        //                                height: geo.size.height * 0.4
+                        //                            )
+                        //.fixedSize(horizontal: true, vertical: false)
+                        .buttonStyle(UIFeedback())
                         
-                        
-                    }
-                    
-//                    .frame(
-//                                width: geo.size.width * 0.8,
-//                                height: geo.size.height * 0.4
-//                            )
-                    //.fixedSize(horizontal: true, vertical: false)
-                    .buttonStyle(UIFeedback())
-                    
-                    if openSettings {
-                        Color.black.opacity(0.5)
-                            .zIndex(0)
-                            .ignoresSafeArea()
-                            .transition(.opacity)
-                            .onTapGesture {
-                                withAnimation {
-                                    openSettings = false
+                        if openSettings {
+                            Color.black.opacity(0.5)
+                                .zIndex(0)
+                                .ignoresSafeArea()
+                                .transition(.opacity)
+                                .onTapGesture {
+                                    withAnimation {
+                                        openSettings = false
+                                    }
                                 }
-                            }
-
-                        Settings(openSettings: $openSettings)
-                            .scaleEffect(openSettings ? 1 : 0.5)
-                            .opacity(openSettings ? 1 : 0)
-                            .animation(.spring(response: 0.3, dampingFraction: 0.5), value: openSettings)
-                            .zIndex(1)
+                            
+                            Settings(openSettings: $openSettings)
+                                .scaleEffect(openSettings ? 1 : 0.5)
+                                .opacity(openSettings ? 1 : 0)
+                                .animation(.spring(response: 0.3, dampingFraction: 0.5), value: openSettings)
+                                .zIndex(1)
+                        }
                     }
+                       
+                       
+                    
                 }
-                .onAppear {
-                    MenuMusic.shared.playMusic()
-                }
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
-            }
+
+            }// end of nav stack
             .statusBarHidden(isStatusBarHidden)
-        }
-    }
-}
+        }// end of geo reader
+    }// end of body view
+}// end of main menu view
 #Preview (){
     MainMenu()
+        .environmentObject(GameScene())
 }

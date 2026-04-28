@@ -5,9 +5,11 @@
 //  Created by Amat Addoais on 4/21/26.
 //
 
-import Foundation
 import SpriteKit
 import GameplayKit
+import SwiftUI
+import GameKit
+import Combine
 
 //TODO: This file has everything that's only related to Classic mode (Lives instead of Timer)
 
@@ -16,7 +18,6 @@ extension GameScene {
     func classicMode() {
         print("This is Classic mode")
         classicSetup()
-        
     }
     
     func classicSetup() {
@@ -42,31 +43,5 @@ extension GameScene {
         
     }
     
-    func loseLife() {
-       // check if we have lives left to lose
-        if lives > 0 {
-            let lifeIndex = lives - 1
-            
-            if lifeIndex < lifeNodes.count {
-                let node = lifeNodes[lifeIndex]
-                
-                // Swap to red X asset
-                node.texture = SKTexture(imageNamed: "redX")
-                
-                
-                // Add a little pop animation so the player notices
-                let scaleUp = SKAction.scale(by: 1.5, duration: 0.1)
-                let scaleDown = SKAction.scale(to: 1.0, duration: 0.1)
-                node.run(SKAction.sequence([scaleUp, scaleDown]))
-            }
-            lives -= 1
-        }
-        
-        if lives <= 0 {
-            gameOver()
-        }
-        
-    }
-
 }
 

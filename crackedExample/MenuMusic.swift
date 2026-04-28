@@ -46,7 +46,6 @@ class MenuMusic {
              print("SFX error: \(error)")
          }
      }
-    
     func stopMusic() {
         musicPlayer?.stop()
     }
@@ -54,5 +53,6 @@ class MenuMusic {
     func stopSFX() {
         sfxPlayer?.stop()
     }
+
 }
 

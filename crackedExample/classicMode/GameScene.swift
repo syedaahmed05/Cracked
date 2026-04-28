@@ -4,7 +4,9 @@
 //
 //  Created by Angela Carrillo goomba on 1/28/26.
 //
-
+import GameKit
+import Combine
+import CoreHaptics
 import SpriteKit
 import GameplayKit
 import SwiftUI
@@ -12,8 +14,33 @@ import UIKit
 import AVFoundation
 import Foundation
 
-class GameScene: SKScene {
-
+class GameScene: SKScene, SKPhysicsContactDelegate, ObservableObject {
+    //New variables Amat added or changed
+    var playerProfile: PlayerProfile?
+    var gameMode: GameMode!
+    var lifeNodes: [SKSpriteNode] = []
+    let impactGenerator = UIImpactFeedbackGenerator(style: .heavy)
+    //egg logic for increasing spawning
+    var currentSpawnInterval: TimeInterval = 2.0
+    var minFallDuration: TimeInterval = 3.0
+    var maxFallDuration: TimeInterval = 6.0
+    var hapticEngine: CHHapticEngine?
+    var panLimit = Int.random(in: 5...15)
+    var currentPanCount = 0
+    let panCounterLabel = SKLabelNode()
+    var isChefOnScreen = false
+    //zen mode var
+    var zenTimerLabel = SKLabelNode()
+    var zenTimeRemaining: Int = 90 // 1 minute 30 seconds
+    var score = 0 {
+        didSet {
+            scoreLabel.text = "\(score)"
+            if gameMode == .classic {
+                updateDifficulty()
+            }
+        }
+    }
+    
     let settingsPopUp = SKSpriteNode(imageNamed:"settingsBgShape")
     let settingsMusicPopUp = SKSpriteNode(imageNamed:"settingsBgShape")
     let gameOverPopUp = SKNode()
@@ -25,12 +52,8 @@ class GameScene: SKScene {
     var selectedPan: SKSpriteNode?
     var isGamePaused = false
     var panIsFull = false
-    var lifeNodes : [SKSpriteNode] = []
-    var score = 0 {
-        didSet {
-            scoreLabel.text = "\(score)"
-        }
-    }
+
+
     
     var lives = 3
     var livesLabel = SKLabelNode(text: "")
@@ -51,9 +74,29 @@ class GameScene: SKScene {
     override func didMove(to view: SKView) {
         scaleMode = .resizeFill
         settingsPopUp.isHidden = true
-        physicsWorld.gravity = CGVector(dx: 0, dy: -9.8)
-        playMusic()
-
+        
+        //physicsWorld.gravity = CGVector(dx: 0, dy: -9.8)
+        playMusic(named: "crackedOriginalVer", volume: 0.7)
+        // adding physics
+                let borderBody = SKPhysicsBody(edgeLoopFrom: self.frame)
+                self.physicsWorld.gravity = CGVector(dx: 0, dy: -1.0)   //low gravity
+                self.physicsWorld.contactDelegate = self
+                self.physicsBody = borderBody
+                
+                // for haptics
+                prepareHaptics()
+                impactGenerator.prepare()
+                
+                print("Game Scene")
+                gameSetup()
+                
+                if gameMode == .classic {
+                    classicMode()  // Show hearts/lives
+                    print("Running Classic Logic: 3 lives")
+                } else {
+                    zenMode()     // Show clock/timer
+                    print("Running Zen logic: 90 seconds")
+                }
     }
   
     
@@ -76,9 +119,12 @@ class GameScene: SKScene {
         
         for node in nodesAtPoint {
                     if node.name == "egg" {
-                        crackEgg(node: node)
-                        score += 1
-                        break
+                        // Play Crack Sound
+                      playSound("eggCrackSFX1", volume: 1.0)
+                      playEggCrackHaptic()
+                      crackEgg(node: node)
+                      score += 1
+                      break
                     }
                 }
         
@@ -125,13 +171,19 @@ class GameScene: SKScene {
         }
         
         if node.name == "menuBtn"{
-            print("Play again button tapped.")
+            print("Menu button tapped.")
             score = 0
             lives = 3
             panIsFull = false
             pan.texture = SKTexture(imageNamed: "emptyPan")
             gameSetup()
         }
+        
+        if node.name == "playAgainBtn"{
+            print("Play again button tapped")
+            resetGameSetup()
+        }
+            
         
         if node.name == "pauseBtn"{
             isGamePaused = true
@@ -167,7 +219,9 @@ class GameScene: SKScene {
         switch currentScene{
         case .startGame:
             gameSetup()
-            
+            if gameMode == .zen{
+                zenTimerLabel.position = CGPoint(x: size.width * 0.93, y: size.height * 0.03)
+            }
         //case .settings:
             //showPopup()
             //settingsView()
@@ -212,10 +266,13 @@ class GameScene: SKScene {
             
            // detect which object was swiped
             if let feather = selectedFeather {
+                playSound("featherWhoosh")
+                playSwooshHaptic()
                 swipeFeather(feather, direction: direction)
             }
             
             if let pan = selectedPan {
+                playSwooshHaptic()
                 swipePan(pan, direction: direction)
             }
         
@@ -227,46 +284,65 @@ class GameScene: SKScene {
     
 
     
-    func playMusic() {
-        guard let url = Bundle.main.url(forResource: "crackedOriginalVer", withExtension: "mp3") else { return }
-        do {
-            musicPlayer = try AVAudioPlayer(contentsOf: url)
-            musicPlayer?.numberOfLoops = -1
-            musicPlayer?.volume = musicVolume
-            
-            musicPlayer?.play()
-        } catch {
-            print("Music not playing.")
+//    func playMusic() {
+//        guard let url = Bundle.main.url(forResource: "crackedOriginalVer", withExtension: "mp3") else { return }
+//        do {
+//            musicPlayer = try AVAudioPlayer(contentsOf: url)
+//            musicPlayer?.numberOfLoops = -1
+//            musicPlayer?.volume = musicVolume
+//            
+//            musicPlayer?.play()
+//        } catch {
+//            print("Music not playing.")
+//        }
+//    }
+
+    override func update(_ currentTime: TimeInterval) {
+        // Called before each frame is rendered
+                
+                // Using the actual top egde of the pan as the limit to check
+                let bottomLimit = pan.position.y + (pan.size.height / 2)
+
+                if currentScene == .gameOver { return }
+                
+                // Handling liquid eggs
+                enumerateChildNodes(withName: "liquidEgg") { node, _ in
+                    if node.position.y <= bottomLimit {
+                        node.name = "collected"
+                        
+                        if self.panIsFull {
+                            // If pan is full, fade and destory without filling
+                            self.fadeAndDestroy(node)
+                            
+                            if self.gameMode == .classic {
+                                self.playLoseLifeHaptic()
+                                self.loseLife()
+                                self.flashPanRed()
+                            }
+                        } else {
+                            // Fill the pan logic
+                            self.fillPan(with: node)
+                        }
+                        
+                    }
+                }
+                
+                // Handling solid eggs and feathers
+                let itemsToClean = ["egg", "feather"]
+                for itemName in itemsToClean {
+                    enumerateChildNodes(withName: itemName) { node, _ in
+                        if node.position.y <= bottomLimit {
+                            node.name = "processed"
+                            // Fade and destory to prevent "Ghosting" behind the pan
+                            self.fadeAndDestroy(node)
+                            
+                            if self.gameMode == .classic {
+                                self.playLoseLifeHaptic()
+                                self.loseLife()
+                            }
+                        }
+                    }
+                }
         }
     }
 
-    override func update(_ currentTime: TimeInterval) {
-        // Called before each frame is rendered self.pan.position.y
-        let bottomLimit = CGFloat(-350)
-        //guard !panIsFull else { return }
-        
-        if currentScene == .gameOver { return }
-        
-        enumerateChildNodes(withName: "liquidEgg") { node, _ in
-            if node.position.y <= bottomLimit {
-                node.removeFromParent()
-                self.fillPan(with: node)
-                
-            }
-        }
-        
-        enumerateChildNodes(withName: "egg") { node, _ in
-            if node.position.y <=  bottomLimit {
-                node.removeFromParent()
-                self.loseLife()
-            }
-        }
-        
-        enumerateChildNodes(withName: "feather") { node, _ in
-            if node.position.y <= bottomLimit {
-                node.removeFromParent()
-                self.loseLife()
-            }
-        }
-    }
-}

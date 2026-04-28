@@ -70,7 +70,7 @@ struct Settings: View {
                                 if isSFXOn {
                                             MenuMusic.shared.playSFX()
                                         } else {
-                                            MenuMusic.shared.stopMusic()
+                                            MenuMusic.shared.stopSFX()
                                         }
                             }
                         }) {

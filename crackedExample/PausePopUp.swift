@@ -17,7 +17,7 @@ extension GameScene{
         if settingsPopUp.parent != nil { showPopup()
             return
         }
-        let darkenBg = SKSpriteNode(color:UIColor.black.withAlphaComponent(0.5), size: CGSize(width: size.width,height: size.height))
+        let darkenBg = SKSpriteNode(color:UIColor.red.withAlphaComponent(0.5), size: CGSize(width: size.width,height: size.height))
         darkenBg.position = CGPoint(x: size.width * 0.5, y: size.height * 0.5)
         darkenBg.zPosition = 99
         darkenBg.name = "darkenBg"
@@ -27,6 +27,7 @@ extension GameScene{
         settingsPopUp.position = CGPoint(x: size.width * 0.5, y: size.height * 0.5)
         settingsPopUp.zPosition = 100
         settingsPopUp.isHidden = false
+        settingsPopUp.speed = 1
         settingsPopUp.name = "settingsPopUp"
         if settingsPopUp.parent == nil {addChild(settingsPopUp)}
         
@@ -43,13 +44,14 @@ extension GameScene{
         settingsPopUp.addChild(settingsTitle)
         
         let settingsPlayBtn = SKSpriteNode(imageNamed: "settingsPlayBtn")
-        settingsPlayBtn.name = "settingsPlayBtn"
+        settingsPlayBtn.name = "resumeBtn"
         settingsPlayBtn.position = CGPoint(x: -popupW * 0.25, y: popupH * 0.12)
         settingsPlayBtn.zPosition = 101
         settingsPopUp.addChild(settingsPlayBtn)
         
         let resumeTitle = SKLabelNode(fontNamed: "Super Meatball")
         resumeTitle.text = "Resume"
+        resumeTitle.name = "resumeTitle"
         resumeTitle.fontSize = popupW * 0.05
         resumeTitle.fontColor = .customRed
         resumeTitle.horizontalAlignmentMode = .center
@@ -64,7 +66,7 @@ extension GameScene{
         quitTitle.fontColor = .customRed
         quitTitle.horizontalAlignmentMode = .center
         quitTitle.zPosition = 101
-        quitTitle.position = CGPoint(x:0, y: -popupH * 0.15)
+        quitTitle.position = CGPoint(x:0.05, y: -popupH * 0.15)
         settingsPopUp.addChild(quitTitle)
         
         let settingsQuitBtn = SKSpriteNode(imageNamed: "settingsQuitBtn")
@@ -81,17 +83,17 @@ extension GameScene{
 //        settingsPopUp.addChild(settingsCloseBtn)
         
         
-        let sfxBtn = SKSpriteNode(imageNamed: "sfxBtn")
-        sfxBtn.setScale(popupW * 0.0015)
-        sfxBtn.position = CGPoint(x: -popupW * 0.35,y: -popupH * 0.08)
-        sfxBtn.zPosition = 101
-        settingsPopUp.addChild(sfxBtn)
-        
-        let musicBtn = SKSpriteNode(imageNamed: "musicBtn")
-        musicBtn.setScale(popupW * 0.0015)
-        musicBtn.position = CGPoint(x: -popupW * 0.35,y: -popupH * 0.08)
-        musicBtn.zPosition = 101
-        settingsPopUp.addChild(musicBtn)
+//        let sfxBtn = SKSpriteNode(imageNamed: "sfxBtn")
+//        sfxBtn.setScale(popupW * 0.0015)
+//        sfxBtn.position = CGPoint(x: -popupW * 0.35,y: -popupH * 0.08)
+//        sfxBtn.zPosition = 101
+//        settingsPopUp.addChild(sfxBtn)
+//        
+//        let musicBtn = SKSpriteNode(imageNamed: "musicBtn")
+//        musicBtn.setScale(popupW * 0.0015)
+//        musicBtn.position = CGPoint(x: -popupW * 0.35,y: -popupH * 0.08)
+//        musicBtn.zPosition = 101
+//        settingsPopUp.addChild(musicBtn)
         
  
         
@@ -102,12 +104,9 @@ extension GameScene{
     
     func showPopup() {
         settingsPopUp.isHidden = false
-        settingsPopUp.alpha = 0.0
-        settingsPopUp.setScale(0.5)
-        
-        //        settingsMusicPopUp.isHidden = false
-        //        settingsMusicPopUp.alpha = 0.0
-        //        settingsMusicPopUp.setScale(0.5)
+        settingsPopUp.alpha = 1.0
+        settingsPopUp.setScale(1.0)
+
         
         let fadeIn = SKAction.fadeIn(withDuration: 0.3)
         let scaleUp = SKAction.scale(to: 1.1, duration: 0.3)

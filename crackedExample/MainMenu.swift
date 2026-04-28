@@ -6,12 +6,17 @@
 
 import SwiftUI
 
-struct FeedbackButtonStyle: ButtonStyle {
+struct UIFeedback: ButtonStyle {
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
             .scaleEffect(configuration.isPressed ? 0.95 : 1.0)
             .opacity(configuration.isPressed ? 0.9 : 1.0)
             .animation(.spring(response: 0.25, dampingFraction: 0.6), value: configuration.isPressed)
+            .onChange(of: configuration.isPressed) {
+                if configuration.isPressed {
+                    MenuMusic.shared.playSFX()
+                }
+            }
     }
 }
 
@@ -19,6 +24,8 @@ struct CircleButtonModifier: ViewModifier {
     func body(content: Content) -> some View {
         content
             .padding()
+            .font(.system(size: 28))
+            .frame(width: 70, height: 70)
             .foregroundStyle(Color.customRed)
             .background(Color.customBeige)
             .clipShape(Circle())
@@ -77,10 +84,17 @@ struct  MainMenu: View {
                         HStack{
                                 Button(action:{}) {
                                     HStack {
+                                        Spacer()
                                         Image("coin")
-                                            
+                                            .resizable()
+                                            .scaledToFit()
+                                            .frame(height:35)
+                                        Spacer()
+                                        //Spacer()
                                         Text("36")
+                                        Spacer()
                                     }
+                                    .frame(height:39)
                                 }
                                 .padding(10)
                                 .frame(maxWidth: .infinity)
@@ -132,10 +146,10 @@ struct  MainMenu: View {
                         }.frame(maxWidth: .infinity)
                             .padding(.horizontal)
                         
-                        Spacer()
+                        Spacer().frame(height: geo.size.height * 0.5)
                         
                         Button(action: {startClassicMode = true} ) {
-                            Text("Classic Mode")
+                            Text("classic mode")
                                     .capsuleButtonStyle()
                                 
                         }
@@ -145,16 +159,16 @@ struct  MainMenu: View {
                             
                         }
                         
-                        
+                        Spacer().frame(height: geo.size.height * 0.05)
                         Button(action: {startZenMode = true }) {
-                            Text("Zen Mode")
+                            Text("zen mode")
                             .capsuleButtonStyle()
                         }
                         
                         .navigationDestination(isPresented: $startZenMode) {
                             GameView()
                         }
-                        
+                        Spacer().frame(height: geo.size.height * 0.02)
                         HStack{
                             Button(action: {withAnimation {
                                 openSettings = true
@@ -187,13 +201,16 @@ struct  MainMenu: View {
                             }
                             
                         }
+                        
+                        
                     }
-                    .frame(
-                                width: geo.size.width * 0.8,
-                                height: geo.size.height * 0.4
-                            )
-                    .fixedSize(horizontal: true, vertical: false)
-                    .buttonStyle(FeedbackButtonStyle())
+                    
+//                    .frame(
+//                                width: geo.size.width * 0.8,
+//                                height: geo.size.height * 0.4
+//                            )
+                    //.fixedSize(horizontal: true, vertical: false)
+                    .buttonStyle(UIFeedback())
                     
                     if openSettings {
                         Color.black.opacity(0.5)
@@ -212,6 +229,9 @@ struct  MainMenu: View {
                             .animation(.spring(response: 0.3, dampingFraction: 0.5), value: openSettings)
                             .zIndex(1)
                     }
+                }
+                .onAppear {
+                    MenuMusic.shared.playMusic()
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
             }

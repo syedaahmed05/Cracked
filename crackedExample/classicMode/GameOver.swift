@@ -20,24 +20,7 @@ extension GameScene{
         }
     }
     
-    func createCombinedNode(imageName: String, text: String) -> SKNode {
-        let container = SKNode()
 
-    
-        let coin = SKSpriteNode(imageNamed: "coin")
-        coin.position = CGPoint(x: -50, y: 0)
-        container.addChild(coin)
-
-
-        let label = SKLabelNode(fontNamed: "Super Meatball")
-        label.text = text
-        label.fontSize = 24
-        label.position = CGPoint(x: 20, y: -10)
-        label.horizontalAlignmentMode = .left
-        container.addChild(label)
-
-        return container
-    }
     
     func gameOver(){
         currentScene = .gameOver
@@ -45,7 +28,7 @@ extension GameScene{
         removeAllActions()
         
         let darkenBg = SKSpriteNode(color:UIColor.black.withAlphaComponent(0.9), size: frame.size)
-        darkenBg.position = CGPoint(x: size.width * 0.5, y: size.width * 1.1)
+        darkenBg.position = CGPoint(x: size.width * 0.5, y: size.height * 0.5)
         darkenBg.zPosition = 99
         darkenBg.size = self.size
         darkenBg.name = "darkenBg"
@@ -64,11 +47,11 @@ extension GameScene{
         gameOverPopUp.addChild(scoreTitle)
         
         let bestScoreTitle = SKLabelNode(fontNamed: "Super Meatball")
-        bestScoreTitle.text = "best: ENTER HERE"
-        bestScoreTitle.fontSize = size.width * 0.12
+        bestScoreTitle.text = "best: enter here"
+        bestScoreTitle.fontSize = size.width * 0.06
         bestScoreTitle.fontColor = .customBeige
         bestScoreTitle.name = "bestScoreTitle"
-        bestScoreTitle.position = CGPoint(x: size.width * 0.5, y: size.height * 0.8)
+        bestScoreTitle.position = CGPoint(x: size.width * 0.5, y: size.height * 0.75)
         bestScoreTitle.zPosition = 100
         gameOverPopUp.addChild(bestScoreTitle)
         
@@ -83,29 +66,39 @@ extension GameScene{
         gameOverPopUp.addChild(gameOverText)
         
 
-        let combinedNode = createCombinedNode(imageName: "coin.png", text: "33")
-        combinedNode.zPosition = 100
-        combinedNode.position = CGPoint(x: -size.width * 0.5, y: size.height * 0.5)
-        addChild(combinedNode)
+        let coinImg = SKSpriteNode(imageNamed: "coin")
+        coinImg.position = CGPoint(x: size.width * 0.2, y: size.height * 0.65)
+        coinImg.size = CGSize(width: size.width * 0.08, height: size.height * 0.08)
+        coinImg.zPosition = 100
+        coinImg.name = "coin"
+        gameOverPopUp.addChild(coinImg)
         
+        let coinTitle = SKLabelNode(fontNamed: "Super Meatball")
+        coinTitle.text = "27"
+        coinTitle.fontSize = size.width * 0.06
+        coinTitle.fontColor = .customBeige
+        coinTitle.name = "coinTitle"
+        coinTitle.position = CGPoint(x: size.width * 0.5, y: size.height * 0.65)
+        coinTitle.zPosition = 100
+        gameOverPopUp.addChild(coinTitle)
         
         let endGameChicken = SKSpriteNode(imageNamed: "endGameChicken")
-        endGameChicken.position = CGPoint(x: size.width * 0.5, y: size.height * 0.5)
+        endGameChicken.position = CGPoint(x: size.width * 0.5, y: size.height * 0.35)
         endGameChicken.size = CGSize(width: size.width * 0.8, height: size.height * 0.35)
         endGameChicken.zPosition = 100
         endGameChicken.name = "endGameChicken"
         gameOverPopUp.addChild(endGameChicken)
 
         let menuBtn = SKSpriteNode(imageNamed: "menuBtn")
-        menuBtn.size = CGSize(width: size.width * 0.65, height: size.height * 0.08)
-        menuBtn.position = CGPoint(x: size.width * 0.5, y: size.height * 0.3)
+        menuBtn.size = CGSize(width: size.width * 0.70, height: size.height * 0.09)
+        menuBtn.position = CGPoint(x: size.width * 0.5, y: size.height * 0.2)
         menuBtn.name = "mainMenuBtn"
         menuBtn.zPosition = 100
         gameOverPopUp.addChild(menuBtn)
         
         let playAgainBtn = SKSpriteNode(imageNamed: "playAgainBtn")
-        playAgainBtn.size = CGSize(width: size.width * 0.65, height: size.height * 0.08)
-        playAgainBtn.position = CGPoint(x: size.width * 0.5, y: size.height * 0.2)
+        playAgainBtn.size = CGSize(width: size.width * 0.70, height: size.height * 0.09)
+        playAgainBtn.position = CGPoint(x: size.width * 0.5, y: size.height * 0.1)
         playAgainBtn.name = "playAgainBtn"
         playAgainBtn.zPosition = 100
         gameOverPopUp.addChild(playAgainBtn)

@@ -8,8 +8,8 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
-        <array key="Boba Milky.ttf">
-            <string>Boba-Milky</string>
+        <array key="Super Meatball.ttf">
+            <string>SuperMeatball</string>
         </array>
     </customFonts>
     <scenes>
@@ -32,13 +32,13 @@
                                 <rect key="frame" x="186" y="461" width="20" height="20"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </activityIndicatorView>
-                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Prepping kitchen..." borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Bl0-3v-Sz4">
-                                <rect key="frame" x="132" y="489" width="173" height="34"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="prepping kitchen..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="q4M-DV-0SE">
+                                <rect key="frame" x="126" y="506" width="152" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="SuperMeatball" family="Super Meatball" pointSize="17"/>
                                 <color key="textColor" name="customOrange"/>
-                                <fontDescription key="fontDescription" name="Boba-Milky" family="Boba Milky" pointSize="12"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" red="0.9916992188" green="0.9545898438" blue="0.8896484375" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
@@ -49,6 +49,7 @@
             <point key="canvasLocation" x="53" y="375"/>
         </scene>
     </scenes>
+    <color key="tintColor" name="customOrange"/>
     <resources>
         <image name="loadingScreenLogo" width="147.33332824707031" height="192.33332824707031"/>
         <namedColor name="customOrange">

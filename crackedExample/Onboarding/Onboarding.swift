@@ -13,7 +13,7 @@ struct FirstView: View {
     
     var body: some View {
         if isFirstLaunch {
-            TutorialStepView()
+            OnboardingView(isFirstLaunch: $isFirstLaunch)
             
         }
         else {
@@ -22,7 +22,8 @@ struct FirstView: View {
     }
 }
 
-struct TutorialStepView: View {
+struct Step1View: View {
+    var onComplete: () -> Void
     //starts above screen
     @State private var phase: TutorialPhase = .eggFalling
     @State private var eggY: CGFloat = -200
@@ -45,6 +46,8 @@ struct TutorialStepView: View {
     @State private var showFilledPan: Bool = false
     
     private let eggSize: CGFloat = 65
+    
+    
     
     
     enum TutorialPhase {
@@ -89,10 +92,10 @@ struct TutorialStepView: View {
                 if showFilledPan {
                     VStack {
                         Spacer()
-                        Image("filledPan")
+                        Image("fullPan")
                             .resizable()
                             .scaledToFit()
-                            .padding(.bottom, 140)
+                            .padding(.bottom, 120)
                             .transition(.opacity) //what does transition do???
                     }
                 }
@@ -110,7 +113,7 @@ struct TutorialStepView: View {
                 if phase == .eggTapped || phase == .yolkFalling || phase == .panFilled {
                     Image("leftShell")
                         .resizable()
-                        .frame(width: eggSize, height: eggSize / 2)
+                        .frame(width: eggSize, height: eggSize)
                         .position(x: screenMid, y: eggFreeze)
                         .offset(x: leftShellX, y: leftShellY)
                         .opacity(shellOpacity)
@@ -120,15 +123,15 @@ struct TutorialStepView: View {
                 if phase == .eggTapped || phase == .yolkFalling || phase == .panFilled {
                     Image("rightShell")
                         .resizable()
-                        .frame(width: eggSize, height: eggSize / 2)
+                        .frame(width: eggSize, height: eggSize)
                         .position(x: screenMid, y: eggFreeze) //position shell here
                         .offset(x: rightShellX, y: rightShellY) //shift the egg
                         .opacity(shellOpacity)
                 }
                 
                 //Yolk logic
-                if phase == .yolkFalling || phase == .panFilled {
-                    Image("yolk")
+                if phase == .yolkFalling { //got rid of || phase == .panFilled
+                    Image("liquidEgg")
                         .resizable()
                         .frame(width: 44, height: 44)
                         .position(x: screenMid, y: eggFreeze + Double(yolkY))
@@ -143,6 +146,7 @@ struct TutorialStepView: View {
                         .ignoresSafeArea()
                         //.allowsHitTesting(phase == .spotlight) //ask about this
                         .onTapGesture {
+                            //TODO: Make sure users cant tap outside of circle
                             //code would change state to transiton to step 2; this is supposed to take the taps that arent in the circle
                         }
                 }
@@ -167,10 +171,13 @@ struct TutorialStepView: View {
                                 .resizable()
                                 .frame(width: 160, height: 200)
                             speechBubble(image: "step1")
+                                .frame(maxWidth: .infinity) //take up all the space remaining after the chef
                                 .padding(.bottom, 98) //push speech bubble up
-                                //.padding(.trailing, 45)
+                                
+                            //TODO: Add sound effect for when chef speaks
                                 
                         }
+                        .padding(.horizontal, 16)
                         .padding(.bottom, 8)
                     }
                     .ignoresSafeArea()
@@ -215,10 +222,10 @@ struct TutorialStepView: View {
         
         //show shells splitting
         withAnimation(.easeOut(duration: 0.35).delay(0.15)) {
-            leftShellX = -25
-            rightShellX = 25
+            leftShellX = -45
+            rightShellX = 45
             leftShellY = -10
-            rightShellY = -10 //why - 10? wouldnt you increase y to make it go lower?
+            rightShellY = -10
         }
         
         //yolk appears and falls into pan
@@ -226,7 +233,8 @@ struct TutorialStepView: View {
             phase = .yolkFalling
             yolkOpacity = 1
             withAnimation(.easeIn(duration: 0.5)) {
-                yolkY = panY - eggFreeze //falls from egg position into pan
+                yolkY = panY - eggFreeze //falls from egg position and stops at egg position
+                
                 
             }
         }
@@ -246,8 +254,26 @@ struct TutorialStepView: View {
             }
         }
         
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+            onComplete() //tells OnBoardingView to advance to step 2
+        }
         
         
+        
+    }
+}
+
+struct Step2View {
+    var onComplete: () -> Void
+    @State private var phase: Step2Phase = .featherFalling
+    @State private var featherX: CGFloat = 0
+    @State private var featherY: CGFloat = 0
+    @State private var featherSwiped: Bool = false
+    
+    enum Step2Phase {
+        case featherFalling //feather drifts like a feather onto screen
+        case spotlight //overlay appears, chef speaks, screen freezes
+        case featherSwiped
     }
 }
 
@@ -263,19 +289,16 @@ struct OnboardingView: View {
                 image: "angryChefPoint",
                 
                 description: "Welcome to Cracked! This is a fast-paced game where you crack eggs and swipe feathers!")
-            .onTapGesture(coordinateSpace: .global) { location in print("Global X: \(location.x), Y: \(location.y)") //printing coordinates to know which x/y coordinates to have objects drop from
+            .onTapGesture {
                 currentStep += 1
             }
         }
             
         else if (currentStep == 1) {
             //Screen 2
-            ZStack {
-                Image("egg")
-                    .resizable()
-                    //.overlay()
-                OnboardingDetail(image: "angryChefPoint", description: "Click on the egg to crack it")
-            }
+            Step1View(onComplete: {
+                currentStep += 1
+            })
         }
         
     }
@@ -372,6 +395,8 @@ struct speechBubble: View {
     var image: String
     var body: some View {
         Image(image)
+            .resizable()
+            .scaledToFit()
             
     }
 }
@@ -398,3 +423,10 @@ struct speechBubble: View {
 
 
 
+
+
+
+
+#Preview {
+    FirstView()
+}
